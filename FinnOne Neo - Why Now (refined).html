@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>FinnOne Neo® — Why Now: The Compliance Line</title>
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       DESIGN SYSTEM
+       ═══════════════════════════════════════════════════════════ */
+    :root {
+      --paper: #000137;
+      --paper-dim: #02055A;
+      --gold: #0653C7;
+      --gold-hi: #0139D6;
+      --brass: #1AC8E0;
+      --emerald: #138f9f;
+      --line: rgba(0, 1, 55, 0.08);
+      --line-soft: rgba(0, 1, 55, 0.04);
+      --muted: #056189;
+      --muted-dim: #0892CD;
+      --shadow: 0 32px 72px rgba(0, 1, 55, .10), 0 0 0 1px rgba(6, 83, 199, .06);
+      --shadow-sm: 0 12px 32px rgba(0, 1, 55, .06);
+      --shadow-hover: 0 20px 48px rgba(6, 83, 199, .12), 0 8px 16px rgba(0, 1, 55, .08);
+      
+      --serif: 'Aptos Serif', 'Georgia', serif;
+      --sans: 'Aptos', 'Aptos Display', 'Segoe UI', system-ui, sans-serif;
+      --mono: 'Aptos Mono', 'SF Mono', 'Cascadia Code', monospace;
+
+      --glass-bg: rgba(255, 255, 255, 0.90);
+      --glass-border: rgba(0, 1, 55, 0.08);
+      --glass-blur: 20px;
+
+      --ease-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+      --gradient-accent: linear-gradient(135deg, #0653C7, #1AC8E0);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      margin: 0;
+      font-family: var(--sans);
+      background: #E7EBF2;
+      color: var(--paper);
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .deck {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      background: #FFFFFF;
+      overflow: hidden;
+      transform-origin: center center;
+      flex: none;
+      box-shadow: var(--shadow);
+      border-radius: 4px;
+    }
+
+    .slide { 
+      position: absolute; inset: 0; width: 100%; height: 100%; 
+      display: flex; flex-direction: column; background: #fff; 
+      opacity: 0; animation: slideIn .8s var(--ease-smooth) .05s forwards; 
+    }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .slide::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image: linear-gradient(rgba(15, 23, 42, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, .03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* AMBIENT BLOBS */
+    .ambient-blob { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(60px); opacity: .35; }
+    .blob-1 { width: 620px; height: 620px; background: rgba(6,83,199,.15); top: -180px; left: 8%; animation: driftA 22s ease-in-out infinite alternate; }
+    .blob-2 { width: 560px; height: 560px; background: rgba(26,200,224,.15); bottom: -220px; right: 6%; animation: driftB 26s ease-in-out infinite alternate; }
+    @keyframes driftA { from { transform: translate(0,0) scale(1); } to { transform: translate(60px, 40px) scale(1.08); } }
+    @keyframes driftB { from { transform: translate(0,0) scale(1); } to { transform: translate(-50px, -30px) scale(1.1); } }
+
+    .cursor-glow {
+      position: absolute; width: 480px; height: 480px; border-radius: 50%; pointer-events: none; z-index: 0;
+      background: radial-gradient(circle, rgba(6,83,199,.08), transparent 70%);
+      transform: translate(-50%, -50%); transition: opacity .3s ease; opacity: 0;
+    }
+
+    /* ═══ STAGE HEADER ═══ */
+    .stage-top { position: absolute; left: 60px; right: 60px; top: 40px; display: flex; align-items: center; justify-content: space-between; z-index: 10; }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand-mark { width: 40px; height: 40px; border-radius: 10px; background: var(--gradient-accent); display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 1.1rem; }
+    .brand-label { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-dim); line-height: 1.4; }
+    .brand-label b { display: block; color: var(--paper); font-weight: 700; font-size: 1rem; }
+    .brand-divider { display: flex; align-items: center; gap: 10px; border-left: 1px solid var(--line); padding-left: 16px; margin-left: 6px; }
+    .neo-tag { font-family: var(--mono); font-weight: 800; font-size: .85rem; color: var(--gold-hi); background: rgba(6,83,199,.08); border-radius: 6px; padding: 4px 10px; }
+    
+    .status-pill { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: .85rem; font-weight: 700; color: var(--emerald); background: rgba(19,143,159,.1); border-radius: 999px; padding: 8px 16px; }
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--emerald); animation: pulseDot 2s ease-in-out infinite; flex: none; }
+    @keyframes pulseDot { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: .6; } }
+
+    /* ═══ TYPE HELPERS ═══ */
+    .eyebrow { font-size: 0.9rem; letter-spacing: .2em; text-transform: uppercase; color: var(--brass); display: flex; align-items: center; gap: 12px; margin-bottom: 8px; font-weight: 700; }
+    .eyebrow::before { content: ""; width: 30px; height: 3px; background: var(--gradient-accent); display: inline-block; border-radius: 2px; }
+    .lede { font-size: 1.1rem; color: var(--muted); line-height: 1.6; font-weight: 500; }
+
+    /* ═══ GLASS CARD ═══ */
+    .glass-card {
+      background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border); box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+    /* ═══ HERO STAT STRIP ═══ */
+    .stat-strip { display: flex; align-items: stretch; gap: 16px; margin-top: 16px; }
+    .live-pill { flex: 1.5; display: flex; align-items: center; gap: 20px; padding: 14px 24px; border-radius: 16px; border-left: 5px solid var(--emerald); }
+    .live-pill .lw-num { font-family: var(--mono); font-size: 2.2rem; font-weight: 800; background: linear-gradient(135deg, #138f9f, #1ac9df); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .live-pill .lw-title { font-size: .95rem; font-weight: 700; color: var(--paper); }
+    .live-pill .lw-sub { font-size: .8rem; color: var(--muted-dim); margin-top: 4px; }
+    .stat-pill { flex: 1; padding: 12px 18px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center; }
+    .stat-pill b { font-family: var(--mono); font-size: 1.45rem; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+    .stat-pill span { font-size: 0.78rem; color: var(--muted-dim); margin-top: 4px; font-weight: 600; line-height: 1.3; }
+
+    /* ═══════════════════════════════════════════════════════════
+       THE COMPLIANCE LINE — Pulled Closer & Scaled Up
+       ═══════════════════════════════════════════════════════════ */
+    /* Changed flex behavior here so it shrink-wraps instead of stretching */
+    .metro-wrap { flex: 0 1 auto; display: flex; flex-direction: column; margin-top: 40px; position: relative; z-index: 2; }
+    
+    .metro-head { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .line-plate { font-family: var(--mono); font-weight: 800; font-size: .85rem; letter-spacing: .04em; color: #fff; background: var(--gradient-accent); border-radius: 6px; padding: 8px 14px; box-shadow: 0 4px 12px rgba(6,83,199,.22); }
+    .metro-legend { font-size: .9rem; color: var(--muted-dim); font-weight: 500; }
+    .metro-legend b { color: var(--paper); font-weight: 700; }
+
+    .metro-track { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); align-items: stretch; gap: 24px; }
+
+    /* Rail Animation */
+    @keyframes flowRail { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    .rail {
+      position: absolute; left: 8%; right: 8%; top: 50%; height: 8px; margin-top: -4px;
+      border-radius: 999px; 
+      background: linear-gradient(90deg, var(--gold), var(--brass), var(--emerald), var(--gold));
+      background-size: 200% 100%; animation: flowRail 4s linear infinite; z-index: 1;
+      box-shadow: 0 0 16px rgba(26,200,224,0.5);
+    }
+
+    .terminus-marker {
+      position: absolute; top: 50%; left: 92%; transform: translate(-50%, -50%); z-index: 4;
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+      background: #fff; border: 4px solid var(--emerald); box-shadow: 0 4px 14px rgba(19,143,159,.3);
+    }
+    .terminus-marker svg { width: 18px; height: 18px; color: var(--emerald); }
+
+    .metro-col { position: relative; z-index: 3; display: grid; grid-template-rows: 1fr auto 1fr; align-items: stretch; gap: 0px; }
+
+    /* Controls how close cards are to the line */
+    .above-slot { display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 24px; gap: 12px; }
+    .below-slot { display: flex; flex-direction: column; justify-content: flex-start; padding-top: 24px; gap: 12px; }
+
+    .dot-row { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; z-index: 5; background: transparent; }
+    .station-dot {
+      width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 5px solid var(--gold);
+      box-shadow: 0 0 0 6px #fff, 0 2px 8px rgba(0,1,55,.15);
+    }
+    .metro-col.is-now .station-dot { border-color: var(--emerald); }
+    .station-date { font-family: var(--mono); font-size: .95rem; font-weight: 800; letter-spacing: .05em; color: var(--gold); background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 99px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .metro-col.is-now .station-date { color: var(--emerald); }
+    .now-chip { font: 800 .75rem/1 var(--mono); color: var(--emerald); background: rgba(19,143,159,.1); border-radius: 999px; padding: 4px 8px; margin-left: 8px; vertical-align: middle; }
+
+    /* INCREASED TYPOGRAPHY FOR READABILITY */
+    .metro-card { border-radius: 16px; padding: 22px 24px; cursor: default; }
+    .metro-card.event { border-top: 4px solid var(--gold); }
+    .metro-card.event .mc-kicker { font-size: .85rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-hi); }
+    .metro-card.event h4 { font-size: 1.3rem; font-weight: 800; color: var(--paper); margin: 6px 0 8px; line-height: 1.2; }
+    .metro-card.event p { font-size: 1.05rem; color: var(--muted); line-height: 1.5; }
+
+    .metro-card.change { border-left: 4px solid var(--brass); display: flex; gap: 14px; align-items: flex-start; }
+    .metro-card.change .mc-icon { flex: none; width: 28px; height: 28px; border-radius: 8px; background: rgba(6,83,199,.1); display: grid; place-items: center; color: var(--gold); margin-top: 2px; }
+    .metro-card.change .mc-icon svg { width: 16px; height: 16px; }
+    .metro-card.change b { display: block; font-size: 1.15rem; color: var(--paper); font-weight: 800; line-height: 1.3; }
+    .metro-card.change span { display: block; font-size: .95rem; color: var(--muted); line-height: 1.45; margin-top: 4px; }
+
+    .metro-card.pending { border-left: 4px dashed rgba(0,1,55,.22); }
+    .metro-card.pending b { display: block; font-size: 1.15rem; color: var(--muted); font-weight: 700; }
+    .metro-card.pending span { display: block; font-size: .95rem; color: var(--muted-dim); line-height: 1.45; margin-top: 4px; }
+
+    .footer-note { font-size: .75rem; color: var(--muted-dim); line-height: 1.4; margin-top: 30px; text-align: center; }
+
+    /* Tooltip */
+    [data-tooltip] { cursor: help; }
+    .global-tooltip {
+      position: fixed; top: 0; left: 0; background: rgba(0, 1, 55, 0.94); color: #F8FAFC; padding: 12px 16px; border-radius: 8px;
+      font-size: .9rem; font-weight: 500; line-height: 1.4; white-space: pre-wrap; max-width: 320px; z-index: 99999;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); pointer-events: none; opacity: 0; transform: translateY(10px);
+      transition: opacity 0.12s ease, transform 0.12s ease;
+    }
+    .global-tooltip.active { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+
+<body>
+  <div class="deck" id="deck">
+    <section class="slide" id="slide-whynow">
+      <div class="ambient-blob blob-1"></div>
+      <div class="ambient-blob blob-2"></div>
+      <div class="cursor-glow" id="cursorGlow"></div>
+
+      <div class="stage-top">
+        <div class="brand">
+          <div class="brand-mark">N</div>
+          <div class="brand-label"><b>Nucleus Software</b>Gold Loan Suite</div>
+          <div class="brand-divider">
+            <span class="neo-tag">FinnOne Neo®</span>
+          </div>
+        </div>
+        <div class="status-pill"><span class="status-dot"></span>Compliance Deadline: In Force</div>
+      </div>
+
+      <div style="width:100%; height: 100%; padding: 110px 60px 40px; box-sizing:border-box; display:flex; flex-direction:column; position:relative; z-index:1;">
+
+        <!-- ═══ HERO ═══ -->
+        <div>
+          <div class="eyebrow">Why Now</div>
+          <h1 style="font-size: 1.8rem; line-height: 1.2;">The compliance deadline already passed. <em style="font-style:italic; background: var(--gradient-accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:800;">The market didn't wait.</em></h1>
+          <p class="lede" style="margin-top: 8px; max-width: 1200px;">On June 6, 2025 the RBI replaced 30+ years of scattered gold-loan circulars with one binding Master Direction. The hard compliance deadline has come and gone — and the organised market hit its FY26 target a full year early.</p>
+        </div>
+
+        <!-- ═══ STAT STRIP ═══ -->
+        <div class="stat-strip">
+          <div class="glass-card live-pill">
+            <div class="lw-num" id="dayCounter">0</div>
+            <div>
+              <div class="lw-title">Days Into Enforcement</div>
+              <div class="lw-sub">Live since Apr 1, 2026 — inside the system.</div>
+            </div>
+          </div>
+          <div class="glass-card stat-pill" data-tooltip="Driven by the gold price rally">
+            <b>15 L Cr</b>
+            <span>Gold Loan Book, FY26</span>
+          </div>
+          <div class="glass-card stat-pill" data-tooltip="Forward estimate for organised market">
+            <b>18 L Cr</b>
+            <span>ICRA FY27 Forecast</span>
+          </div>
+          <div class="glass-card stat-pill">
+            <b>105%</b>
+            <span>YoY Growth, Gold Loans</span>
+          </div>
+        </div>
+
+        <!-- ═══ THE COMPLIANCE LINE ═══ -->
+        <div class="metro-wrap">
+          <div class="metro-head">
+            <span class="line-plate">LINE 06.25 — RBI DIRECTIONS</span>
+            <span class="metro-legend"><b>Above:</b> Regulatory Event · <b>Below:</b> FinnOne Neo Controls</span>
+          </div>
+
+          <div class="metro-track">
+            <div class="rail"></div>
+            <div class="terminus-marker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+
+            <!-- STATION 1 — Apr 2025 -->
+            <div class="metro-col">
+              <div class="above-slot">
+                <div class="glass-card metro-card event">
+                  <div class="mc-kicker">Draft Stage</div>
+                  <h4>Draft Directions Floated</h4>
+                  <p>RBI opens the unified framework for public consultation, signalling a break from fragmented circulars.</p>
+                </div>
+              </div>
+              <div class="dot-row"><div class="station-dot"></div><div class="station-date">Apr 2025</div></div>
+              <div class="below-slot">
+                <div class="glass-card metro-card pending">
+                  <b>Pre-enforcement</b>
+                  <span>No live obligations yet — lenders assess exposure against the draft.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STATION 2 — Jun 2025 -->
+            <div class="metro-col">
+              <div class="above-slot">
+                <div class="glass-card metro-card event">
+                  <div class="mc-kicker">Notified</div>
+                  <h4>Master Direction Notified</h4>
+                  <p>30+ circulars replaced by one rulebook. The flat 75% LTV cap is replaced by tiered bands.</p>
+                </div>
+              </div>
+              <div class="dot-row"><div class="station-dot"></div><div class="station-date">Jun 2025</div></div>
+              <div class="below-slot">
+                <div class="glass-card metro-card change">
+                  <div class="mc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+                  <div><b>Tiered LTV Enforced</b><span>85% / 80% / 75% checked through the full tenor.</span></div>
+                </div>
+                <div class="glass-card metro-card change">
+                  <div class="mc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+                  <div><b>Borrower at Valuation</b><span>Valued on transparent pricing, borrower physically present.</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STATION 3 — Sep 2025 -->
+            <div class="metro-col">
+              <div class="above-slot">
+                <div class="glass-card metro-card event">
+                  <div class="mc-kicker">Clarified</div>
+                  <h4>Implementation Clarified</h4>
+                  <p>RBI updates the Master Direction with operational clarifications for banks and NBFCs.</p>
+                </div>
+              </div>
+              <div class="dot-row"><div class="station-dot"></div><div class="station-date">Sep 2025</div></div>
+              <div class="below-slot">
+                <div class="glass-card metro-card change">
+                  <div class="mc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+                  <div><b>Bullet Discipline</b><span>Continuous LTV monitoring across the full tenor.</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STATION 4 — Apr 2026, NOW LIVE -->
+            <div class="metro-col is-now">
+              <div class="above-slot">
+                <div class="glass-card metro-card event">
+                  <div class="mc-kicker">Enforcement<span class="now-chip">NOW LIVE</span></div>
+                  <h4>Compliance Deadline</h4>
+                  <p>Controls must run inside origination systems, not manual workarounds.</p>
+                </div>
+              </div>
+              <div class="dot-row"><div class="station-dot"></div><div class="station-date">Apr 2026</div></div>
+              <div class="below-slot">
+                <div class="glass-card metro-card change">
+                  <div class="mc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+                  <div><b>7-day Return Penalty</b><span>Gold returned in 7 days or lender pays penalty.</span></div>
+                </div>
+                <div class="glass-card metro-card change">
+                  <div class="mc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+                  <div><b>Disciplined Auctions</b><span>Advance notice, reserve ≥90%, surplus refunded.</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="footer-note">Source: RBI (Lending Against Gold and Silver Collateral) Directions, 2025, effective Apr 1, 2026 · ICRA organised gold loan market sizing</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="global-tooltip" id="globalTooltip"></div>
+
+  <script>
+    function fitScreen() {
+      var deck = document.getElementById('deck');
+      var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      deck.style.transform = 'scale(' + s + ')';
+    }
+    window.addEventListener('resize', fitScreen);
+    fitScreen();
+
+    (function () {
+      var deadline = new Date(2026, 3, 1); // April 1, 2026
+      var today = new Date();
+      var diff = Math.floor((today - deadline) / (1000 * 60 * 60 * 24));
+      document.getElementById('dayCounter').textContent = Math.max(diff, 0);
+    })();
+
+    var tooltipElem = document.getElementById('globalTooltip');
+    document.addEventListener('mousemove', function (e) {
+      var target = e.target.closest('[data-tooltip]');
+      if (target) {
+        tooltipElem.textContent = target.getAttribute('data-tooltip');
+        tooltipElem.classList.add('active');
+        tooltipElem.style.left = (e.pageX + 15) + 'px';
+        tooltipElem.style.top = (e.pageY + 15) + 'px';
+      } else {
+        tooltipElem.classList.remove('active');
+      }
+    });
+
+    var deckEl = document.getElementById('deck');
+    var glow = document.getElementById('cursorGlow');
+    deckEl.addEventListener('mousemove', function (e) {
+      var rect = deckEl.getBoundingClientRect();
+      var scale = rect.width / 1920;
+      var x = (e.clientX - rect.left) / scale;
+      var y = (e.clientY - rect.top) / scale;
+      glow.style.left = x + 'px';
+      glow.style.top = y + 'px';
+      glow.style.opacity = '1';
+    });
+    deckEl.addEventListener('mouseleave', function () { glow.style.opacity = '0'; });
+  </script>
+</body>
+
+</html>
