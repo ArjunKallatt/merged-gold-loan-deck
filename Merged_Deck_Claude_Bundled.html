@@ -982,30 +982,34 @@
       min-height: 0;
     }
 
-    /* Big boxy agenda grid — each chapter is a full card, not a thin row */
+    /* Boxy agenda grid — content-sized cards (so there's no dead gap
+       between the description and the "Open chapter" link) but generously
+       padded so the grid itself still runs top-to-bottom of the slide
+       instead of shrinking into a small centered island. */
     .agenda-rows {
-      flex: 1;
-      min-height: 0;
-      margin-top: 22px;
+      flex: 0 1 auto;
+      margin-top: 34px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 1fr;
-      gap: 18px;
+      grid-auto-rows: auto;
+      gap: 24px;
     }
 
     .agenda-row {
       font-family: var(--sans) !important;
+      background: #fff;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
-      padding: 26px 24px;
+      gap: 16px;
+      padding: 34px 28px 28px;
       cursor: pointer;
       position: relative;
       transition: all var(--anim-base) var(--ease-spring);
       border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
       border-top: 4px solid var(--gold);
-      min-height: 0;
+      box-shadow: var(--shadow-sm);
     }
 
     .agenda-row.ar-wide {
@@ -1018,24 +1022,38 @@
       border-top-color: var(--brass);
     }
 
+    .ar-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .agenda-row .stamp {
       font-family: var(--sans) !important;
-      --sz: 44px;
+      --sz: 42px;
       flex: none;
+    }
+
+    .ar-tag {
+      font-family: var(--sans) !important;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      white-space: nowrap;
     }
 
     .ar-body {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      flex: 1;
-      min-height: 0;
     }
 
     .ar-body h3 {
       font-family: var(--sans) !important;
-      font-size: 1.4rem;
-      line-height: 1.2;
+      font-size: 1.42rem;
+      line-height: 1.22;
       font-weight: 700;
       color: var(--paper);
     }
@@ -1043,7 +1061,7 @@
     .ar-body p {
       font-family: var(--sans) !important;
       color: var(--muted);
-      font-size: 1rem;
+      font-size: .96rem;
       line-height: 1.45;
       font-weight: 500;
     }
@@ -1051,13 +1069,12 @@
     .ar-go {
       font-family: var(--sans);
       font-size: .78rem;
-      letter-spacing: .1em;
-      color: var(--brass);
-      opacity: .7;
+      letter-spacing: .08em;
+      color: var(--brass-dim);
       transition: all var(--anim-base) var(--ease-spring);
       text-transform: uppercase;
       font-weight: 700;
-      margin-top: auto;
+      margin-top: 6px;
       flex: none;
     }
 
@@ -7381,8 +7398,6 @@
       border-radius: var(--radius-lg);
       padding: 20px 28px;
       width: 100%;
-      max-width: 1300px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1.5fr 1fr;
       gap: 30px;
@@ -7463,11 +7478,9 @@
       flex: 1;
       min-height: 0;
       width: 100%;
-      max-width: 1300px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 18px;
+      gap: 20px;
     }
 
     .cap-col {
@@ -9386,7 +9399,10 @@
           case for how FinnOne Neo® should lead the gold loan opportunity.</p>
         <div class="agenda-rows">
           <div class="agenda-row fragment" onclick="jumpTo(2)">
-            <div class="stamp" data-label="01"></div>
+            <div class="ar-top">
+              <div class="stamp" data-label="01"></div>
+              <span class="ar-tag" style="color:var(--gold-hi); background:rgba(6,83,199,.08); border-color:rgba(6,83,199,.2);">Market</span>
+            </div>
             <div class="ar-body">
               <h3>Market Landscape</h3>
               <p>INR 19.4 Tn AUM · 49% YoY growth (value), Mar'26</p>
@@ -9394,7 +9410,10 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(3)">
-            <div class="stamp" data-label="02"></div>
+            <div class="ar-top">
+              <div class="stamp" data-label="02"></div>
+              <span class="ar-tag" style="color:var(--brass-dim); background:rgba(26,200,224,.1); border-color:rgba(26,200,224,.22);">Regulatory</span>
+            </div>
             <div class="ar-body">
               <h3>Regulatory Changes</h3>
               <p>Chronological RBI directives, LTV changes &amp; audit rules</p>
@@ -9402,7 +9421,10 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(3)">
-            <div class="stamp" data-label="03"></div>
+            <div class="ar-top">
+              <div class="stamp" data-label="03"></div>
+              <span class="ar-tag" style="color:var(--emerald); background:rgba(19,143,159,.1); border-color:rgba(19,143,159,.22);">Timeline</span>
+            </div>
             <div class="ar-body">
               <h3>Gold Loan Journey</h3>
               <p>2018–2026 timeline: gold prices, market phases &amp; structural shifts</p>
@@ -9410,7 +9432,10 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(4)">
-            <div class="stamp" data-label="04"></div>
+            <div class="ar-top">
+              <div class="stamp" data-label="04"></div>
+              <span class="ar-tag" style="color:var(--copper); background:rgba(0,47,177,.08); border-color:rgba(0,47,177,.2);">Operations</span>
+            </div>
             <div class="ar-body">
               <h3>Operating Model</h3>
               <p>Workflow stages, roles &amp; surprise/periodic audit controls</p>
@@ -9418,7 +9443,10 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(5)">
-            <div class="stamp" data-label="05"></div>
+            <div class="ar-top">
+              <div class="stamp" data-label="05"></div>
+              <span class="ar-tag" style="color:#D97706; background:rgba(217,119,6,.1); border-color:rgba(217,119,6,.25);">Risk</span>
+            </div>
             <div class="ar-body">
               <h3>Risk &amp; Stress Signals</h3>
               <p>Borrower leverage, unsecured exposure &amp; RBI tiered-LTV rationale</p>
@@ -9426,7 +9454,10 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(6)">
-            <div class="stamp" data-label="06"></div>
+            <div class="ar-top">
+              <div class="stamp" data-label="06"></div>
+              <span class="ar-tag" style="color:var(--gold-hi); background:rgba(6,83,199,.08); border-color:rgba(6,83,199,.2);">Platform</span>
+            </div>
             <div class="ar-body">
               <h3>The FinnOne Neo® Response</h3>
               <p>Mapping each risk signal to a platform capability</p>
@@ -9434,7 +9465,10 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row ar-wide fragment" onclick="jumpTo(7)">
-            <div class="stamp" data-label="07"></div>
+            <div class="ar-top">
+              <div class="stamp" data-label="07"></div>
+              <span class="ar-tag" style="color:var(--brass-dim); background:rgba(26,200,224,.1); border-color:rgba(26,200,224,.22);">Timing</span>
+            </div>
             <div class="ar-body">
               <h3>Why Now</h3>
               <p>RBI's compliance deadline &amp; the market's revised growth trajectory</p>
@@ -9911,11 +9945,11 @@
         </div>
         <div class="slide-no"><span class="sn-cur">07</span><span class="sn-rule"></span>9</div>
       </div>
-<div style="width:100%; height:100%; padding: 108px 48px 76px; box-sizing:border-box; overflow-y:auto; display:flex; flex-direction:column; gap: 36px; position:relative; z-index:1;">
-        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-bottom: 14px;">
+<div style="width:100%; height:100%; padding: 108px 48px 76px; box-sizing:border-box; overflow-y:auto; display:flex; flex-direction:column; gap: 26px; position:relative; z-index:1;">
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px;">
           <div style="max-width: 760px;">
             <div class="eyebrow">The Market Moment</div>
-            <h1 style="font-size: 2.4rem; line-height: 1.08;">The gold rush<br /><em style="font-style:italic; background: var(--gradient-accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-weight:700;">Nucleus can't<br />afford to miss.</em></h1>
+            <h1 style="font-size: 2.4rem; line-height: 1.08; color: var(--paper);">The gold rush<br /><em style="font-style:italic; font-weight:700; color: var(--paper);">Nucleus can't<br />afford to miss.</em></h1>
             <p class="lede" style="margin-top: 10px; font-size:1.05rem;">Gold just posted its steepest annual rally since 1979, and India's organised gold loan book has scaled to match. Every stress signal that surge exposes below is a capability FinnOne Neo® already ships — not a future roadmap.</p>
           </div>
           <div class="fragment f-up" style="flex:none; display:flex; gap:0; border-top:1px solid var(--line); padding-top:22px; max-width: 660px;">
@@ -9938,7 +9972,7 @@
           </div>
         </div>
 
-        <div class="eyebrow" style="margin-bottom: 2px;">The FinnOne Neo® Response</div>
+        <div style="font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted-dim); border-top:1px solid var(--line-soft); padding-top:16px;">Every signal above, answered below — the FinnOne Neo® response</div>
 
         <div style="display:flex; flex-wrap:nowrap; gap:20px; align-items: stretch; flex: 1;">
           <!-- Card 1: Gold -->
@@ -10063,7 +10097,7 @@
 
         <div>
           <div class="eyebrow">Why Now</div>
-          <h1 style="font-family: var(--serif); font-weight: 800; font-size: 1.9rem; line-height: 1.16; color: var(--paper); letter-spacing: -.02em; max-width: 1300px;">The compliance deadline already passed. <em style="font-style:italic; background: var(--gradient-accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-weight:800;">The market didn&#39;t wait.</em></h1>
+          <h1 style="font-family: var(--serif); font-weight: 800; font-size: 1.9rem; line-height: 1.16; color: var(--paper); letter-spacing: -.02em; max-width: 1300px;">The compliance deadline already passed. <em style="font-style:italic; font-weight:800; color: var(--paper);">The market didn&#39;t wait.</em></h1>
           <p class="lede" style="margin-top: 8px; max-width: 1250px; font-size:.95rem;">On June 6, 2025 the RBI replaced 30+ years of scattered gold-loan circulars with one binding Master Direction. The hard compliance deadline has come and gone &mdash; and the organised market hit its FY26 target a full year early.</p>
         </div>
 
@@ -10091,8 +10125,7 @@
 
         <div class="cl-wrap fragment f-up">
           <div class="cl-head">
-            <span class="cl-plate">LINE 06.25 &mdash; RBI DIRECTIONS</span>
-            <span class="cl-legend"><b>Above:</b> Regulatory Event &middot; <b>Below:</b> FinnOne Neo Controls</span>
+            <span class="cl-legend" style="font-weight:700; color:var(--muted-dim); text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; border-top:1px solid var(--line-soft); padding-top:14px; width:100%;">RBI Directions, Jun 2025 — <b style="color:var(--paper);">Above:</b> Regulatory Event &middot; <b style="color:var(--paper);">Below:</b> FinnOne Neo Controls</span>
           </div>
 
           <div class="cl-track">
