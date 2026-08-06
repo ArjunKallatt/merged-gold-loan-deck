@@ -986,25 +986,33 @@
        between the description and the "Open chapter" link) but generously
        padded so the grid itself still runs top-to-bottom of the slide
        instead of shrinking into a small centered island. */
+    /* Flexbox, not grid: a flex-wrap row centers a short final row on its
+       own (7 cards = 4 + 3), which CSS Grid can't do without the last row
+       looking left-stuck with a dead gap on the right. */
     .agenda-rows {
-      flex: 0 1 auto;
-      margin-top: 34px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: auto;
+      flex: 1;
+      min-height: 0;
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: space-between;
       gap: 24px;
     }
 
     .agenda-row {
       font-family: var(--sans) !important;
       background: #fff;
+      flex: 0 0 calc(25% - 18px);
+      min-height: 340px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 16px;
-      padding: 34px 28px 28px;
+      padding: 30px 26px 26px;
       cursor: pointer;
       position: relative;
+      overflow: hidden;
       transition: all var(--anim-base) var(--ease-spring);
       border-radius: var(--radius-lg);
       border: 1px solid var(--line);
@@ -1012,14 +1020,31 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .agenda-row.ar-wide {
-      grid-column: span 2;
-    }
-
     .agenda-row:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
       border-top-color: var(--brass);
+    }
+
+    .ar-ghost-num {
+      position: absolute;
+      right: 8px;
+      bottom: -22px;
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: 7rem;
+      line-height: 1;
+      color: var(--paper);
+      opacity: .04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .agenda-row .ar-top,
+    .agenda-row .ar-body,
+    .agenda-row .ar-go {
+      position: relative;
+      z-index: 1;
     }
 
     .ar-top {
@@ -1074,7 +1099,8 @@
       transition: all var(--anim-base) var(--ease-spring);
       text-transform: uppercase;
       font-weight: 700;
-      margin-top: 6px;
+      margin-top: auto;
+      padding-top: 6px;
       flex: none;
     }
 
@@ -9399,6 +9425,7 @@
           case for how FinnOne Neo® should lead the gold loan opportunity.</p>
         <div class="agenda-rows">
           <div class="agenda-row fragment" onclick="jumpTo(2)">
+            <span class="ar-ghost-num">01</span>
             <div class="ar-top">
               <div class="stamp" data-label="01"></div>
               <span class="ar-tag" style="color:var(--gold-hi); background:rgba(6,83,199,.08); border-color:rgba(6,83,199,.2);">Market</span>
@@ -9410,6 +9437,7 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(3)">
+            <span class="ar-ghost-num">02</span>
             <div class="ar-top">
               <div class="stamp" data-label="02"></div>
               <span class="ar-tag" style="color:var(--brass-dim); background:rgba(26,200,224,.1); border-color:rgba(26,200,224,.22);">Regulatory</span>
@@ -9421,6 +9449,7 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(3)">
+            <span class="ar-ghost-num">03</span>
             <div class="ar-top">
               <div class="stamp" data-label="03"></div>
               <span class="ar-tag" style="color:var(--emerald); background:rgba(19,143,159,.1); border-color:rgba(19,143,159,.22);">Timeline</span>
@@ -9432,6 +9461,7 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(4)">
+            <span class="ar-ghost-num">04</span>
             <div class="ar-top">
               <div class="stamp" data-label="04"></div>
               <span class="ar-tag" style="color:var(--copper); background:rgba(0,47,177,.08); border-color:rgba(0,47,177,.2);">Operations</span>
@@ -9443,6 +9473,7 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(5)">
+            <span class="ar-ghost-num">05</span>
             <div class="ar-top">
               <div class="stamp" data-label="05"></div>
               <span class="ar-tag" style="color:#D97706; background:rgba(217,119,6,.1); border-color:rgba(217,119,6,.25);">Risk</span>
@@ -9454,6 +9485,7 @@
             <div class="ar-go">Open chapter →</div>
           </div>
           <div class="agenda-row fragment" onclick="jumpTo(6)">
+            <span class="ar-ghost-num">06</span>
             <div class="ar-top">
               <div class="stamp" data-label="06"></div>
               <span class="ar-tag" style="color:var(--gold-hi); background:rgba(6,83,199,.08); border-color:rgba(6,83,199,.2);">Platform</span>
@@ -9464,7 +9496,8 @@
             </div>
             <div class="ar-go">Open chapter →</div>
           </div>
-          <div class="agenda-row ar-wide fragment" onclick="jumpTo(7)">
+          <div class="agenda-row fragment" onclick="jumpTo(7)">
+            <span class="ar-ghost-num">07</span>
             <div class="ar-top">
               <div class="stamp" data-label="07"></div>
               <span class="ar-tag" style="color:var(--brass-dim); background:rgba(26,200,224,.1); border-color:rgba(26,200,224,.22);">Timing</span>
