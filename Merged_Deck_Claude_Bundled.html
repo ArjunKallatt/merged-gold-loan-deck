@@ -7717,7 +7717,7 @@
 
     #slide-command-center .cap-fintech-stack {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
 
@@ -8206,17 +8206,17 @@
     }
 
     #slide-risk .ltv-tier[data-tier="1"] .bar-fill {
-      background: linear-gradient(90deg, #60A5FA, var(--gold));
+      background: linear-gradient(90deg, var(--gold-hi), var(--gold));
       box-shadow: 0 0 8px rgba(6, 83, 199, .35);
     }
 
     #slide-risk .ltv-tier[data-tier="2"] .bar-fill {
-      background: linear-gradient(90deg, #22D3EE, var(--brass-dim));
+      background: linear-gradient(90deg, var(--brass), var(--brass-dim));
       box-shadow: 0 0 8px rgba(7, 146, 205, .35);
     }
 
     #slide-risk .ltv-tier[data-tier="3"] .bar-fill {
-      background: linear-gradient(90deg, #FB923C, var(--amber));
+      background: linear-gradient(90deg, #F59E0B, #D97706);
       box-shadow: 0 0 8px rgba(217, 119, 6, .35);
     }
 
@@ -8323,6 +8323,38 @@
       color: var(--muted);
       line-height: 1.55;
       margin-top: 14px;
+    }
+
+    /* Fill pass — the slide was falling short of the canvas height, leaving
+       dead space below the content. Roomier spacing throughout instead of
+       stretching individual elements unnaturally. */
+    #slide-risk main.grid {
+      gap: 32px;
+    }
+
+    #slide-risk main .grid.grid-cols-1.sm\:grid-cols-4 {
+      gap: 20px;
+    }
+
+    #slide-risk .risk-kpi {
+      padding: 22px !important;
+    }
+
+    #slide-risk main .glass-card.p-4 {
+      padding: 26px !important;
+    }
+
+    #slide-risk .risk-alert {
+      padding: 18px;
+    }
+
+    #slide-risk .risk-read {
+      margin-top: 28px;
+      padding-top: 22px;
+    }
+
+    #slide-risk .ltv-tier {
+      padding: 16px !important;
     }
 
     /* Standardized Tailwind overrides */
@@ -9893,7 +9925,7 @@
         </div>
         <div style="margin-bottom: 20px;">
           <div class="eyebrow">Risk &amp; Stress Signals</div>
-          <h2 style="font-size: 2.4rem; line-height: 1.1;">Where Growth Meets Leverage</h2>
+          <h2 style="font-size: 2.4rem; line-height: 1.1;">Loan Sizes Are Growing Faster Than Risk Controls</h2>
         </div>
         <p class="lede fragment cursor-pointer" style="max-width: 800px; margin-bottom: 30px;"
           data-tooltip="Key market insight, sourced from Q4 originations" onclick="openKpiModal('leverage')">
@@ -9911,8 +9943,8 @@
                 data-tooltip="Trend: average outstanding principal, Dec'22 → Dec'25"
                 onclick="openKpiModal('risk-osborrower')">
                 <div class="risk-kpi-head">
-                  <span class="text-xs font-medium uppercase tracking-wider text-[var(--muted-dim)]">O/s per
-                    Borrower</span>
+                  <span class="text-xs font-medium uppercase tracking-wider text-[var(--muted-dim)]">Avg. Loan Size
+                    per Borrower</span>
                   <span class="risk-kpi-icon">📈</span>
                 </div>
                 <div class="flex items-baseline gap-2 mt-1">
@@ -9945,11 +9977,11 @@
 
               <!-- KPI 3 — Unsecured wallet exposure, donut -->
               <div class="glass-card risk-kpi p-5 rounded-2xl fragment" style="align-items:center; text-align:center; border-top: 3px solid var(--brass);"
-                data-tooltip="Share of 2025 originations with unsecured debt above 25% of wallet"
+                data-tooltip="Share of 2025 originations where unsecured debt is above 25% of the borrower's total borrowing"
                 onclick="openKpiModal('risk-unsecured')">
                 <div class="risk-kpi-head" style="width:100%;">
-                  <span class="text-xs font-medium uppercase tracking-wider text-[var(--muted-dim)]">Unsecured &gt;25%
-                    of Wallet</span>
+                  <span class="text-xs font-medium uppercase tracking-wider text-[var(--muted-dim)]">Unsecured Debt &gt;25%
+                    of Borrowing</span>
                   <span class="risk-kpi-icon">🧾</span>
                 </div>
                 <div class="donut-wrap">
@@ -9969,7 +10001,7 @@
                       Stacking</span>
                     <span class="risk-kpi-icon">🗂️</span>
                   </div>
-                  <p style="font-size:10px; color:var(--muted-dim); margin-top:2px;">&gt;3 active GLs, &gt;₹2.5L</p>
+                  <p style="font-size:10px; color:var(--muted-dim); margin-top:2px;">Borrowers juggling 3+ gold loans, &gt;₹2.5L total</p>
                 </div>
                 <div class="flex items-baseline gap-2 mt-2">
                   <span class="risk-kpi-value"><span class="counter" data-decimals="0" data-target="14">0</span>%</span>
@@ -9984,11 +10016,11 @@
 
             <div class="glass-card p-5 rounded-2xl fragment">
               <div>
-                <h3 class="font-semibold text-sm text-[var(--paper)] mb-1">Delinquency by Loan-Stacking Depth</h3>
-                <p class="text-xs text-[var(--muted-dim)] mb-4">Ever 60+ in 12MOB, by number of live gold loans in
-                  borrower's wallet (Source: TransUnion CIBIL, 2025 originations)</p>
+                <h3 class="font-semibold text-sm text-[var(--paper)] mb-1">More Gold Loans at Once = More Missed Payments</h3>
+                <p class="text-xs text-[var(--muted-dim)] mb-4">% of borrowers who missed a payment by 60+ days within their first year, grouped by how many
+                  gold loans they held at the same time (Source: TransUnion CIBIL, 2025 originations)</p>
               </div>
-              <div class="h-64 w-full"> <canvas id="riskChart"></canvas> </div>
+              <div class="w-full" style="height: 320px;"> <canvas id="riskChart"></canvas> </div>
             </div>
           </div>
 
@@ -10041,9 +10073,9 @@
                   onclick="openKpiModal('ltv-aggregate')">
                   <div class="risk-alert-icon">⚠️</div>
                   <div>
-                    <div class="risk-alert-title">Borrower-Level, Not Trade-Level</div>
-                    <div class="risk-alert-body">RBI now requires LTV computed on aggregate exposure across lenders —
-                      single-facility checks are no longer sufficient.</div>
+                    <div class="risk-alert-title">Checked Across Every Lender, Not Just One Loan</div>
+                    <div class="risk-alert-body">RBI now requires lenders to add up a borrower's gold loans across ALL
+                      lenders before setting the loan-to-value limit — checking just the one loan in front of you is no longer enough.</div>
                   </div>
                 </div>
 
@@ -10952,7 +10984,7 @@
         new Chart(ctx.getContext('2d'), {
           type: 'bar',
           data: {
-            labels: ['1 Live GL', '2 Live GLs', '3 Live GLs', '4 Live GLs', '≥5 Live GLs'],
+            labels: ['1 Gold Loan', '2 Gold Loans', '3 Gold Loans', '4 Gold Loans', '5+ Gold Loans'],
             datasets: [
               {
                 label: 'Balance ≤₹2.5L (46% of originations)',
@@ -10984,7 +11016,7 @@
             },
             scales: {
               y: {
-                title: { display: true, text: 'Ever 60+ in 12MOB (%)', color: 'var(--muted-dim)', font: { size: 11 } },
+                title: { display: true, text: '60+ Days Late Within Year 1 (%)', color: 'var(--muted-dim)', font: { size: 11 } },
                 grid: { color: '#EEEDED' },
                 ticks: { color: '#0892CD', callback: (v) => v + '%' }
               },
@@ -12055,29 +12087,29 @@
         title = "Leverage Threshold Shift";
         content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Borrowers crossing the ₹2.5L exposure mark represent a structural shift in portfolio risk. A 2.2x higher default rate at this band means standard underwriting models built on ticket size alone under-price stress at higher leverage points.</p>";
       } else if (kpi === 'risk-osborrower') {
-        title = "O/s per Borrower Trend (₹1.9L → ₹3.1L)";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Average outstanding principal per borrower has risen 63% from Dec 2022 to Dec 2025, tracking the run-up in gold prices. Collection effort and collateral-monitoring intensity need to scale proportionally, not just AUM.</p>";
+        title = "Avg. Loan Size per Borrower (₹1.9L → ₹3.1L)";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The average loan size per borrower has risen 63% from Dec 2022 to Dec 2025, tracking the run-up in gold prices. Collection effort and collateral-monitoring need to scale up just as fast as the loan book itself.</p>";
       } else if (kpi === 'risk-highticket') {
         title = "High-Ticket Volume Expansion (0.4 Cr → 1.4 Cr)";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The absolute number of borrowers carrying more than ₹2.5L has grown 3.5x in three years. This concentrates portfolio risk in a segment that is growing faster than the book overall.</p>";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The number of borrowers carrying more than ₹2.5L has grown 3.5x in three years. This concentrates portfolio risk in a segment that is growing faster than the loan book overall.</p>";
       } else if (kpi === 'risk-unsecured') {
-        title = "Unsecured Wallet Risk (23%)";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>When unsecured debt exceeds 25% of a gold-loan borrower's total wallet, their capacity to service the gold loan during a downturn drops sharply — this now describes nearly a quarter of 2025 originations.</p>";
+        title = "Unsecured Debt Risk (23%)";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>When unsecured debt (credit cards, personal loans, etc.) exceeds 25% of a gold-loan borrower's total borrowing, their ability to keep paying the gold loan during a downturn drops sharply — this now describes nearly a quarter of 2025 originations.</p>";
       } else if (kpi === 'risk-stacking') {
         title = "Multi-Loan Stacking Risk (10.7% → 14%)";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Active stacking of three or more high-value loans has risen from 10.7% to 14% of the book since 2023 — a strong indicator of debt-rollover behaviour used to defer default triggers.</p>";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The share of borrowers actively juggling three or more high-value gold loans at once has risen from 10.7% to 14% since 2023 — a strong sign of borrowers rolling debt forward to delay a default.</p>";
       } else if (kpi === 'ltv-tier1') {
-        title = "Tier 1: ≤ ₹2.5L — 85% LTV Cap";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The highest cap in the framework, reserved for the ticket band where systemic risk is lowest, letting lenders maximise value for micro-ticket borrowers.</p>";
+        title = "Tier 1: ≤ ₹2.5L — 85% Loan-to-Value Cap";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The highest cap in the framework — for every ₹100 of gold value, a lender can lend up to ₹85. Reserved for the smallest, lowest-risk loans, giving these borrowers the most borrowing room.</p>";
       } else if (kpi === 'ltv-tier2') {
-        title = "Tier 2: ₹2.5–5L — 80% LTV Cap";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>This is exactly the band where the delinquency-by-stacking-depth chart shows risk concentrating, which is why RBI enforces a wider safety margin here against gold-price drawdowns.</p>";
+        title = "Tier 2: ₹2.5–5L — 80% Loan-to-Value Cap";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>This is exactly the loan-size band where the missed-payment chart shows risk concentrating, which is why RBI enforces a wider safety margin here against drops in gold prices.</p>";
       } else if (kpi === 'ltv-tier3') {
-        title = "Tier 3: &gt; ₹5L — 75% LTV Cap";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The strictest cap in the framework, keeping borrower equity high on large exposures to discourage strategic default.</p>";
+        title = "Tier 3: &gt; ₹5L — 75% Loan-to-Value Cap";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The strictest cap in the framework — for every ₹100 of gold value, a lender can lend only ₹75. Keeps large borrowers with more of their own money in the deal, discouraging them from walking away.</p>";
       } else if (kpi === 'ltv-aggregate') {
         title = "Mandatory Compliance Shift";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Under DOR.CRE.REC, aggregate exposure across all lending institutions must be pulled from credit bureaus before the applicable LTV tier can be determined — single-facility checks alone no longer satisfy the rule.</p>";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Under the new RBI rule (DOR.CRE.REC), lenders must pull a borrower's total gold loan exposure across every lender from the credit bureau before setting the loan-to-value limit — checking just the one loan being originated is no longer enough.</p>";
       }
 
       var html = "<div style='margin-bottom:20px'><h3 style='margin:0;font-family:var(--serif);font-size:1.6rem;color:var(--gold)'>" + title + "</h3></div>" + content;
