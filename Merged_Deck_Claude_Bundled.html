@@ -11850,7 +11850,7 @@
       let trackHtml = trackContainer.innerHTML;
 
       STAGES.forEach((stage, idx) => {
-        const isAmberStage = stage.isVaultStage || stage.isAuditStage || stage.isAuctionStage || stage.name === 'Collateral Management';
+        const isAmberStage = stage.isVaultStage || stage.isAuditStage || stage.isAuctionStage;
         navHtml += `<div class="pf-node ${idx === 0 ? 'active' : ''} ${isAmberStage ? 'pf-amber' : ''}" data-idx="${idx}">
             <div class="pf-circle">${STAGE_ICONS[idx] || STAGE_ICONS[0]}</div>
             <span class="pf-num">Stage ${stage.num}</span>
