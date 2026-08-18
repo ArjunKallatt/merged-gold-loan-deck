@@ -11666,7 +11666,7 @@
       },
       {
         num: '08', name: 'Audit',
-        sys: { name: 'Audit & Reconciliation Systems', stack: [{ name: 'CAS', domain: 'cas.finnone.internal' }, { name: 'LMS', domain: 'lms.finnone.internal' }, { name: 'ECM', domain: 'ecm.finnone.internal' }, { name: 'Vault', domain: 'vault.finnone.internal' }], lat: '85ms', uptime: '99.9%', log: "RUN: Surprise Audit Cycle\n<span class='success'>[MATCHED] 429 / 429 Packets</span>\nReconciliation: Tied Out", extra: 'Surprise and periodic audits cross-check the physical vault against the digital ledger, flagging any variance for CAP.' },
+        sys: { name: 'Audit & Reconciliation Systems', stack: [{ name: 'CAS', domain: 'cas.finnone.internal' }, { name: 'LMS', domain: 'lms.finnone.internal' }, { name: 'ECM', domain: 'ecm.finnone.internal' }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Mettler Toledo', domain: 'mt.com' }, { name: 'Fischer', domain: 'fischer-technology.com' }], groups: [{ label: 'Core Systems', names: ['CAS', 'LMS', 'ECM', 'Vault'] }, { label: 'Weighing Scale', names: ['Mettler Toledo'] }, { label: 'XRF', names: ['Fischer'] }], lat: '85ms', uptime: '99.9%', log: "RUN: Surprise Audit Cycle\n<span class='success'>[MATCHED] 429 / 429 Packets</span>\nReconciliation: Tied Out", extra: 'Surprise and periodic audits cross-check the physical vault against the digital ledger, flagging any variance for CAP.' },
         customer: { icon: '📋', name: 'Vault Auditor', role: 'Compliance', m1: 'Check', v1: 'Physical', m2: 'Freq', v2: 'Monthly' },
         ops: [{ icon: '🔍', name: 'Central Audit Team', role: 'Reconciliation', m1: 'Scope', v1: 'Ledger vs Bin', m2: 'Escalation', v2: 'CAP Trigger', class: 'ops' }],
         token: { icon: '📑', label: 'Audit Report' },
