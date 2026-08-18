@@ -6856,16 +6856,17 @@
        (the last 5 of 10 workflow nodes) all live inside Loan Servicing's
        ongoing lifecycle rather than firing once in strict sequence. An
        enclosing "container" reads more clearly than an underline: a
-       rounded zone wraps all 5 nodes with a folder-tab label overlapping
-       its top edge, like a fieldset/group-box around that cluster. */
+       rounded zone wraps all 5 nodes, with its label centered in a
+       dedicated strip below the nodes (inside the box, clear of every
+       circle/label so it can't overlap them). */
     .pf-servicing-zone {
       position: absolute;
       left: 49.5%;
       right: 1%;
       top: 2px;
-      bottom: 4px;
-      border: 2px solid rgba(217, 119, 6, .3);
-      background: rgba(217, 119, 6, .05);
+      bottom: 2px;
+      border: 2px solid rgba(6, 83, 199, .28);
+      background: rgba(6, 83, 199, .04);
       border-radius: 16px;
       pointer-events: none;
       z-index: 0;
@@ -6873,15 +6874,16 @@
 
     .pf-servicing-zone span {
       position: absolute;
-      top: -11px;
-      left: 20px;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
       background: #fff;
       padding: 2px 12px;
       border-radius: 999px;
-      border: 1.5px solid rgba(217, 119, 6, .4);
-      font-size: 0.68rem;
+      border: 1.5px solid rgba(6, 83, 199, .3);
+      font-size: 0.66rem;
       font-weight: 800;
-      color: #D97706;
+      color: var(--gold-hi);
       text-transform: uppercase;
       letter-spacing: 0.06em;
       white-space: nowrap;
@@ -11640,7 +11642,7 @@
         tasks: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'Account Verification (Perfios)', 'Fraud/Risk Detection (Sherlock)', 'RCU Check', 'STP Approval', 'Execute Sanction Authority Matrix'],
         outputs: ['Approve / Send Back / Reject', 'Signed Sanction Letter'],
         capabilities: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'RCU Check', 'STP Approval', 'Sanction Authority Matrix', 'Provisioning Policy', 'Approve', 'Send Back', 'Reject'],
-        capabilityGroups: [{ label: 'Decision', names: ['Approve', 'Send Back', 'Reject', 'STP Approval'] }],
+        capabilityGroups: [{ label: 'Application Review', names: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'RCU Check', 'Sanction Authority Matrix', 'Provisioning Policy'] }, { label: 'Decision', names: ['Approve', 'Send Back', 'Reject', 'STP Approval'] }],
         gaps: [],
         modalText: "Underwriters perform final credit validations using integrated external risk tools (Experian, Sherlock) and account verification (Perfios)."
       },
