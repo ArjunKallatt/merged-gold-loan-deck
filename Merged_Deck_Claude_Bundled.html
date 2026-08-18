@@ -5,9 +5,9 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width,initial-scale=1" name="viewport" />
-  <title>FinnOne Neo® — Gold Loan Executive Deck</title>
+  <title>FinnOne Neo® - Gold Loan Executive Deck</title>
   <style>
-    /* Native cross-document view transition (Chrome/Edge 126+) — the
+    /* Native cross-document view transition (Chrome/Edge 126+) - the
        browser crossfades old/new page automatically when both opt in.
        No JS needed on supporting browsers; navTo() below covers the rest. */
     @view-transition {
@@ -15,8 +15,7 @@
     }
   </style>
   <script>
-    // Fallback fade-in for browsers without the View Transitions API —
-    // keeps the page hidden until first paint is ready, then fades in,
+    // Fallback fade-in for browsers without the View Transitions API - // keeps the page hidden until first paint is ready, then fades in,
     // so it doesn't just hard-cut into view after a cross-file nav.
     if (typeof document.startViewTransition !== 'function') {
       document.documentElement.style.visibility = 'hidden';
@@ -44,7 +43,7 @@
   </script>
   <style>
     /* ═══════════════════════════════════════════════════════════
-   DESIGN SYSTEM — "PREMIUM COMMAND CENTER"
+   DESIGN SYSTEM - "PREMIUM COMMAND CENTER"
    A high-end SaaS dashboard aesthetic: clean light canvas,
    glassmorphism surfaces, indigo/cyan accents, Aptos typography,
    physics-based easing, and micro-interaction depth layering.
@@ -81,12 +80,12 @@
       --radius-lg: 16px;
       --radius-xl: 24px;
 
-      /* Typography — Aptos primary */
+      /* Typography - Aptos primary */
       --serif: 'Aptos Serif', 'Georgia', serif;
       --sans: 'Aptos', 'Aptos Display', 'Segoe UI', system-ui, sans-serif;
       --mono: 'Aptos Mono', 'SF Mono', 'Cascadia Code', monospace;
 
-      /* Glass tokens — light mode */
+      /* Glass tokens - light mode */
       --glass-bg: rgba(255, 255, 255, 0.72);
       --glass-bg-light: rgba(248, 250, 252, 0.80);
       --glass-border: rgba(0, 1, 55, 0.06);
@@ -192,12 +191,12 @@
       background-size: 3px 3px;
     }
 
-    /* Side accent rule — refined glow line */
+    /* Side accent rule - refined glow line */
     .slide .margin-rule {
       display: none;
     }
 
-    /* ═══════ ASSAY STAMP — signature motif ═══════ */
+    /* ═══════ ASSAY STAMP - signature motif ═══════ */
     .stamp {
       font-family: var(--sans) !important;
       --sz: 40px;
@@ -347,7 +346,7 @@
       font-style: italic;
     }
 
-    /* ═══════ FRAGMENT REVEAL SYSTEM — physics easing ═══════ */
+    /* ═══════ FRAGMENT REVEAL SYSTEM - physics easing ═══════ */
     .fragment {
       opacity: 0;
       transform: translateX(-80px);
@@ -385,7 +384,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   GLOBAL CARD SYSTEM — deck-wide glass surface + list item.
+   GLOBAL CARD SYSTEM - deck-wide glass surface + list item.
    Several slides (Risk & Stress, FinnOne Neo Response) place
    .glass-card / .trend-item markup but previously had no base
    rule outside #slide-market, so they rendered flat. This gives
@@ -426,7 +425,7 @@
       transition: width 1var(--anim-base) var(--ease-spring);
     }
 
-    /* ═══════ NAV DOCK — floating glass pill ═══════ */
+    /* ═══════ NAV DOCK - floating glass pill ═══════ */
     .nav-dock {
       position: absolute;
       bottom: 36px;
@@ -694,7 +693,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 1 — COVER
+   SLIDE 1 - COVER
    ═══════════════════════════════════════════════════════════ */
     .cover-wrap {
       font-family: var(--sans) !important;
@@ -912,7 +911,7 @@
       }
     }
 
-    /* Cover floating cards — glassmorphism (Complications) */
+    /* Cover floating cards - glassmorphism (Complications) */
     .cover-card {
       position: absolute;
       background: rgba(255, 255, 255, 0.4);
@@ -969,7 +968,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 2 — AGENDA
+   SLIDE 2 - AGENDA
    ═══════════════════════════════════════════════════════════ */
     .agenda-wrap {
       font-family: var(--sans) !important;
@@ -982,7 +981,7 @@
       min-height: 0;
     }
 
-    /* Boxy agenda grid — content-sized cards (so there's no dead gap
+    /* Boxy agenda grid - content-sized cards (so there's no dead gap
        between the description and the "Open chapter" link) but generously
        padded so the grid itself still runs top-to-bottom of the slide
        instead of shrinking into a small centered island. */
@@ -1111,7 +1110,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 3 — MARKET LANDSCAPE
+   SLIDE 3 - MARKET LANDSCAPE
    ═══════════════════════════════════════════════════════════ */
     .market-wrap {
       font-family: var(--sans) !important;
@@ -1276,7 +1275,7 @@
       font-family: var(--mono);
     }
 
-    /* KPI strip — glass grid */
+    /* KPI strip - glass grid */
     .ms-kpis {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1451,7 +1450,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 4 — BORROWER EVOLUTION
+   SLIDE 4 - BORROWER EVOLUTION
    ═══════════════════════════════════════════════════════════ */
     .demo-wrap {
       font-family: var(--sans) !important;
@@ -1709,7 +1708,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 5 — TIMELINE
+   SLIDE 5 - TIMELINE
    ═══════════════════════════════════════════════════════════ */
     .tl-wrap {
       font-family: var(--sans) !important;
@@ -1976,7 +1975,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 6 — OPERATING MODEL
+   SLIDE 6 - OPERATING MODEL
    ═══════════════════════════════════════════════════════════ */
     .ops-wrap {
       font-family: var(--sans) !important;
@@ -2322,7 +2321,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 7 — WHY FINNONE NEO
+   SLIDE 7 - WHY FINNONE NEO
    ═══════════════════════════════════════════════════════════ */
     .neo-wrap {
       font-family: var(--sans) !important;
@@ -2567,7 +2566,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 8 — CLOSING
+   SLIDE 8 - CLOSING
    ═══════════════════════════════════════════════════════════ */
     .close-wrap {
       font-family: var(--sans) !important;
@@ -2654,7 +2653,7 @@
       font-weight: 600;
     }
 
-    /* ═══════ OVERLAY / MODAL — glassmorphism + zoom-in ═══════ */
+    /* ═══════ OVERLAY / MODAL - glassmorphism + zoom-in ═══════ */
     .overlay {
       position: fixed;
       inset: 0;
@@ -2927,18 +2926,18 @@
    /* ═══════════════════════════════════════════════════════════
    /* ═══════════════════════════════════════════════════════════
    /* ═══/* ═══════════════════════════════════════════════════════════
-   OPERATING MODEL SLIDE v2 — 9 stages, animated characters,
+   OPERATING MODEL SLIDE v2 - 9 stages, animated characters,
    bespoke vault + release/auction scenes.
    Same "Premium Command Center" system as the parent deck.
    ═══════════════════════════════════════════════════════════ */
 
     /* ═══════════════════════════════════════════════════════════
-   OPERATING MODEL SLIDE v2 — 9 stages, animated characters,
+   OPERATING MODEL SLIDE v2 - 9 stages, animated characters,
    bespoke vault + release/auction scenes.
    Same "Premium Command Center" system as the parent deck.
    ═══════════════════════════════════════════════════════════ */
 
-    /* Duplicate :root removed — the canonical token set at the top of this
+    /* Duplicate :root removed - the canonical token set at the top of this
        stylesheet (line ~54) is now the single source of truth for every
        slide, including this one, so colors/fonts/radii stay consistent
        deck-wide instead of drifting slide-to-slide. */
@@ -2998,7 +2997,7 @@
       line-height: 1.55;
     }
 
-    /* ── RAIL — one continuous line, one traveling token, mini vignette per station ── */
+    /* ── RAIL - one continuous line, one traveling token, mini vignette per station ── */
     .opm-railwrap {
       font-family: var(--sans) !important;
       position: relative;
@@ -3162,7 +3161,7 @@
       transform: scale(1) rotate(-8deg);
     }
 
-    /* the traveling token — rides the rail, hops with an arc when the stage changes */
+    /* the traveling token - rides the rail, hops with an arc when the stage changes */
     .opm-token {
       position: absolute;
       top: 9.8px;
@@ -4101,7 +4100,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   VAULT SCENE — Gold Storage & Audit
+   VAULT SCENE - Gold Storage & Audit
    ═══════════════════════════════════════════════════════════ */
     .opm-vault {
       display: flex;
@@ -4432,7 +4431,7 @@
 
 
     /* ═══════════════════════════════════════════════════════════
-   REBUILD LAYER — protagonist loan token + stage hero canvases
+   REBUILD LAYER - protagonist loan token + stage hero canvases
    ═══════════════════════════════════════════════════════════ */
     .opm-panel-inner {
       min-height: 0;
@@ -5013,7 +5012,7 @@
 
 
     /* ═══════════════════════════════════════════════════════════
-   PRESENTATION LANDSCAPE MODE — fixed 16:9, no page scrolling
+   PRESENTATION LANDSCAPE MODE - fixed 16:9, no page scrolling
    ═══════════════════════════════════════════════════════════ */
 
 
@@ -6424,7 +6423,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 3 — MARKET LANDSCAPE (TAILWIND/CHARTJS DASHBOARD)
+   SLIDE 3 - MARKET LANDSCAPE (TAILWIND/CHARTJS DASHBOARD)
    ═══════════════════════════════════════════════════════════ */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap');
 
@@ -6735,7 +6734,7 @@
       color: var(--paper);
     }
 
-    /* ── WORKFLOW — clean icon-flow rail (replaces the old pill-tab nav) ── */
+    /* ── WORKFLOW - clean icon-flow rail (replaces the old pill-tab nav) ── */
     .cc-top-nav {
       display: flex;
       align-items: flex-start;
@@ -6835,7 +6834,7 @@
       color: var(--paper);
     }
 
-    /* Vault / Audit / Ornament Auction — recovery & custody stages get
+    /* Vault / Audit / Ornament Auction - recovery & custody stages get
        amber instead of blue, to read as a distinct group from the
        customer-facing onboarding-through-servicing flow. */
     .pf-node.pf-amber:hover .pf-circle {
@@ -6878,8 +6877,7 @@
       flex: 0 0 10%;
       height: 100%;
       display: grid;
-      /* Single row now that the persona/journey zone has been removed —
-         the Functional Capabilities / Integrations panel fills the column. */
+      /* Single row now that the persona/journey zone has been removed - the Functional Capabilities / Integrations panel fills the column. */
       grid-template-rows: 1fr;
       scroll-snap-align: center;
       padding: 10px 30px 30px;
@@ -7354,7 +7352,7 @@
     }
 
 
-    /* ═══ Decision fork — Collateral Management stage, repay-vs-default ═══ */
+    /* ═══ Decision fork - Collateral Management stage, repay-vs-default ═══ */
     .decision-fork {
       display: flex; flex-direction: column; align-items: center; gap: 4px;
       margin-left: 10px; z-index: 4;
@@ -7386,7 +7384,7 @@
     .branch-label { font-size: 0.78rem; color: #fff; font-weight: 800; text-align: center; }
     .branch-sub { font-size: 0.62rem; color: rgba(255,255,255,0.85); text-align: center; font-family: var(--mono); }
 
-    /* ═══ Auction stage — notice timeline + reserve price bar ═══ */
+    /* ═══ Auction stage - notice timeline + reserve price bar ═══ */
     .auction-panel { display: flex; flex-direction: column; gap: 10px; }
     .auction-notice-rail { display: flex; align-items: flex-start; justify-content: space-between; position: relative; padding: 0 6px; }
     .auction-notice-rail::before {
@@ -7501,7 +7499,7 @@
       font-weight: 900;
     }
 
-    /* ── CAPABILITY GRID (ZONE BOTTOM) — Functional Capabilities / Integrations / Gaps ── */
+    /* ── CAPABILITY GRID (ZONE BOTTOM) - Functional Capabilities / Integrations / Gaps ── */
     .cap-grid {
       flex: 1;
       min-height: 0;
@@ -7563,7 +7561,7 @@
       gap: 14px;
     }
 
-    /* Stage scene — a small themed illustration anchoring each Functional
+    /* Stage scene - a small themed illustration anchoring each Functional
        Capabilities column, so a short list still reads as a full, composed
        box instead of a few lines floating in empty space. */
     .cap-scene {
@@ -7745,7 +7743,7 @@
       gap: 16px;
     }
 
-    /* Gold Valuation — Weighing Scale and Purity each hold a single vendor,
+    /* Gold Valuation - Weighing Scale and Purity each hold a single vendor,
        so pair them into one row instead of two near-empty stacked rows;
        Gold Valuation (IBJA) keeps its own row below, spanning full width. */
     #col-1 .vendor-groups {
@@ -7769,6 +7767,27 @@
       text-transform: uppercase;
       color: var(--teal);
       margin-bottom: 10px;
+    }
+
+    #slide-command-center .cap-list-2col li.cap-group-label {
+      grid-column: 1 / -1;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      padding: 0;
+      margin: 4px 0 -6px;
+      background: none;
+      border: none;
+    }
+
+    #slide-command-center .cap-list-2col li.cap-group-label:first-child {
+      margin-top: 0;
+    }
+
+    #slide-command-center .cap-list-2col li.cap-group-label::before {
+      display: none;
     }
 
     #slide-command-center .vendor-badge {
@@ -7829,7 +7848,7 @@
       color: #7A5B00;
     }
 
-    /* Empty placeholder — Functional Capabilities / Gaps, ready to be filled in */
+    /* Empty placeholder - Functional Capabilities / Gaps, ready to be filled in */
     .cap-empty {
       flex: 1;
       min-height: 140px;
@@ -8045,7 +8064,7 @@
 
 
     /* ═══════════════════════════════════════════════════════════
-   SLIDE 7 — RISK & STRESS SIGNALS (enhanced dashboard visuals)
+   SLIDE 7 - RISK & STRESS SIGNALS (enhanced dashboard visuals)
    Sparkline trend, proportional circles, donut gauge, animated
    stacking meter, and RBI tiered-LTV bullet graphs.
    ═══════════════════════════════════════════════════════════ */
@@ -8099,7 +8118,7 @@
       margin-top: 14px;
     }
 
-    /* Proportional circle pair — visually encodes 0.4Cr -> 1.4Cr growth */
+    /* Proportional circle pair - visually encodes 0.4Cr -> 1.4Cr growth */
     #slide-risk .prop-circle-row {
       position: relative;
       height: 92px;
@@ -8322,7 +8341,7 @@
       line-height: 1.5;
     }
 
-    /* Overall Risk Read — closing gauge for the RBI framework card, replaces
+    /* Overall Risk Read - closing gauge for the RBI framework card, replaces
        the old decorative empty circle with an actual composite reading. */
     #slide-risk .risk-read {
       margin-top: 22px;
@@ -8378,7 +8397,7 @@
       margin-top: 14px;
     }
 
-    /* Fill pass — the slide was falling short of the canvas height, leaving
+    /* Fill pass - the slide was falling short of the canvas height, leaving
        dead space below the content. Roomier spacing throughout instead of
        stretching individual elements unnaturally. */
     #slide-risk main.grid {
@@ -8410,7 +8429,7 @@
       padding: 16px !important;
     }
 
-    /* Readability pass — this slide's text was noticeably smaller than the
+    /* Readability pass - this slide's text was noticeably smaller than the
        rest of the deck (10-12px labels vs the deck's usual 13-16px), which
        is why it read as a different style. Font-family pinned explicitly
        too, since Chart.js canvas text doesn't inherit CSS font-family. */
@@ -8701,7 +8720,7 @@
   <script>
     // Canvas text doesn't inherit CSS font-family, so without this every
     // chart's axis/legend/tooltip text renders in Chart.js's own default
-    // font instead of the deck's Aptos — set it globally, once, here.
+    // font instead of the deck's Aptos - set it globally, once, here.
     if (typeof Chart !== 'undefined') {
       Chart.defaults.font.family = "'Aptos', 'Aptos Display', 'Segoe UI', system-ui, sans-serif";
     }
@@ -9523,7 +9542,7 @@
   </style>
   <style>
     /* ═══════════════════════════════════════════════════════════
-       SLIDE 08 — WHY NOW (The Compliance Line)
+       SLIDE 08 - WHY NOW (The Compliance Line)
        Ported from "FinnOne Neo - Why Now (refined).html", reskinned
        onto this deck's existing design tokens (same palette, same
        glass-card system) and namespaced with a cl- prefix so it
@@ -9583,7 +9602,7 @@
 
 <body>
   <div class="deck" id="deck">
-    <!-- ════════════════════════════════════════════════════════ SLIDE 1 — COVER ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 1 - COVER ════════════════════════════════════════════════════════ -->
     <section class="slide active" data-title="Cover" id="slide-cover">
       <div class="stage-top">
         <div class="brand"> <img alt="Nucleus Software"
@@ -9603,7 +9622,7 @@
         <div class="cover-left">
           <div class="cover-eyebrow">Trends &amp; Suite Capability · Prepared for FinnOne Neo®</div>
           <h1 class="cover-title">India's <em>Gold Loan</em><br />Revolution</h1>
-          <p class="cover-lede">India's gold loan portfolio has scaled rapidly, reaching INR 19.4 Tn by March 2026 — up
+          <p class="cover-lede">India's gold loan portfolio has scaled rapidly, reaching INR 19.4 Tn by March 2026 - up
             49% year-on-year. Gold loans now hold the 2nd-highest share of the retail credit portfolio, behind only
             housing loans. Here is the story of secured lending's growth and the integration stack powering it.</p>
           <div class="cover-stats">
@@ -9662,7 +9681,7 @@
         </div>
       </div>
     </section>
-    <!-- ════════════════════════════════════════════════════════ SLIDE 2 — AGENDA ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 2 - AGENDA ════════════════════════════════════════════════════════ -->
     <section class="slide" data-title="Agenda" id="slide-agenda">
       <div class="margin-rule"></div>
       <div class="stage-top">
@@ -9682,7 +9701,7 @@
       <div class="agenda-wrap">
         <div class="eyebrow">Reading Order</div>
         <h2 style="font-size: 2.4rem; line-height: 1.1;">Agenda</h2>
-        <p class="lede" style="max-width: 800px;">A structured walk from market evidence to product response — seven
+        <p class="lede" style="max-width: 800px;">A structured walk from market evidence to product response - seven
           chapters, each building the
           case for how FinnOne Neo® should lead the gold loan opportunity.</p>
         <div class="agenda-rows">
@@ -9773,7 +9792,7 @@
         </div>
       </div>
     </section>
-    <!-- ════════════════════════════════════════════════════════ SLIDE 3 — MARKET LANDSCAPE ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 3 - MARKET LANDSCAPE ════════════════════════════════════════════════════════ -->
     <section class="slide" data-title="Market Landscape" id="slide-market">
       <div style="width:100%; height:100%; padding: 110px 40px 80px; box-sizing: border-box; overflow-y: auto;">
         <!-- TOP HEADER -->
@@ -9874,7 +9893,7 @@
             <div class="glass-card p-5 rounded-2xl fragment">
               <div>
                 <h3 class="font-bold text-lg text-[var(--paper)] mb-1">Gold Price Trend Line</h3>
-                <p class="text-sm text-[var(--muted-dim)] mb-4">Illustrative price series per 10 grams, 22K gold (INR) — not sourced
+                <p class="text-sm text-[var(--muted-dim)] mb-4">Illustrative price series per 10 grams, 22K gold (INR) - not sourced
                   from CIBIL/Experian; confirm against a market data provider before presenting</p>
               </div>
               <div class="h-52 w-full"> <canvas id="lineChart"></canvas> </div>
@@ -9955,8 +9974,8 @@
         </main>
       </div>
     </section>
-    <!-- ════════════════════════════════════════════════════════ SLIDE 4 — REGULATORY CHANGES ════════════════════════════════════════════════════════ -->
-    <!-- ════════════════════════════════════════════════════════ SLIDE 5 — GOLD LOAN JOURNEY (TIMELINE) ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 4 - REGULATORY CHANGES ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 5 - GOLD LOAN JOURNEY (TIMELINE) ════════════════════════════════════════════════════════ -->
     <section class="slide" data-title="Regulatory &amp; Journey" id="slide-merged">
       <div class="margin-rule"></div> <!-- Stage Top -->
       <div class="stage-top">
@@ -9994,7 +10013,7 @@
                 10 grams, 22K)</h4>
               <div id="tlChartSvg" style="flex: 1; width: 100%; height: 100%;"> <!-- Injected via JS --> </div>
               <h4 class="tl-col-title" style="margin: 14px 0 10px; font-size: 0.82rem; display:flex; align-items:center; gap:8px;">
-                Illustrative Market Cap Trend — Listed Gold Loan NBFC (₹ Cr, approx. FY-end)
+                Illustrative Market Cap Trend - Listed Gold Loan NBFC (₹ Cr, approx. FY-end)
                 <span style="font-size:0.68rem; font-weight:600; color:#F59E0B; background:rgba(245,158,11,.12); border-radius:999px; padding:2px 8px;">Verify vs. BSE/NSE before presenting</span>
               </h4>
               <div id="tlMarketCapSvg" style="height: 34%; width: 100%;"> <!-- Injected via JS --> </div>
@@ -10006,7 +10025,7 @@
         </div>
       </div>
     </section>
-    <!-- ════════════════════════════════════════════════════════ SLIDE 6 — COMMAND CENTER ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 6 - COMMAND CENTER ════════════════════════════════════════════════════════ -->
     <section class="slide" data-title="Command Center" id="slide-command-center">
       <div class="stage-top">
         <div class="brand"> <img alt="Nucleus Software"
@@ -10026,7 +10045,7 @@
         <div class="cc-header">
           <div class="eyebrow">Operating Model Architecture</div>
           <h1>Gold Loan Processing Pipeline</h1>
-          <p class="lede" style="margin-top:4px;">Ten stages, one continuous workflow — hover or click a stage above to inspect who's involved and what's plugged in below.</p>
+          <p class="lede" style="margin-top:4px;">Ten stages, one continuous workflow - hover or click a stage above to inspect who's involved and what's plugged in below.</p>
         </div> <!-- Workflow -->
         <div class="cc-top-nav" id="topNav"></div> <!-- Horizontal Track Viewport -->
         <div class="cc-track-viewport" id="trackViewport">
@@ -10035,7 +10054,7 @@
         </div>
       </div>
     </section>
-    <!-- ════════════════════════════════════════════════════════ SLIDE 7 — RISK & STRESS SIGNALS ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 7 - RISK & STRESS SIGNALS ════════════════════════════════════════════════════════ -->
     <section class="slide" data-title="Risk &amp; Stress Signals" id="slide-risk">
       <div style="width:100%; height:100%; padding: 110px 40px 80px; box-sizing: border-box; overflow-y: auto;">
         <div class="margin-rule"></div>
@@ -10060,7 +10079,7 @@
         </div>
         <p class="lede fragment cursor-pointer" style="max-width: 800px; margin-bottom: 30px;"
           data-tooltip="Key market insight, sourced from Q4 originations" onclick="openKpiModal('leverage')">
-          "Borrowers carrying more than ₹2.5L in gold-loan exposure now make up 54% of new sourcing — and default at
+          "Borrowers carrying more than ₹2.5L in gold-loan exposure now make up 54% of new sourcing - and default at
           roughly
           2.2x the rate of smaller-ticket borrowers."
         </p>
@@ -10069,7 +10088,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
 
-              <!-- KPI 1 — O/s per Borrower, sparkline trend -->
+              <!-- KPI 1 - O/s per Borrower, sparkline trend -->
               <div class="glass-card risk-kpi p-5 rounded-2xl fragment" style="border-top: 3px solid var(--gold);"
                 data-tooltip="Trend: average outstanding principal, Dec'22 → Dec'25"
                 onclick="openKpiModal('risk-osborrower')">
@@ -10086,7 +10105,7 @@
                 <div class="spark-wrap"><canvas id="riskSpark"></canvas></div>
               </div>
 
-              <!-- KPI 2 — Borrowers >2.5L, proportional circles -->
+              <!-- KPI 2 - Borrowers >2.5L, proportional circles -->
               <div class="glass-card risk-kpi p-5 rounded-2xl fragment" style="border-top: 3px solid #D97706;"
                 data-tooltip="Absolute borrower count in this leverage band, Dec'22 vs Dec'25"
                 onclick="openKpiModal('risk-highticket')">
@@ -10106,7 +10125,7 @@
                 </div>
               </div>
 
-              <!-- KPI 3 — Unsecured wallet exposure, donut -->
+              <!-- KPI 3 - Unsecured wallet exposure, donut -->
               <div class="glass-card risk-kpi p-5 rounded-2xl fragment" style="align-items:center; text-align:center; border-top: 3px solid var(--brass);"
                 data-tooltip="Share of 2025 originations where unsecured debt is above 25% of the borrower's total borrowing"
                 onclick="openKpiModal('risk-unsecured')">
@@ -10122,7 +10141,7 @@
                 <span class="risk-kpi-badge" style="margin-top:8px;">of 2025 originations</span>
               </div>
 
-              <!-- KPI 4 — Multi-loan stacking, animated meter -->
+              <!-- KPI 4 - Multi-loan stacking, animated meter -->
               <div class="glass-card risk-kpi p-5 rounded-2xl fragment" style="border-top: 3px solid #D97706;"
                 data-tooltip="Borrowers actively rolling 3+ live gold loans above ₹2.5L"
                 onclick="openKpiModal('risk-stacking')">
@@ -10184,7 +10203,7 @@
                     <div class="bar-fill" data-width="80%"></div>
                     <div class="ltv-marker" style="left:80%;"></div>
                   </div>
-                  <p class="ltv-tier-note">Mid-ticket loans — where stacking risk is now concentrated.</p>
+                  <p class="ltv-tier-note">Mid-ticket loans - where stacking risk is now concentrated.</p>
                 </div>
 
                 <div class="trend-item ltv-tier p-3.5 rounded-xl border border-[var(--line-soft)] fragment"
@@ -10206,7 +10225,7 @@
                   <div>
                     <div class="risk-alert-title">Checked Across Every Lender, Not Just One Loan</div>
                     <div class="risk-alert-body">RBI now requires lenders to add up a borrower's gold loans across ALL
-                      lenders before setting the loan-to-value limit — checking just the one loan in front of you is no longer enough.</div>
+                      lenders before setting the loan-to-value limit - checking just the one loan in front of you is no longer enough.</div>
                   </div>
                 </div>
 
@@ -10220,7 +10239,7 @@
                 <div class="risk-read-marker" style="left:68%;"></div>
               </div>
               <div class="risk-read-ticks"><span>Low</span><span>Moderate</span><span>Elevated</span><span>Severe</span></div>
-              <p class="risk-read-note">Leverage, unsecured exposure and loan-stacking are all climbing together — the tiered LTV cap is the market's primary brake right now.</p>
+              <p class="risk-read-note">Leverage, unsecured exposure and loan-stacking are all climbing together - the tiered LTV cap is the market's primary brake right now.</p>
             </div>
           </div>
         </main>
@@ -10230,7 +10249,7 @@
         </div>
       </div>
     </section>
-    <!-- ════════════════════════════════════════════════════════ SLIDE 8 — FINNONE NEO RESPONSE ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 8 - FINNONE NEO RESPONSE ════════════════════════════════════════════════════════ -->
     <section class="slide" data-title="The Gold Rush" id="slide-neo">
       <div class="margin-rule"></div>
       <div class="stage-top">
@@ -10252,7 +10271,7 @@
           <div style="max-width: 760px;">
             <div class="eyebrow">The Market Moment</div>
             <h1 style="font-size: 2.4rem; line-height: 1.08; color: var(--paper);">The gold rush<br /><em style="font-style:italic; font-weight:700; color: var(--paper);">Nucleus can't<br />afford to miss.</em></h1>
-            <p class="lede" style="margin-top: 10px; font-size:1.05rem;">Gold just posted its steepest annual rally since 1979, and India's organised gold loan book has scaled to match. Every stress signal that surge exposes below is a capability FinnOne Neo® already ships — not a future roadmap.</p>
+            <p class="lede" style="margin-top: 10px; font-size:1.05rem;">Gold just posted its steepest annual rally since 1979, and India's organised gold loan book has scaled to match. Every stress signal that surge exposes below is a capability FinnOne Neo® already ships - not a future roadmap.</p>
           </div>
           <div class="fragment f-up" style="flex:none; display:flex; gap:0; border-top:1px solid var(--line); padding-top:22px; max-width: 660px;">
             <div class="cs-item" data-tooltip="Experian &quot;Gold Loans in Transition&quot; / TransUnion CIBIL Gold Loan Landscape Report, Apr 2026">
@@ -10263,18 +10282,18 @@
               <b class="counter" data-suffix="%" data-target="49" style="font-size:2.3rem;">0</b>
               <span>YoY Growth, Value</span>
             </div>
-            <div class="cs-item" style="border-left:1px solid var(--line);" data-tooltip="Gold's steepest annual gain since 1979 — the highest yearly return on record in over four decades">
+            <div class="cs-item" style="border-left:1px solid var(--line);" data-tooltip="Gold's steepest annual gain since 1979 - the highest yearly return on record in over four decades">
               <b class="counter" data-suffix="%" data-target="67" style="font-size:2.3rem;">0</b>
               <span>Gold Price Gain, 2025</span>
             </div>
-            <div class="cs-item" style="border-left:1px solid var(--line);" data-tooltip="RBI Master Directions on gold loans, Jun 2025 — tiered LTV caps by ticket size, binding on all lenders since Apr 1, 2026">
+            <div class="cs-item" style="border-left:1px solid var(--line);" data-tooltip="RBI Master Directions on gold loans, Jun 2025 - tiered LTV caps by ticket size, binding on all lenders since Apr 1, 2026">
               <b style="display:block; font-family: var(--mono); background: var(--gradient-accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-weight:700; letter-spacing:-.01em; font-size:1.8rem;">85/80/75%</b>
               <span style="margin-top:9px;">RBI Tiered LTV Bands, eff. Apr'26</span>
             </div>
           </div>
         </div>
 
-        <div style="font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted-dim); border-top:1px solid var(--line-soft); padding-top:16px;">Every signal above, answered below — the FinnOne Neo® response</div>
+        <div style="font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted-dim); border-top:1px solid var(--line-soft); padding-top:16px;">Every signal above, answered below - the FinnOne Neo® response</div>
 
         <div style="display:flex; flex-wrap:nowrap; gap:20px; align-items: stretch; flex: 1;">
           <!-- Card 1: Gold -->
@@ -10290,7 +10309,7 @@
             </div>
             <div style="flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;">
               <h4 style="font-weight:700; font-size:1.18rem; color: var(--paper); margin-bottom:8px; line-height:1.3;">Borrower-level leverage &amp; multi-lender stacking</h4>
-              <p style="font-size:.95rem; color: var(--muted); line-height:1.55;">Real-time bureau pulls and cross-lender exposure checks at every renewal — LTV enforced on aggregate borrower exposure, not just this trade.</p>
+              <p style="font-size:.95rem; color: var(--muted); line-height:1.55;">Real-time bureau pulls and cross-lender exposure checks at every renewal - LTV enforced on aggregate borrower exposure, not just this trade.</p>
               <span class="card-pill" style="color:var(--gold); background:rgba(6,83,199,.08); border:1px solid rgba(6,83,199,.18);" data-tooltip="Organised gold loan AUM grew at roughly a 26% CAGR across FY2024 and FY2025 (ICRA)">26% CAGR, FY24–25</span>
             </div>
           </div>
@@ -10308,8 +10327,8 @@
             </div>
             <div style="flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;">
               <h4 style="font-weight:700; font-size:1.18rem; color: var(--paper); margin-bottom:8px; line-height:1.3;">RBI 2025 tiered LTV compliance</h4>
-              <p style="font-size:.95rem; color: var(--muted); line-height:1.55;">Configurable LTV engine with bullet-repayment tracking — caps enforced automatically by ticket band, zero manual override risk.</p>
-              <span class="card-pill" style="color:var(--brass-dim); background:rgba(26,200,224,.1); border:1px solid rgba(26,200,224,.2);" data-tooltip="RBI Master Directions, Jun 2025 — LTV caps of 85% / 80% / 75% by ticket size, binding on every lender since Apr 1, 2026">85/80/75% LTV bands</span>
+              <p style="font-size:.95rem; color: var(--muted); line-height:1.55;">Configurable LTV engine with bullet-repayment tracking - caps enforced automatically by ticket band, zero manual override risk.</p>
+              <span class="card-pill" style="color:var(--brass-dim); background:rgba(26,200,224,.1); border:1px solid rgba(26,200,224,.2);" data-tooltip="RBI Master Directions, Jun 2025 - LTV caps of 85% / 80% / 75% by ticket size, binding on every lender since Apr 1, 2026">85/80/75% LTV bands</span>
             </div>
           </div>
 
@@ -10326,7 +10345,7 @@
             </div>
             <div style="flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;">
               <h4 style="font-weight:700; font-size:1.18rem; color: var(--paper); margin-bottom:8px; line-height:1.3;">Fragmented vault custody &amp; audit trail</h4>
-              <p style="font-size:.95rem; color: var(--muted); line-height:1.55;">Digital vault ledger with dual-custody reconciliation and scheduled/surprise audit workflows — every packet traceable end-to-end.</p>
+              <p style="font-size:.95rem; color: var(--muted); line-height:1.55;">Digital vault ledger with dual-custody reconciliation and scheduled/surprise audit workflows - every packet traceable end-to-end.</p>
               <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
                 <button type="button" class="deep-btn" onclick="openDeepDive('slide-vault','slide-neo')" data-tooltip="Open the full Vaulting deep-dive deck">🔐 Vaulting →</button>
                 <button type="button" class="deep-btn" onclick="openDeepDive('slide-types','slide-neo')" data-tooltip="Open the full Auditing deep-dive deck">📋 Auditing →</button>
@@ -10348,8 +10367,8 @@
             </div>
             <div style="flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;">
               <h4 style="font-weight:700; font-size:1.18rem; color: var(--paper); margin-bottom:8px; line-height:1.3;">Inconsistent valuation &amp; purity checks</h4>
-              <p style="font-size:.95rem; color: var(--muted); line-height:1.55;">Direct IoT scale and XRF hardware integration (Kidimeter) plus live IBJA rate feeds — defensible, tamper-resistant valuations every time.</p>
-              <span class="card-pill" style="color:var(--copper); background:rgba(0,47,177,.08); border:1px solid rgba(0,47,177,.18);" data-tooltip="Valuation locked to live IBJA spot rates, refreshed every cycle — no stale or manually-keyed gold prices">Live IBJA rate feed</span>
+              <p style="font-size:.95rem; color: var(--muted); line-height:1.55;">Direct IoT scale and XRF hardware integration (Kidimeter) plus live IBJA rate feeds - defensible, tamper-resistant valuations every time.</p>
+              <span class="card-pill" style="color:var(--copper); background:rgba(0,47,177,.08); border:1px solid rgba(0,47,177,.18);" data-tooltip="Valuation locked to live IBJA spot rates, refreshed every cycle - no stale or manually-keyed gold prices">Live IBJA rate feed</span>
             </div>
           </div>
 
@@ -10373,12 +10392,12 @@
         </div>
 
         <div class="fragment f-up" style="margin-top:4px; padding-top: 24px; border-top: 1px solid var(--line-soft);">
-          <p class="footer-note">FinnOne Neo® doesn't just process gold loans — it closes the exact gaps CIBIL and Experian flag as the market's next risk frontier.</p>
+          <p class="footer-note">FinnOne Neo® doesn't just process gold loans - it closes the exact gaps CIBIL and Experian flag as the market's next risk frontier.</p>
         </div>
       </div>
 
           </section>
-    <!-- ════════════════════════════════════════════════════════ SLIDE 9 — WHY NOW ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 9 - WHY NOW ════════════════════════════════════════════════════════ -->
     <section class="slide" data-title="Why Now" id="slide-whynow">
       <div class="margin-rule"></div>
       <div class="stage-top">
@@ -10427,14 +10446,14 @@
 
         <div class="cl-wrap fragment f-up">
           <div class="cl-head">
-            <span class="cl-legend" style="font-weight:700; color:var(--muted-dim); text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; border-top:1px solid var(--line-soft); padding-top:14px; width:100%;">RBI Directions, Jun 2025 — <b style="color:var(--paper);">Above:</b> Regulatory Event &middot; <b style="color:var(--paper);">Below:</b> FinnOne Neo Controls</span>
+            <span class="cl-legend" style="font-weight:700; color:var(--muted-dim); text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; border-top:1px solid var(--line-soft); padding-top:14px; width:100%;">RBI Directions, Jun 2025 - <b style="color:var(--paper);">Above:</b> Regulatory Event &middot; <b style="color:var(--paper);">Below:</b> FinnOne Neo Controls</span>
           </div>
 
           <div class="cl-track">
             <div class="cl-rail"></div>
             <div class="cl-terminus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg></div>
 
-            <!-- STATION 1 — Apr 2025 -->
+            <!-- STATION 1 - Apr 2025 -->
             <div class="cl-col">
               <div class="cl-above">
                 <div class="glass-card cl-card event">
@@ -10452,7 +10471,7 @@
               </div>
             </div>
 
-            <!-- STATION 2 — Jun 2025 -->
+            <!-- STATION 2 - Jun 2025 -->
             <div class="cl-col">
               <div class="cl-above">
                 <div class="glass-card cl-card event">
@@ -10474,7 +10493,7 @@
               </div>
             </div>
 
-            <!-- STATION 3 — Sep 2025 -->
+            <!-- STATION 3 - Sep 2025 -->
             <div class="cl-col">
               <div class="cl-above">
                 <div class="glass-card cl-card event">
@@ -10492,7 +10511,7 @@
               </div>
             </div>
 
-            <!-- STATION 4 — Apr 2026, NOW LIVE -->
+            <!-- STATION 4 - Apr 2026, NOW LIVE -->
             <div class="cl-col is-now">
               <div class="cl-above">
                 <div class="glass-card cl-card event">
@@ -10519,7 +10538,7 @@
         <p style="font-size:.7rem; color:var(--muted-dim); line-height:1.4; text-align:center; margin-top:2px;">Source: RBI (Lending Against Gold and Silver Collateral) Directions, 2025, effective Apr 1, 2026 &middot; ICRA organised gold loan market sizing</p>
       </div>
 </section>
-    <!-- ════════════════════════════════════════════════════════ SLIDE 9 — CLOSING ════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════ SLIDE 9 - CLOSING ════════════════════════════════════════════════════════ -->
     <section class="slide" data-title="Future Ready" id="slide-close">
       <div class="stage-top">
         <div class="brand"> <img alt="Nucleus Software"
@@ -10551,7 +10570,7 @@
         <div class="close-footer fragment"> <span><img alt="Nucleus Software"
               src="data:image/png;base64,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"
               style="height: 16px; vertical-align: middle;" /></span><span>·</span>
-          <span>www.nucleussoftware.com</span><span>·</span> <span>Confidential — For Authorized Recipients Only</span>
+          <span>www.nucleussoftware.com</span><span>·</span> <span>Confidential - For Authorized Recipients Only</span>
         </div>
       </div>
     </section>
@@ -10588,7 +10607,7 @@
 
   <script>
     /* ═══════════════════════════════════════════════════════════
-       STAMP RENDERER — the recurring assay-mark signature
+       STAMP RENDERER - the recurring assay-mark signature
        ═══════════════════════════════════════════════════════════ */
     function stampSVG(label) {
       var ticks = '';
@@ -10604,7 +10623,7 @@
     });
 
     /* ═══════════════════════════════════════════════════════════
-       CORE NAVIGATION — click-through fragment stepping
+       CORE NAVIGATION - click-through fragment stepping
        Right arrow reveals the next hidden box; once a slide's
        boxes are all shown, right arrow advances to the next slide.
        ═══════════════════════════════════════════════════════════ */
@@ -10699,7 +10718,7 @@
     }
 
     // Deep-link target captured up front, before anything strips or acts on
-    // it — read once here so later code (end of this script block) can
+    // it - read once here so later code (end of this script block) can
     // decide entrance behavior without re-reading a URL that may have
     // already been cleaned up.
     var DEEP_LINK_HASH = location.hash ? location.hash.slice(1) : null;
@@ -10778,7 +10797,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       SLIDE 3 — MARKET GROWTH CHART (indexed, real CIBIL series)
+       SLIDE 3 - MARKET GROWTH CHART (indexed, real CIBIL series)
        ═══════════════════════════════════════════════════════════ */
     var MKT_IDX = [100, 110, 124, 136, 151, 162, 176, 188, 206, 227, 250, 265, 288, 311, 342, 379];
     var ALL_LBL = ['Mar\'22', 'Jun\'22', 'Sep\'22', 'Dec\'22',
@@ -10812,7 +10831,7 @@
       }
 
       // Growth % from base
-      var growthPct = val > 100 ? '+' + Math.round((val - 100) / 100 * 100) + '%' : '—';
+      var growthPct = val > 100 ? '+' + Math.round((val - 100) / 100 * 100) + '%' : ' - ';
 
       tip.innerHTML =
         '<div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:#056189;margin-bottom:4px;font-weight:600">' + lbl + '</div>' +
@@ -11100,7 +11119,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       SLIDE 6 — RISK & STRESS SIGNALS CHART (real CIBIL data)
+       SLIDE 6 - RISK & STRESS SIGNALS CHART (real CIBIL data)
        Source: TransUnion CIBIL "Gold Loan Landscape Report", p.21
        (Jan-Jun 2025 originations, Ever 60+ in 12MOB by live GL count)
        ═══════════════════════════════════════════════════════════ */
@@ -11210,7 +11229,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       SLIDE 5 — TIMELINE DATA & BUILD
+       SLIDE 5 - TIMELINE DATA & BUILD
        ═══════════════════════════════════════════════════════════ */
     var TL_DATA = [
       {
@@ -11322,7 +11341,7 @@
         ],
         regs: [
           'Single borrower gold collateral limit set',
-          'Banks, NBFCs, co-ops — <b>uniform gold norms</b>',
+          'Banks, NBFCs, co-ops - <b>uniform gold norms</b>',
           '<b>22-karat benchmark</b>; purity certificates mandatory',
           '<b>IBJA / SEBI-exchange rate</b> mandated for valuation (lower of 30-day avg or prior close)',
           'Borrower <b>repayment capacity</b> appraisal now mandatory'
@@ -11354,7 +11373,7 @@
       var d = TL_DATA[i];
 
       // Header tag
-      var infoHtml = '<div class="tl-year-tag" style="background:' + d.color + '; font-size: 1.05rem; padding: 8px 20px; flex-shrink:0;">' + d.year + ' — ' + d.title + '</div>';
+      var infoHtml = '<div class="tl-year-tag" style="background:' + d.color + '; font-size: 1.05rem; padding: 8px 20px; flex-shrink:0;">' + d.year + ' - ' + d.title + '</div>';
 
       // Market Trends Sub-Box
       infoHtml += '<div style="margin-top: 16px; min-height: 0;">';
@@ -11363,7 +11382,7 @@
       d.bullets.forEach(function (b) { infoHtml += '<li style="font-size: 1rem;">' + b + '</li>'; });
       infoHtml += '</ul></div>';
 
-      // Regulatory Directives — compact numbered single-line rows
+      // Regulatory Directives - compact numbered single-line rows
       if (d.regs && d.regs.length > 0) {
         infoHtml += '<div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line);">';
         infoHtml += '<h4 class="tl-col-title" style="font-size: 0.72rem; margin-bottom: 10px; color: #F43F5E; letter-spacing: 0.12em; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">';
@@ -11388,7 +11407,7 @@
     // Illustrative FY-end market capitalisation of a listed gold loan NBFC
     // (approximate, derived from public share-price × shares-outstanding
     // snapshots). These figures were NOT pulled from a single certified
-    // source spanning every year — cross-check against BSE/NSE annual data
+    // source spanning every year - cross-check against BSE/NSE annual data
     // or the company's own investor-relations page before using in a real
     // presentation.
     function renderTlMarketCapChart(i) {
@@ -11446,7 +11465,7 @@
         svg += '<text x="' + (padL - 16) + '" y="' + (gy + 5) + '" fill="var(--muted-dim)" font-size="13" font-family="var(--mono)" font-weight="600" text-anchor="end">₹' + (min + g * (max - min) / 4) + 'K</text>';
       }
 
-      // Coordinate array mapping — always plot ALL points for full trend line
+      // Coordinate array mapping - always plot ALL points for full trend line
       var allPts = [];
       for (var p = 0; p < prices.length; p++) {
         var px = padL + p * stepX;
@@ -11510,7 +11529,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       SLIDE 6 — OPERATING MODEL: STAGES, PERSONAS & INTEGRATIONS
+       SLIDE 6 - OPERATING MODEL: STAGES, PERSONAS & INTEGRATIONS
        ═══════════════════════════════════════════════════════════ */
 
     const CUSTOM_LOGOS = {
@@ -11527,6 +11546,8 @@
       'ecm.finnone.internal': 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMCIgZmlsbD0iIzBBMTEyOCIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1OCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjI2IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5FQ008L3RleHQ+Cjwvc3ZnPgo=',
       'audit.finnone.internal': 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMCIgZmlsbD0iIzBBMTEyOCIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1OCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjIwIiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BVURJVDwvdGV4dD4KPC9zdmc+Cg==',
       'vault.finnone.internal': 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMCIgZmlsbD0iIzBBMTEyOCIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1OCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjIwIiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WQVVMVDwvdGV4dD4KPC9zdmc+Cg==',
+      'collateral.finnone.internal': 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMCIgZmlsbD0iIzBBMTEyOCIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1OCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DT0xMPC90ZXh0Pgo8L3N2Zz4K',
+      'auction.finnone.internal': 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIyMCIgZmlsbD0iIzBBMTEyOCIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1OCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BVUNUPC90ZXh0Pgo8L3N2Zz4K',
       'sherlock.experian.com': 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNzYiIHdpZHRoPSIyMDAiIGhlaWdodD0iNzYiPgogIDx0ZXh0IHg9IjgiIHk9IjM4IiBmb250LWZhbWlseT0iQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjYwMCIgZm9udC1zaXplPSIzNCIgZmlsbD0iIzU4NTk1QiI+c2hlcmxvY2s8L3RleHQ+CiAgPGNpcmNsZSBjeD0iNzAiIGN5PSIyMS41IiByPSI0LjYiIGZpbGw9IiNGNTgyMjAiLz4KICA8cmVjdCB4PSI4IiB5PSI1MCIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiByeD0iMyIgZmlsbD0iI0Y1ODIyMCIvPgogIDx0ZXh0IHg9IjIxIiB5PSI2OSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjE5IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5lPC90ZXh0PgogIDx0ZXh0IHg9IjQwIiB5PSI2OCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjE2IiBsZXR0ZXItc3BhY2luZz0iMC44IiBmaWxsPSIjRjU4MjIwIj5ERVRFQ1RJT048L3RleHQ+Cjwvc3ZnPgo=',
       'mt.com': 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgdmlld0JveD0iMCAwIDIzMy44NTgwOSAxNDUuMzQ5ODciCiAgIGhlaWdodD0iMTQ1LjM0OTg3IgogICB3aWR0aD0iMjMzLjg1ODA5IgogICB4bWw6c3BhY2U9InByZXNlcnZlIgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcyIj48bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGE4Ij48cmRmOlJERj48Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+PGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+PGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPjxkYzp0aXRsZT48L2RjOnRpdGxlPjwvY2M6V29yaz48L3JkZjpSREY+PC9tZXRhZGF0YT48ZGVmcwogICAgIGlkPSJkZWZzNiIgLz48ZwogICAgIHRyYW5zZm9ybT0ibWF0cml4KDEuMjUsMCwwLC0xLjI1LC0zLjg2ODE2MjUsMTkzLjg1NjI1KSIKICAgICBpZD0iZzEwIj48ZwogICAgICAgdHJhbnNmb3JtPSJzY2FsZSgwLjEsMC4xKSIKICAgICAgIGlkPSJnMTIiPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMTYiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Ik0gOTAyLjIxOSwxMDkzLjY4IDU5NS44Miw3ODcuMjc3IGwgMTU4LjI4MiwxMzAuNjg4IC0xOC44NzksMCAxMy43OTMsOC43MTUgMTMuNzk3LDEwLjg5IDUuODA4LDEzLjc5NyAwLC0yNC42ODcgMTMzLjU5OCwxNjciIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgxOCIKICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzQ0OTIyNjtzdHJva2Utd2lkdGg6MC4wMDI4MjM1NztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoyLjYxMzEwMDA1O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgICBkPSJNIDkwMi4yMTksMTA5My42OCA1OTUuODIsNzg3LjI3NyBsIDE1OC4yODIsMTMwLjY4OCAtMTguODc5LDAgMTMuNzkzLDguNzE1IDEzLjc5NywxMC44OSA1LjgwOCwxMy43OTcgMCwtMjQuNjg3IDEzMy41OTgsMTY3IHoiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgyMCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA1NzYuMjE5LDgwNi44NzkgMTMzLjU5NCwxMTEuMDg2IC0xNi43LDAgMTYuNywxMC44OSA1Myw1My4wMDggNS44MDgsMTMuNzkzIDAsLTI0LjY4NyAxMTMuOTkyLDE0MS41ODEgLTMwNi4zOTQsLTMwNS42NzEiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgyMiIKICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzQ0OTIyNjtzdHJva2Utd2lkdGg6MC4wMDI4MjM1NztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoyLjYxMzEwMDA1O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgICBkPSJtIDU3Ni4yMTksODA2Ljg3OSAxMzMuNTk0LDExMS4wODYgLTE2LjcsMCAxNi43LDEwLjg5IDUzLDUzLjAwOCA1LjgwOCwxMy43OTMgMCwtMjQuNjg3IDExMy45OTIsMTQxLjU4MSAtMzA2LjM5NCwtMzA1LjY3MSB6IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMjQiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNTM0LjgzMiw4NDguMjY2IDg1LjY3Miw2OS42OTkgLTEwLjg4NywwIDguNzExLDUuODEyIDE0NC40ODUsMTQ0LjQ4MyA1LjgwOCw4LjcyIDAsLTE0LjUzIDY4Ljk3Nyw4OS4zMSAtMzAyLjc2NiwtMzAzLjQ5NCIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDI2IgogICAgICAgICBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTojNDQ5MjI2O3N0cm9rZS13aWR0aDowLjAwMjgyMzU3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjIuNjEzMTAwMDU7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICAgIGQ9Im0gNTM0LjgzMiw4NDguMjY2IDg1LjY3Miw2OS42OTkgLTEwLjg4NywwIDguNzExLDUuODEyIDE0NC40ODUsMTQ0LjQ4MyA1LjgwOCw4LjcyIDAsLTE0LjUzIDY4Ljk3Nyw4OS4zMSAtMzAyLjc2NiwtMzAzLjQ5NCB6IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMjgiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNTEyLjMyLDg2Ny44NzEgNjMuODk5LDUwLjA5NCAtNy45ODksMCA1LjA4MywyLjkwNiAxODkuNSwxODkuNTA5IDcuOTg4LDEwLjg5IDAsLTEwLjg5IDQ3LjkyMiw2My44OSBMIDUxMi4zMiw4NjcuODcxIiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMzAiCiAgICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiM0NDkyMjY7c3Ryb2tlLXdpZHRoOjAuMDAyODIzNTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6Mi42MTMxMDAwNTtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgICAgZD0ibSA1MTIuMzIsODY3Ljg3MSA2My44OTksNTAuMDk0IC03Ljk4OSwwIDUuMDgzLDIuOTA2IDE4OS41LDE4OS41MDkgNy45ODgsMTAuODkgMCwtMTAuODkgNDcuOTIyLDYzLjg5IEwgNTEyLjMyLDg2Ny44NzEgWiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDMyIgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDYxOC4zMjgsNzY0Ljc3IDE0MS41ODIsMTE2Ljg5NCA4LjcxMSwxOS42MDIgMCwtMTYuNjk2IDM1LjU3OCwzMy4zOTUgLTEzLjc5NywwIDIyLjUxMiwxMy43OTcgTCA5MjQsMTA3MS4xNyA2MTguMzI4LDc2NC43NyIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDM0IgogICAgICAgICBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTojNDQ5MjI2O3N0cm9rZS13aWR0aDowLjAwMjgyMzU3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjIuNjEzMTAwMDU7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICAgIGQ9Im0gNjE4LjMyOCw3NjQuNzcgMTQxLjU4MiwxMTYuODk0IDguNzExLDE5LjYwMiAwLC0xNi42OTYgMzUuNTc4LDMzLjM5NSAtMTMuNzk3LDAgMjIuNTEyLDEzLjc5NyBMIDkyNCwxMDcxLjE3IDYxOC4zMjgsNzY0Ljc3IFoiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgzNiIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA2MzcuMjAzLDc0Mi45ODQgMTI1LjYxLDEwNS4yODIgNS44MDgsMTMuNzk3IDAsLTE2LjcgNzEuODgzLDcyLjYwMiAtMTMuNzk3LDAgMTkuNjA2LDEwLjg5IDk3LjI4OSwxMTkuODA1IC0zMDYuMzk5LC0zMDUuNjc2IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMzgiCiAgICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiM0NDkyMjY7c3Ryb2tlLXdpZHRoOjAuMDAyODIzNTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6Mi42MTMxMDAwNTtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgICAgZD0ibSA2MzcuMjAzLDc0Mi45ODQgMTI1LjYxLDEwNS4yODIgNS44MDgsMTMuNzk3IDAsLTE2LjcgNzEuODgzLDcyLjYwMiAtMTMuNzk3LDAgMTkuNjA2LDEwLjg5IDk3LjI4OSwxMTkuODA1IC0zMDYuMzk5LC0zMDUuNjc2IHoiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGg0MCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA2NTYuODA5LDcyMy4zODMgMTA2LjAwNCw4Ni40MDIgNS44MDgsMTMuNzkzIDAsLTEzLjc5MyAxMDguMTg0LDEwOC4xOCAtNy45ODksMCAxMy43OTcsOC43MTUgODMuNSwxMDIuMzcgLTMwOS4zMDQsLTMwNS42NjciIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGg0MiIKICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzQ0OTIyNjtzdHJva2Utd2lkdGg6MC4wMDI4MjM1NztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoyLjYxMzEwMDA1O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgICBkPSJtIDY1Ni44MDksNzIzLjM4MyAxMDYuMDA0LDg2LjQwMiA1LjgwOCwxMy43OTMgMCwtMTMuNzkzIDEwOC4xODQsMTA4LjE4IC03Ljk4OSwwIDEzLjc5Nyw4LjcxNSA4My41LDEwMi4zNyAtMzA5LjMwNCwtMzA1LjY2NyB6IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDQiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNjc5LjMxNiw3MDMuNzgxIDg2LjQwMyw2OS42OTkgMi45MDIsMTAuODkxIDAsLTEwLjg5MSAxNDcuMzkxLDE0NC40ODUgLTExLjYxNywwIDE0LjUyMyw4LjcxNSA2Ni43OTcsODMuNSAtMzA2LjM5OSwtMzA2LjM5OSIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDQ2IgogICAgICAgICBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTojNDQ5MjI2O3N0cm9rZS13aWR0aDowLjAwMjgyMzU3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjIuNjEzMTAwMDU7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICAgIGQ9Im0gNjc5LjMxNiw3MDMuNzgxIDg2LjQwMyw2OS42OTkgMi45MDIsMTAuODkxIDAsLTEwLjg5MSAxNDcuMzkxLDE0NC40ODUgLTExLjYxNywwIDE0LjUyMyw4LjcxNSA2Ni43OTcsODMuNSAtMzA2LjM5OSwtMzA2LjM5OSB6IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDgiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNjk4LjkyMiw2ODEuMjcgNjYuNzk3LDUzLjAwMyAyLjkwMiwxMC44OTUgMCwtMTAuODk1IDE4My42OTUsMTgzLjY5MiAtOC43MTQsMCAxMy43OTYsOC43MTUgNDcuMTkyLDYwLjk5MiBMIDY5OC45MjIsNjgxLjI3IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoNTAiCiAgICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiM0NDkyMjY7c3Ryb2tlLXdpZHRoOjAuMDAyODIzNTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6Mi42MTMxMDAwNTtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgICAgZD0ibSA2OTguOTIyLDY4MS4yNyA2Ni43OTcsNTMuMDAzIDIuOTAyLDEwLjg5NSAwLC0xMC44OTUgMTgzLjY5NSwxODMuNjkyIC04LjcxNCwwIDEzLjc5Niw4LjcxNSA0Ny4xOTIsNjAuOTkyIEwgNjk4LjkyMiw2ODEuMjcgWiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDUyIgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDcyMC43MDMsNjYxLjY2OCA0NS4wMTYsMzYuMzA1IDIuOTAyLDguNzExIDAsLTguNzExIDIxOS4yNzQsMjE5Ljk5MiAtNS4wODYsMCA3Ljk4OCwyLjkwNiAzNi4zMDMsNDcuMTk1IC0zMDYuMzk3LC0zMDYuMzk4IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoNTQiCiAgICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiM0NDkyMjY7c3Ryb2tlLXdpZHRoOjAuMDAyODIzNTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6Mi42MTMxMDAwNTtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgICAgZD0ibSA3MjAuNzAzLDY2MS42NjggNDUuMDE2LDM2LjMwNSAyLjkwMiw4LjcxMSAwLC04LjcxMSAyMTkuMjc0LDIxOS45OTIgLTUuMDg2LDAgNy45ODgsMi45MDYgMzYuMzAzLDQ3LjE5NSAtMzA2LjM5NywtMzA2LjM5OCB6IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoNTYiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNzQwLjMwNSw2MzkuODg3IDI1LjQxNCwyMS43ODEgMi45MDIsNS44MDkgMCwtNS44MDkgMjU4LjQ3OSwyNTYuMjk3IC01LjgxLDAgNS44MSwyLjkwNiAxOS42LDI0LjY4OCAtMzA2LjM5NSwtMzA1LjY3MiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDU4IgogICAgICAgICBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTojNDQ5MjI2O3N0cm9rZS13aWR0aDowLjAwMjgyMzU3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjIuNjEzMTAwMDU7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICAgIGQ9Im0gNzQwLjMwNSw2MzkuODg3IDI1LjQxNCwyMS43ODEgMi45MDIsNS44MDkgMCwtNS44MDkgMjU4LjQ3OSwyNTYuMjk3IC01LjgxLDAgNS44MSwyLjkwNiAxOS42LDI0LjY4OCAtMzA2LjM5NSwtMzA1LjY3MiB6IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoNjAiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNDkyLjcxOSw4OTAuMzc1IDM2LjMwNCwyNy41OSAtMi45MDYsMCAyNDQuNjg0LDI0NC42ODUgMCwtNS4wOCAyNS40MSwzNi4zIC0zMDMuNDkyLC0zMDMuNDk1IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoNjIiCiAgICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiM0NDkyMjY7c3Ryb2tlLXdpZHRoOjAuMDAyODIzNTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6Mi42MTMxMDAwNTtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgICAgZD0ibSA0OTIuNzE5LDg5MC4zNzUgMzYuMzA0LDI3LjU5IC0yLjkwNiwwIDI0NC42ODQsMjQ0LjY4NSAwLC01LjA4IDI1LjQxLDM2LjMgLTMwMy40OTIsLTMwMy40OTUgeiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDY0IgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDU1My43MDcsODI2LjQ4NCAxMTEuODE2LDkxLjQ4MSAtMTMuNzk2LDAgMTAuODksOC43MTUgMTAwLjE5Niw5Ny4yOSA3Ljk4OCwxMC44OSAwLC0xNi43IDg5LjMwNCwxMTQgLTMwNi4zOTgsLTMwNS42NzYiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGg2NiIKICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzQ0OTIyNjtzdHJva2Utd2lkdGg6MC4wMDI4MjM1NztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoyLjYxMzEwMDA1O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgICBkPSJtIDU1My43MDcsODI2LjQ4NCAxMTEuODE2LDkxLjQ4MSAtMTMuNzk2LDAgMTAuODksOC43MTUgMTAwLjE5Niw5Ny4yOSA3Ljk4OCwxMC44OSAwLC0xNi43IDg5LjMwNCwxMTQgLTMwNi4zOTgsLTMwNS42NzYgeiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDY4IgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDQ5MC43MDcsNjM4LjU0MyA5MTMuMTgzLDkxMi4yOTcgLTQuMzUsMCAtOTEwLjk5NywtOTEwLjEyMSAyLjE2NCwtMi4xNzYiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGg3MCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA0NjguOTM0LDY1NS4yNDIgODk1LjU5Niw4OTUuNTk4IC00LjM2LDAgLTg5My40MTYsLTg5My40MjIgMi4xOCwtMi4xNzYiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGg3MiIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA0NDkuMzI0LDY3Ny4wMiA4NzMuODE2LDg3My44MiAtNC4zNSwwIC04NzEuNjM4LC04NzEuNjM3IDIuMTcyLC0yLjE4MyIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDc0IgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDQyOS43MTksNzAyLjQzOCA4NDkuMDcxLDg0OC40MDIgLTQuMzUsLTAuMDEgLTg0Ni44ODksLTg0Ni4yMTcgMi4xNjgsLTIuMTc1IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoNzYiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNDA3LjIxMSw3MTkuMTM3IDgzMS44NzksODMxLjcwMyAtNC4zNiwwIC04MjkuNjkxLC04MjkuNTI3IDIuMTcyLC0yLjE3NiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDc4IgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDM4NS40MzQsNzM4LjczOCA4MTIuMDk2LDgxMi4xMDIgLTQuMzUsMCAtODA5LjkyNiwtODA5LjkxOCAyLjE4LC0yLjE4NCIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDgwIgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDM2NS44MjgsNzYwLjUyNyA3OTAuMzIyLDc5MC4zMTMgLTQuMzYsMCAtNzg4LjEzOCwtNzg4LjE0OSAyLjE3NiwtMi4xNjQiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGg4MiIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSAzNDMuMzI0LDc4MC4xMjUgNzcwLjcxNiw3NzAuNzE1IC00LjM2LC0wLjAxIC03NjguNTM1LC03NjguNTI1IDIuMTc5LC0yLjE4IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoODQiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gMzIzLjcxNSw4MDIuNjI5IDc0OC44MDUsNzQ4LjIxMSAtNC4zNCwwIC03NDYuNjI1LC03NDYuMDI3IDIuMTYsLTIuMTg0IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoODYiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gMzA0Ljg0NCw4MjIuMjM4IDcyOC41OTYsNzI4LjYwMiAtNC4zNSwwIC03MjYuNDI2LC03MjYuNDI2IDIuMTgsLTIuMTc2IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoODgiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gMjgyLjMyOCw4NDEuODQgNzA5LjAwNCw3MDkgLTQuMzU1LDAgLTcwNi44MjEsLTcwNi44MiAyLjE3MiwtMi4xOCIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDkwIgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDI2Mi43Myw4NjMuNjE3IDY4Ny4yMTUsNjg3LjIyMyAtNC4zNTksMCAtNjg1LjAyNywtNjg1LjAzOSAyLjE3MSwtMi4xODQiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGg5MiIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSAyNDAuMjIzLDg4My4yMjcgNjY3LjYwOSw2NjcuNjIzIC00LjM1OSwtMC4wMSAtNjY1LjQzLC02NjUuNDM0IDIuMTgsLTIuMTc5IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoOTQiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gMjIxLjM0NCw5MDUuNzMgNjQ1LjEwNSw2NDUuMTEgLTQuMzU5LDAgLTY0Mi45MywtNjQyLjkzIDIuMTg0LC0yLjE4IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoOTYiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gMTk4LjgyOCw5MjUuMzM2IDYyNi4wMjcsNjI1LjUwNCAtNC4zNDcsMCAtNjIzLjg0LC02MjMuMzI0IDIuMTYsLTIuMTgiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGg5OCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSAxNzkuMjM0LDk0NC4yMTkgNjA2LjYyNSw2MDYuNjIxIC00LjM2MywwIC02MDQuNDQxLC02MDQuNDQ5IDIuMTc5LC0yLjE3MiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDEwMCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSAxNTYuNzE5LDk2Ni43MjMgNTg0LjYwOSw1ODQuMTE3IC00LjM0NCwwIC01ODIuNDMzLC01ODEuOTQyIDIuMTY4LC0yLjE3NSIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDEwMiIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSAxMzcuODQ4LDk4Ni4zMjggNTY0LjUxMSw1NjQuNTEyIC00LjM1NSwwIC01NjIuMzMyLC01NjIuMzM2IDIuMTc2LC0yLjE3NiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDEwNCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA1MTAuMzE2LDYxNi4wMzUgOTM0LjgwNCw5MzQuODA1IC00LjM2LDAgLTkzMi42MjMsLTkzMi42MjkgMi4xNzksLTIuMTc2IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMTA2IgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDUyOS45MTgsNTkzLjUyNyA5NTcuMzEyLDk1Ny4zMTMgLTQuMzUsMCAtOTU1LjEzOCwtOTU1LjEzNyAyLjE3NiwtMi4xNzYiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgxMDgiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNTUyLjQzNCw1NzQuNjQ1IDk3Ni4xNzYsOTc2LjE5NSAtNC4zNSwwIC05NzQuMDEsLTk3NC4wMTIgMi4xODQsLTIuMTgzIiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMTEwIgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDU3Mi4wMzEsNTUyLjE0MSA5OTguNjk5LDk5OC42OTkgLTQuMzYsMCAtOTk2LjUxNSwtOTk2LjUxNiAyLjE3NiwtMi4xODMiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgxMTIiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNTkzLjgwOSw1MzIuNTM1IDEwMTguMzAxLDEwMTguMzA1IC00LjM1LDAgLTEwMTYuMTI3LC0xMDE2LjEyNSAyLjE3NiwtMi4xOCIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDExNCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA2MTMuNDE4LDUxMC4wMzEgMTA0MC44MTIsMTA0MC44MDkgLTQuMzYsMCAtMTAzOC42MzIsLTEwMzguNjI5IDIuMTgsLTIuMTgiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgxMTYiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNjMzLjAxNiw0OTEuMTUyIDEwNjAuNDc0LDEwNTkuNjg4IC00LjM1LDAgLTEwNTguMjkyLC0xMDU3LjUwOCAyLjE2OCwtMi4xOCIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDExOCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA2NTUuNTI3LDQ3MS41NTEgMTA3OS4yOTMsMTA3OS4yODkgLTQuMzYsMCAtMTA3Ny4xMDgsLTEwNzcuMTEgMi4xNzUsLTIuMTc5IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMTIwIgogICAgICAgICBzdHlsZT0iZmlsbDojNDQ5MjI2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJNIDY3NC40MDIsNDQ5LjAzNSAxNzc2LjIsMTU1MC44NCBsIC00LjM2LDAgLTEwOTkuNjEzLC0xMDk5LjYyMSAyLjE3NSwtMi4xODQiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgxMjIiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNjk2LjkxNCw0MjkuNDM0IDExMjEuMzk2LDExMjEuNDA2IC00LjM2LDAgLTExMTkuMjEyLC0xMTE5LjIyNyAyLjE3NiwtMi4xNzkiIC8+PHBhdGgKICAgICAgICAgaWQ9InBhdGgxMjQiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NDkyMjY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmUiCiAgICAgICAgIGQ9Im0gNzE2LjUyLDQwNy42NTYgMTE0My4xOCwxMTQzLjE4NCAtNC4zNiwwIC0xMTQxLC0xMTQxLjAwOCAyLjE4LC0yLjE3NiIgLz48cGF0aAogICAgICAgICBpZD0icGF0aDEyNiIKICAgICAgICAgc3R5bGU9ImZpbGw6IzQ0OTIyNjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZSIKICAgICAgICAgZD0ibSA3MzkuMDI3LDM4OC4wNTEgMTE2Mi43ODMsMTE2Mi43ODkgLTQuMzYsMCAtMTE2MC42MDIsLTExNjAuNjEgMi4xNzksLTIuMTc5IiAvPjxwYXRoCiAgICAgICAgIGlkPSJwYXRoMTI4IgogICAgICAgICBzdHlsZT0iZmlsbDojMjQ0YmE2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lIgogICAgICAgICBkPSJtIDEyOTEuMzksNjAxLjkyMiBjIDE4Ljg3LDAgMjYuMTQsMTkuNjAxIDI1LjQxLDQxLjM4MyAwLjczLDIyLjUwOCAtNi41NCw0MC42NiAtMjUuNDEsNDIuMTEzIGwgLTEwLjQ2LDAgMCwtODMuNDk2IDEwLjQ2LDAgeiBtIC0yLjkxLC0yNS40MTQgLTM1LjU4LDAgMCwxMzEuNDE4IDM1LjU4LDAgYyA0Mi4xMSwyLjE3NiA1Ni42MywtMjYuODYzIDU4LjgxLC02NC42MjEgMCwtMzQuMTI1IC0xNy40MiwtNjguMjUgLTU4LjgxLC02Ni43OTcgeiBtIC0xOTcuNDksNjguMjUgYyAtMS40NSwzOS4yMDcgLTE4Ljg3LDY3LjUyMyAtNTAuMSw2OC4yNSAtMzQuODUsLTAuNzI3IC01Mi4yNzMsLTMwLjQ5NiAtNTIuOTk1LC02OS43MDMgMC43MjIsLTM3Ljc1OCAxOS42MDUsLTY4Ljk3MyA1Mi45OTUsLTY4Ljk3MyAzMS4yMywwIDQ5LjM4LDMxLjk0NSA1MC4xLDcwLjQyNiB6IG0gLTUzLDQzLjU2MiBjIDE2LjcsLTAuNzI2IDIzLjk2LC0xNy40MjUgMjIuNTEsLTQ1LjAxNSAwLjczLC0yMy45NjEgLTUuMDgsLTQzLjU2MyAtMjIuNTEsLTQ0LjI4OSAtMTQuNTIsMC43MjYgLTIwLjMzLDIwLjMyOCAtMTguODgsNDQuMjg5IC0xLjQ1LDI2LjE0IDQuMzYsNDQuMjg5IDE4Ljg4LDQ1LjAxNSB6IG0gNDE3Ljg1LC00NC45NTcgYyAtMS40NSwzOS4yMDcgLTE4Ljg4LDY3LjUyNCAtNTAuMSw2OC4yNSAtMzQuODUsLTAuNzI2IC01Mi4yOCwtMzAuNDk2IC01MywtNjkuNzAzIDAuNzIsLTM3Ljc1OCAxOS42LC02OC45NzYgNTMsLTY4Ljk3NiAzMS4yMiwwIDQ5LjM3LDMxLjk0NSA1MC4xLDcwLjQyOSB6IG0gLTUzLDQzLjU2MyBjIDE2LjcsLTAuNzI3IDIzLjk2LC0xNy40MjYgMjIuNSwtNDUuMDE2IDAuNzMsLTIzLjk2MSAtNS4wOCwtNDMuNTYyIC0yMi41LC00NC4yODkgLTE0LjUyLDAuNzI3IC0yMC4zMywyMC4zMjggLTE4Ljg4LDQ0LjI4OSAtMS40NSwyNi4xMzcgNC4zNiw0NC4yODkgMTguODgsNDUuMDE2IHogbSAtMzAwLjIzLDIzLjE3NiAyNy41OSwwIDAsLTEwNS4yNzggMzMuNCwwIDAsLTI4LjMxNiAtNjAuOTksMCAwLDEzMy41OTQgeiBtIC0xODYuNTk4LDAgNzEuODgzLDAgMCwtMjcuNTkgLTIxLjc4MiwwIDAsLTEwNi4wMDQgLTI4LjMyLDAgMCwxMDYuMDA0IC0yMS43ODEsMCAwLDI3LjU5IHogbSAyNTguNDc4LDAgNjMuODksMCAwLC0yNC42ODQgLTM1LjU3LDAgMCwtMjUuNDE0IDM1LjU3LDAgMCwtMjQuNjg4IC0zNS41NywwIDAsLTMwLjQ5MiAzNS41NywwIDAsLTI4LjMxNiAtNjMuODksMCAwLDEzMy41OTQgeiBtIC05NDMuMTU0LDAgNzEuODgzLDAgMCwtMjcuNTkgLTE4Ljg3OSwwIDAsLTEwNi4wMDQgLTMxLjIyMywwIDAsMTA2LjAwNCAtMjEuNzgxLDAgMCwyNy41OSB6IG0gMTU4LjI4MSwwIDI4LjMyMSwwIDAsLTEwNS4yNzggMzAuNDkyLDAgMCwtMjguMzE2IC01OC44MTMsMCAwLDEzMy41OTQgeiBtIC0yMjUuMDc4LDAgNjAuOTkyLDAgMCwtMjQuNjg0IC0zMy4zOTgsMCAwLC0yNS40MTQgMzMuMzk4LDAgMCwtMjQuNjg4IC0zMy4zOTgsMCAwLC0zMC40OTIgMzMuMzk4LDAgMCwtMjguMzE2IC02MC45OTIsMCAwLDEzMy41OTQgeiBtIC03Mi42MDU0LC04My40OTcgMTkuNjAxNCw4My40OTcgMzkuMjExLDAgMCwtMTMzLjU5NCAtMjguMzIsMCAwLDk4LjAxOSAtMTkuNjAyLC05OC4wMTkgLTIxLjc4MSwwIC0yMi41MDc4LDk4LjAxOSAwLC05OC4wMTkgLTI3LjU4OTksMCAwLDEzMy41OTQgNDEuMzg2NywwIDE5LjYwMTYsLTgzLjQ5NyB6IG0gMjE3LjA5MzQsODMuNDk3IDcyLjYwNiwwIDAsLTI3LjU5IC0yMi41MDgsMCAwLC0xMDYuMDA0IC0yNy41OSwwIDAsMTA2LjAwNCAtMjIuNTA4LDAgMCwyNy41OSB6IG0gMTQ3LjM5MSwwIDYzLjg5MSwwIDAsLTI0LjY4NCAtMzUuNTc5LDAgMCwtMjUuNDE0IDM1LjU3OSwwIDAsLTI0LjY4OCAtMzUuNTc5LDAgMCwtMzAuNDkyIDM1LjU3OSwwIDAsLTI4LjMxNiAtNjMuODkxLDAgMCwxMzMuNTk0IHogbSAxMTYuODk1LC0yNC42ODQgLTEwLjg5MSwwIDAsLTMzLjUxMiAxMC44OTEsMC4xMSBjIDkuNDM3LDAgMTUuOTcyLDcuMjY1IDE2LjY5OSwxNi42OTkgLTAuNzI3LDkuNDQxIC02LjUzNSwxNi43MDMgLTE2LjY5OSwxNi43MDMgeiBtIC0xMC44OTEsLTU3LjY2NCAwLC01MS4yNDYgLTMwLjQ5NiwwIDAsMTMzLjU5NCA0Ny4xOTUsMCBjIDIxLjc4MSwwLjcyNiAzOS41ODIsLTE2LjU3OSAzOS4yMDcsLTQxLjM4NyAtMC4zMDgsLTIwLjQ0MiAtMTEuNjE3LC0zMS45NDUgLTI4LjMxNiwtMzYuMzAxIGwgMzMuMzk4LC01NS45MDYgLTMwLjQ5MiwwIC0zMC4wNTksNTEuMjQ2IC0wLjQzNywwIiAvPjwvZz48L2c+PC9zdmc+',
       'essae.com': 'data:image/webp;base64,UklGRjILAABXRUJQVlA4WAoAAAAQAAAAYwAALAAAQUxQSD0HAAABoIbt/7qm+vz/f2KAY3OdYHd3Mbvz6m5lM/CE3d2t8yzt7u7u7m6WJ+0xQQbfF78fjOmu8zoiJsCa+vrGvr0uD957/Vc88lOp3dKFi6O9/6Zcx+UrdSb161ZzwODX+Zo0odwfnZaELudZb1y8/Oid2WzO/LoqP1HNCt6SGCNbxEstpS4QpNPr9aXqFs9PxDGV51YbF7L8CcesR/5cfnJXbdvxnS7kb2KNcdOmtFQezd8ASa0ADuZ33H2e82swbEXc2I7FFa6E0Ba/ro79tVUhyQ0psmn0woRlw9sUkedC0rUyrYyf0quyhrPXU+r+V746ieh76pZGSo7fbw+yiYi+vY6rIXGkKqufZxNrfZtURXRDrLDy5Tciopx/j3VX54F2mYXeH0hIvmYl+qs+E7bLRmnbE9bdtxM9L8H4jk0ld1+3EVwo+r12kvP5urUvnERZsSEek8bbKL2DEoL/6E/0Sg9AHeegh7VkEEKXfaMLWsZkyzEfXrVw07Mchp6V4MlNn4nocmlBqHiHiHLWeLtIr6PX6/XFaxma9NUDKJdKNF8EAMWUnA0yAK2/kH0Q2ALJztlgO76aUlwJSLoVVsYxQeC0/Y+IvrYFgF42IrKOEHn2dLPZbM74bMnOagBgopMoBlzdncEAZBuIshtwUPllK05AKQlc77VOIqJTKib0JhHRtYKM/g0R0dOiPHctBkB5hIg2enHEMn4AfG8SOaYrOPJKWo679T4xL8KYPt+Z5QKjPsfYh3sgClBfJKKvy0pLcK17R0Qfp+gEeLZwKmPWA1DuJTYarLieoWO89+ONRqMxesLqhOSqLsj5blUzf8GFmYgo58kcg9YTqmiLG5GvGXtXDhI4qTyzHi5FEfA6zhBR1o3RxUXG7y5DRJ/ODYkQ3BK8y/Ta/ZncqP2Fsf5q4B7g5OSOO8PJI3K8HOkNQL7FBZH9Xg+lCymsxbwLf9odn+xutLcx9M3CtXPIQ+XNroisS1QAWn10RfTZJGOkykueZhP9e3B4m3Q3hpB7FnteSNEf3aCsrgCU0yxu0J81AWinpjuJHEfreEFvdmMwx/qrgRvVxWgcPi/eQ1B0vGJ1RQeUADQxj+2uaIUIxVwbEdHpCMC9VlbG0RfuewoI6H3kvYsXYQAgRMac/+riggaG/4iIvrZEbqp/ZGj0DwKo6656k8OY9QwAn+YbM5zM4yBhObGPgnIV8oSzU/6jAFLRmZ+J6F2kC0BRPtFKRNd9VKc5F9VMkTQ3ZOs4KSXd2+8ZRbDEAIppDqKrWsArSGAA701EtEuuvsi5UoBpmOUG2mczjnkyt87nSqYAUPV6Yx6iLORcLALtL5fhoXcO2aMh38NJKQZAWux0J+AyQ3+3F13IdMpnnPfjjUajMWZmfMKuUQDa264X5XW20V81AYxyHgznCBOc9FgHjHIw9lEyCFHpxKYXY9DuPUMZphAREHzqLLtU/DXH7VUAJpLjTJQXIBQ/T99nyQBpI+UcqCAHpFrPKStaAIo/Z+ifBcaZrz9lMN96ioxibBZDtgdrx09ac+WDc63ybe7mAVKcg+jfgxONC586bBv8AKgOOcmZtn1UTGwKZS1UAxC7/sWw700DsomIUhOrAYDKlMm4Tq+NL9mWD2mpKWazOf2TxWKx2OMBodCCt9+Jtb+d4AsAQrnkTDuxtkeD1GBlLS5lM9ZbHeSapVlEzqx7jRhINdak2ni2tPX1ZOjVwFC1aCG9Xq8vXsNgMNTvZgAAWdGOsxKSEhd1LyaBryjTY2FCUsKc9hECXAa0mpOYuKhjqABoms+KNTUMFjiAoni7CfGJifHj25ZUII8F5F7A//WC1VQ/iKqaCiUDfxL1oEl+uSg0efiwYf6e0J3SYWnrn6R6TeTWcKNCofIqT+gv6rGq3c9RYHIfPygidBrATxOoZC75AUKQFtCqIIXqAwUow8PkbvhEBgjw8w7QaQBodRFKCIGR2ryJPLqyXMC43u2mFcfMmavKMFd1Wn9p2EpVwLgI7ejhbaaUDJ3WscsItYvak5qZWgjz5o5cmewnNJvRbmA/ea+RTcdWzhMkGMXJU0T0TFTEzfaVMU9HDIpW+G8dNLgKjEle0GqmjBOl1Q14vvujoNvinxCrCDhfR3esAmT+5Q4Ho9mmvFIdbQpUuh6+uitYwyU/yIDKdweL0pYYAKpjsaaRu7rxKr6cahq1q3BCDFRHGjQ+qQHQ9/6vppmHfogal4JiO7oBoE7szmBxnQmA14HugUGhGl7ZO1WDgoPlCUaoDjesf0YLoOfh8KDgYA80jFGGjglWDGvIiONmyGRjpkmuroSrfZVFxgYuWOTVfW8QtJoRiQWFSB+eZusgubyojBd8uI0oCyh6spZYoIQHpl/0rfa8is+F6cDs7vCbNOr3qf6Y3pxT/WpyXFKl36tDv7emaviiMcYQ39l/jIkpGLYtDNMao0LC/FGtpdnd4ZVUS6gZO8kUJbbdMGWUAQBWUDggzgMAAFAUAJ0BKmQALQA+SRyMQ6KhoRbZz1QoBIS2AFWD76G7xf8Vf2k+E+pf1/705Mfz2ftftd94n90/Kr5AeYB+i39w9ID9M/c1/HfQB+pH+j/znvVf0n/M/1X3AegB/S/511gHoEfsJ6Tn/M/yfwR/tZ+4nwM/zT+vf+PNJTBGVsfgGQYM50opXFl4X1fz5QZ3AlflfyDenpDglGK0fkOKrOF3lNoXCVZK7WfrAAD+7nZ//l1PCSAIRjI1oM///WjbMkmUH7oCKfUkm14H1uiQ9fogQvXpk0+CDTb7Ms5ZkicZPddtvYvcQPmXeuezx7km7rIDeCf2v/FAuWX9fu4c+zTjJOo8pv/neeQ/vl+BMVaD5HLsLIMmHm+7Wx7X7OCUPwkHkbhXEJj5BIeDOrqfUg4bH01IIgs8d53UWWr1QXu2jq9vuivuE6x6gF8ONLKcmKF1uBPIQiFNDHb/lzCajyIClWf5ljQimZvKE0erWNKIViZC0HEX7GsbJ8i91xReVYuyCmq/38hb3aKgL+slLgxTlRpavl+3fdOiVwD7hnyozkOtnuDenF6leBUsrAFQDslPf0+JC0pwPZLER/At8xdQ1UHwZdGiKiTSCBBhL2q6JhjT6FaIo/roCQbzU2qewTdWhkrObii+p1bvhHdkL0v33vX3BMUZzxAJhiF970v/+LO+o2k9J4Op3scMPB3lQ+PLCjWwldIeoX/Fi4F/F6NOHjLwTD/4/LZ90AO/OyQSUoLy0rD+WF0yLTeN13LyK3hv9eRXeopmfikX3zHjewJkc1QTyOftLTtbIjZE6v/wxakjIWg4i/Y1Zho8AmDn9xBgAdP+xBfYE8hQwhVuBHeZcuJ8JLP95nOqrz5G9KhscpH2uIDX6w//3VUZQDvImGqgtPo/QjZCykC7ZJIATdJANt3PN1Y8umYb0MHOWKHrQ2fFiWDA7ZGrn5XB9dEq54TFYazaToEugOjsDmvso2CRivzuJVLvb5aonrjkP/P6GCNPJh6NPE2l4D6wUSedDdz4dOtA0fRkhaSwMg0Bf+3OLr5Gw0HV4jSOhme9aZTFH5MWioDpYUvSfxzF0ZK4fRa1WHXghc9ABvzpvHjyWxvtN3LCjFr80blrKARHJcUglSy2/nIWIagWPcrGF/lxOUcTFy/YTeK4qvJB+YGcb8gAz63JUIG5bXO4kXcVWHZ6Zi9hR8SLK2RT1CWtBgKXwhDc2tdNWbLUeLNAPNdAer5gvYWDrS6dRfUUiKTruyC7j0UhWdFqk0suAZMqilr8LSYhb6zIb80W0kvsEAAA',
@@ -11566,7 +11587,8 @@
         inputs: ['Physical Gold Items', 'Live Spot Rate Feed (IBJA)'],
         tasks: ['Capture Ornament Wise Detail', 'Fetch Live Gold Rate', 'Apply Negative Ornaments Master', 'Calculate Ornament Wise LTV', 'Execute Multiple Valuations', 'Capture Packet Number & Tray Number', 'Auto Weight Capture', 'Ornament Live Photo', 'Valuation Recording & Storage', 'Purity Conversion to 22K', 'Gold Rate Calculation (IBJA)', 'QR Based Packet Numbering', 'QR Based Tray Numbering', 'Silver Valuation Process', 'Density check', 'Kidimeter API call'],
         outputs: ['Certified Net Weight', 'Total Collateral Value'],
-        capabilities: ['Ornament Wise Detail', 'Weight Measurement', 'Purity Testing', 'Live Ornament Photo', 'Purity Conversion to 22K', 'Ornament Master', 'Gold Rate Master', 'Ornament Wise LTV', 'IBJA Live Rate Fetch', 'Packet Management'],
+        capabilities: ['Ornament Master', 'Gold Rate Master', 'Ornament Wise Detail', 'Weight Measurement', 'Purity Testing', 'Live Ornament Photo', 'Purity Conversion to 22K', 'Ornament Wise LTV', 'IBJA Live Rate Fetch', 'Packet Management'],
+        capabilityGroups: [{ label: 'Master', names: ['Ornament Master', 'Gold Rate Master'] }],
         gaps: ['Auto Weight Capture', 'Valuation Recording & Storage', 'QR Based Packeting'],
         modalText: "The Gold Appraiser utilizes advanced IoT integration to precisely gauge collateral metrics, logging comprehensive ornament-wise details and LTV ratios."
       },
@@ -11579,7 +11601,7 @@
         inputs: ['Collateral Value', 'Desired Tenure', 'Income/Consumption Data'],
         tasks: ['Calculate Loan Amount', 'Verify Loan Purpose', 'Product Selection', 'Scheme Selection', 'Calculate LTV on Maturity Amount', 'Configure repayment terms', 'Map fees & charges', 'Generate EMI summary'],
         outputs: ['Loan Scheme Selected', 'Finalized Repayment Plan'],
-        capabilities: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection'],
+        capabilities: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection', 'Repayment Details'],
         gaps: ['LTV on Maturity Amount'],
         modalText: "Once valued, FinnOne Neo and Branch Ops calculate eligible margins, map fees, configure repayment terms, and generate a binding EMI amortization layout."
       },
@@ -11592,7 +11614,8 @@
         inputs: ['Complete Loan File', 'Appraisal Certificate', 'KYC Report'],
         tasks: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'Account Verification (Perfios)', 'Fraud/Risk Detection (Sherlock)', 'RCU Check', 'STP Approval', 'Execute Sanction Authority Matrix'],
         outputs: ['Approve / Send Back / Reject', 'Signed Sanction Letter'],
-        capabilities: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'Approve', 'Send Back', 'Reject', 'RCU Check', 'STP Approval', 'Sanction Authority Matrix'],
+        capabilities: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'RCU Check', 'STP Approval', 'Sanction Authority Matrix', 'Provisioning Policy', 'Approve', 'Send Back', 'Reject'],
+        capabilityGroups: [{ label: 'Decision', names: ['Approve', 'Send Back', 'Reject'] }],
         gaps: [],
         modalText: "Underwriters perform final credit validations using integrated external risk tools (Experian, Sherlock) and account verification (Perfios)."
       },
@@ -11614,7 +11637,7 @@
       },
       {
         num: '06', name: 'Loan Servicing',
-        sys: { name: 'Collection Gateway', stack: [{ name: 'Cashfree', domain: 'cashfree.com' }, { name: 'Paynimo', domain: 'techprocess.co.in' }], lat: 'N/A', uptime: '99.9%', log: "CRON: Daily Accrual Run\n<span class='success'>+₹145.20 Interest Applied</span>\nWEBHOOK: EMI Collected", extra: 'Continuous LTV monitoring ensuring loan health never crosses critical risk thresholds.' },
+        sys: { name: 'Collection Gateway', stack: [{ name: 'Cashfree', domain: 'cashfree.com' }, { name: 'Paynimo', domain: 'techprocess.co.in' }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Audit', domain: 'audit.finnone.internal' }, { name: 'Collateral Management', domain: 'collateral.finnone.internal' }, { name: 'Auction', domain: 'auction.finnone.internal' }], lat: 'N/A', uptime: '99.9%', log: "CRON: Daily Accrual Run\n<span class='success'>+₹145.20 Interest Applied</span>\nWEBHOOK: EMI Collected", extra: 'Continuous LTV monitoring ensuring loan health never crosses critical risk thresholds.' },
         customer: { icon: '👤', name: 'Customer', role: 'Borrower', m1: 'Action', v1: 'Repayment', m2: 'Status', v2: 'Current' },
         ops: [{ icon: '📈', name: 'Central Ops', role: 'Monitoring', m1: 'Alerts', v1: 'LTV Drops', m2: 'Recon', v2: 'Daily', class: 'ops' }],
         token: { icon: '📊', label: 'Account Ledger' },
@@ -11638,7 +11661,7 @@
         capabilities: ['Gold Tagging & Tracking', 'Process Pledge Form'],
         gaps: [],
         isVaultStage: true,
-        modalText: "The physical collateral goes into secure, dual-custody storage — every packet racked, binned, and logged so the digital ledger matches actual vault geometry perfectly."
+        modalText: "The physical collateral goes into secure, dual-custody storage - every packet racked, binned, and logged so the digital ledger matches actual vault geometry perfectly."
       },
       {
         num: '08', name: 'Audit',
@@ -11665,7 +11688,7 @@
         outputs: ['Handover Receipt'],
         capabilities: ['Repayment & Release Letter', 'Collateral Release'],
         gaps: ['2-Factor Verification'],
-        modalText: "Full repayment triggers a secured 2FA asset handover, closing the loan lifecycle. Every account entering maturity is checked at this gate — if repaid, it exits here; if it has crossed 90 days past due, it is instead routed to the Ornament Auction stage under RBI's liquidation framework.",
+        modalText: "Full repayment triggers a secured 2FA asset handover, closing the loan lifecycle. Every account entering maturity is checked at this gate - if repaid, it exits here; if it has crossed 90 days past due, it is instead routed to the Ornament Auction stage under RBI's liquidation framework.",
         decisionFork: {
           question: 'Loan Status at Maturity',
           yesLabel: 'Repaid', yesSub: 'Dues cleared in full',
@@ -11683,8 +11706,8 @@
         tasks: ['Issue 14–30 Day Auction Notice', 'Publish Vernacular + National Press Ad', 'Fix Reserve Price (≥90% IBJA Value)', 'Conduct Auction via Empanelled Auctioneer', 'Settle Proceeds, Refund Surplus in 7 Days'],
         outputs: ['Auction Settlement Statement', 'Surplus Refund or Shortfall Write-Off'],
         capabilities: [],
-        gaps: ['Ornament Auction Process'],
-        modalText: "Auctions are run by an independent, board-approved auctioneer — the lender, its group entities, and the original gold valuer are barred from bidding. Reserve price can never fall below 90% of the IBJA market value. Any surplus after settling principal, interest, and auction costs must reach the borrower within 7 working days, or the lender pays a ₹5,000/day penalty. Any shortfall becomes an unsecured recovery claim.",
+        gaps: ['Ornament Auction Process', 'Empanelment', 'Payment Gateway', 'Auction-wise Data'],
+        modalText: "Auctions are run by an independent, board-approved auctioneer - the lender, its group entities, and the original gold valuer are barred from bidding. Reserve price can never fall below 90% of the IBJA market value. Any surplus after settling principal, interest, and auction costs must reach the borrower within 7 working days, or the lender pays a ₹5,000/day penalty. Any shortfall becomes an unsecured recovery claim.",
         isAuctionStage: true
       }
     ];
@@ -11769,29 +11792,29 @@
       '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>'
     ];
 
-    // One small themed "scene" illustration per stage — anchors the top of
+    // One small themed "scene" illustration per stage - anchors the top of
     // each Functional Capabilities column so it reads as a full, composed
     // box rather than a short list floating in empty space.
     const STAGE_SCENES = [
-      // 01 Customer Onboarding — ID card, photo, verified badge
+      // 01 Customer Onboarding - ID card, photo, verified badge
       '<svg viewBox="0 0 100 100" fill="none"><rect x="12" y="26" width="76" height="52" rx="10" fill="#FFFFFF" stroke="#0B1533" stroke-width="4"/><rect x="12" y="26" width="76" height="14" rx="7" fill="#2F6FED"/><circle cx="32" cy="60" r="13" fill="#FFD9A0" stroke="#0B1533" stroke-width="3.5"/><circle cx="32" cy="56" r="4.5" fill="#0B1533"/><path d="M23 66c1-6 5-9 9-9s8 3 9 9" stroke="#0B1533" stroke-width="3.5" stroke-linecap="round" fill="none"/><rect x="54" y="52" width="26" height="5" rx="2.5" fill="#C7D2E8"/><rect x="54" y="62" width="20" height="5" rx="2.5" fill="#C7D2E8"/><circle cx="76" cy="26" r="15" fill="#21C17C" stroke="#FFFFFF" stroke-width="3.5"/><path d="M69 26l5 5 9-10" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
-      // 02 Gold Valuation — balance scale with a gold bar
+      // 02 Gold Valuation - balance scale with a gold bar
       '<svg viewBox="0 0 100 100" fill="none"><rect x="45" y="14" width="10" height="10" rx="3" fill="#0B1533"/><line x1="50" y1="24" x2="50" y2="68" stroke="#0B1533" stroke-width="5" stroke-linecap="round"/><line x1="22" y1="36" x2="78" y2="36" stroke="#0B1533" stroke-width="5" stroke-linecap="round"/><path d="M12 36a13 17 0 0 0 26 0z" fill="#2F6FED" stroke="#0B1533" stroke-width="4" stroke-linejoin="round"/><path d="M62 36a13 17 0 0 0 26 0z" fill="#2F6FED" stroke="#0B1533" stroke-width="4" stroke-linejoin="round"/><rect x="35" y="52" width="30" height="20" rx="4" fill="#F5B93D" stroke="#0B1533" stroke-width="4"/><path d="M40 58h20M40 64h14" stroke="#C98A12" stroke-width="3" stroke-linecap="round"/><rect x="34" y="76" width="32" height="9" rx="3" fill="#0B1533"/></svg>',
-      // 03 Loan Details — document with an LTV gauge dial
+      // 03 Loan Details - document with an LTV gauge dial
       '<svg viewBox="0 0 100 100" fill="none"><rect x="14" y="14" width="46" height="62" rx="8" fill="#FFFFFF" stroke="#0B1533" stroke-width="4"/><rect x="26" y="8" width="22" height="10" rx="4" fill="#C7D2E8" stroke="#0B1533" stroke-width="3"/><line x1="22" y1="34" x2="52" y2="34" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/><line x1="22" y1="46" x2="52" y2="46" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/><line x1="22" y1="58" x2="42" y2="58" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="62" r="24" fill="#FFFFFF" stroke="#0B1533" stroke-width="4"/><path d="M70 42a20 20 0 0 1 14 34" fill="none" stroke="#F5B93D" stroke-width="7" stroke-linecap="round"/><text x="70" y="68" font-family="Arial,sans-serif" font-size="14" font-weight="800" fill="#0B1533" text-anchor="middle">75%</text></svg>',
-      // 04 Credit Approval — approval seal on a folder
+      // 04 Credit Approval - approval seal on a folder
       '<svg viewBox="0 0 100 100" fill="none"><path d="M12 34h28l8 9h38v34a5 5 0 0 1-5 5H17a5 5 0 0 1-5-5z" fill="#FFE8B8" stroke="#0B1533" stroke-width="4" stroke-linejoin="round"/><g transform="rotate(-14 68 32)"><circle cx="68" cy="32" r="20" fill="#21C17C" stroke="#0B1533" stroke-width="4"/><path d="M59 32l6 6 12-13" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></svg>',
-      // 05 Disbursement — bank, coin transfer, wallet confirmed
+      // 05 Disbursement - bank, coin transfer, wallet confirmed
       '<svg viewBox="0 0 100 100" fill="none"><path d="M16 38l16-11 16 11z" fill="#2F6FED" stroke="#0B1533" stroke-width="3.5" stroke-linejoin="round"/><rect x="16" y="38" width="32" height="26" rx="3" fill="#FFFFFF" stroke="#0B1533" stroke-width="3.5"/><line x1="23" y1="43" x2="23" y2="60" stroke="#C7D2E8" stroke-width="3.5" stroke-linecap="round"/><line x1="32" y1="43" x2="32" y2="60" stroke="#C7D2E8" stroke-width="3.5" stroke-linecap="round"/><line x1="41" y1="43" x2="41" y2="60" stroke="#C7D2E8" stroke-width="3.5" stroke-linecap="round"/><rect x="14" y="70" width="38" height="7" rx="3.5" fill="#0B1533"/><circle cx="66" cy="50" r="12" fill="#F5B93D" stroke="#0B1533" stroke-width="3.5"/><text x="66" y="55" font-family="Arial,sans-serif" font-size="13" font-weight="800" fill="#0B1533" text-anchor="middle">₹</text><path d="M78 50h10" stroke="#0B1533" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1 7"/><circle cx="86" cy="70" r="13" fill="#21C17C" stroke="#0B1533" stroke-width="3.5"/><path d="M80 70l4 4 8-9" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
-      // 06 Loan Servicing — calendar with a rising EMI trend line
+      // 06 Loan Servicing - calendar with a rising EMI trend line
       '<svg viewBox="0 0 100 100" fill="none"><rect x="14" y="22" width="64" height="54" rx="8" fill="#FFFFFF" stroke="#0B1533" stroke-width="4"/><rect x="14" y="22" width="64" height="16" rx="8" fill="#2F6FED"/><rect x="28" y="14" width="6" height="14" rx="3" fill="#0B1533"/><rect x="60" y="14" width="6" height="14" rx="3" fill="#0B1533"/><path d="M24 62l12-14 10 8 18-22" fill="none" stroke="#21C17C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="66" cy="34" r="16" fill="#F5B93D" stroke="#FFFFFF" stroke-width="3"/><text x="66" y="39" font-family="Arial,sans-serif" font-size="10.5" font-weight="800" fill="#0B1533" text-anchor="middle">EMI</text></svg>',
-      // 07 Vault — vault door with dial and rivets
+      // 07 Vault - vault door with dial and rivets
       '<svg viewBox="0 0 100 100" fill="none"><rect x="8" y="10" width="84" height="82" rx="10" fill="#C7D2E8" stroke="#0B1533" stroke-width="4"/><circle cx="50" cy="51" r="30" fill="#FFFFFF" stroke="#0B1533" stroke-width="4"/><circle cx="50" cy="51" r="30" fill="none" stroke="#0B1533" stroke-width="4"/><g stroke="#0B1533" stroke-width="4" stroke-linecap="round"><line x1="50" y1="27" x2="50" y2="75"/><line x1="26" y1="51" x2="74" y2="51"/><line x1="33" y1="34" x2="67" y2="68"/><line x1="67" y1="34" x2="33" y2="68"/></g><circle cx="50" cy="51" r="11" fill="#F5B93D" stroke="#0B1533" stroke-width="3.5"/><rect x="78" y="46" width="9" height="10" rx="2.5" fill="#0B1533"/><circle cx="20" cy="24" r="4" fill="#0B1533"/><circle cx="80" cy="24" r="4" fill="#0B1533"/><circle cx="20" cy="78" r="4" fill="#0B1533"/><circle cx="80" cy="78" r="4" fill="#0B1533"/></svg>',
-      // 08 Audit — ledger with a magnifying glass and checkmark
+      // 08 Audit - ledger with a magnifying glass and checkmark
       '<svg viewBox="0 0 100 100" fill="none"><rect x="14" y="16" width="50" height="62" rx="7" fill="#FFFFFF" stroke="#0B1533" stroke-width="4"/><rect x="26" y="10" width="26" height="10" rx="4" fill="#C7D2E8" stroke="#0B1533" stroke-width="3"/><line x1="22" y1="34" x2="56" y2="34" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/><line x1="22" y1="45" x2="56" y2="45" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/><line x1="22" y1="56" x2="44" y2="56" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/><circle cx="68" cy="62" r="17" fill="#FFFFFF" stroke="#21C17C" stroke-width="4.5"/><line x1="80" y1="74" x2="90" y2="84" stroke="#0B1533" stroke-width="5" stroke-linecap="round"/><path d="M60 62l5 5 9-10" stroke="#21C17C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
-      // 09 Collateral Release — open padlock releasing gold
+      // 09 Collateral Release - open padlock releasing gold
       '<svg viewBox="0 0 100 100" fill="none"><path d="M26 44v-11a13 13 0 0 1 26 0" fill="none" stroke="#0B1533" stroke-width="5" stroke-linecap="round"/><rect x="20" y="44" width="38" height="30" rx="7" fill="#2F6FED" stroke="#0B1533" stroke-width="4"/><circle cx="39" cy="58" r="5.5" fill="#0B1533"/><circle cx="72" cy="56" r="15" fill="#F5B93D" stroke="#0B1533" stroke-width="4"/><circle cx="72" cy="56" r="6" fill="none" stroke="#C98A12" stroke-width="2.5"/><path d="M66 76l14 16" stroke="#21C17C" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 7"/></svg>',
-      // 10 Ornament Auction — gavel striking beside a gold coin
+      // 10 Ornament Auction - gavel striking beside a gold coin
       '<svg viewBox="0 0 100 100" fill="none"><rect x="16" y="72" width="46" height="7" rx="3.5" fill="#0B1533"/><rect x="34" y="30" width="30" height="16" rx="4" fill="#2F6FED" stroke="#0B1533" stroke-width="3.5" transform="rotate(-30 49 38)"/><line x1="30" y1="50" x2="48" y2="64" stroke="#0B1533" stroke-width="5" stroke-linecap="round"/><circle cx="30" cy="50" r="5" fill="#0B1533"/><circle cx="78" cy="62" r="16" fill="#F5B93D" stroke="#0B1533" stroke-width="4"/><text x="78" y="67" font-family="Arial,sans-serif" font-size="14" font-weight="800" fill="#0B1533" text-anchor="middle">₹</text></svg>'
     ];
 
@@ -11882,8 +11905,14 @@
         const stageCapabilities = stage.capabilities || [];
         const stageGaps = stage.gaps || [];
 
+        const capItemsHtml = items => items.map(c => `<li>${c}</li>`).join('');
         const capabilitiesHtml = stageCapabilities.length
-          ? `<ul class="cap-list functional">${stageCapabilities.map(c => `<li>${c}</li>`).join('')}</ul>`
+          ? (stage.capabilityGroups
+            ? `<ul class="cap-list functional">${stage.capabilityGroups.map(group => {
+              const items = stageCapabilities.filter(c => group.names.includes(c));
+              return items.length ? `<li class="cap-group-label">${group.label}</li>${capItemsHtml(items)}` : '';
+            }).join('')}${capItemsHtml(stageCapabilities.filter(c => !stage.capabilityGroups.some(g => g.names.includes(c))))}</ul>`
+            : `<ul class="cap-list functional">${capItemsHtml(stageCapabilities)}</ul>`)
           : `<div class="cap-empty">
               <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6v6H9z"/></svg>
               <b>Not yet mapped</b>
@@ -11901,8 +11930,7 @@
         const stageScene = STAGE_SCENES[idx] || STAGE_SCENES[0];
 
         // Gold-specific integration row (IBJA benchmark rate): only for stages
-        // where IBJA isn't already shown inside a grouped integrations row —
-        // Gold Valuation now surfaces IBJA via its own "Gold Valuation" group
+        // where IBJA isn't already shown inside a grouped integrations row - // Gold Valuation now surfaces IBJA via its own "Gold Valuation" group
         // above, so only Ornament Auction still gets this standalone strip.
         const usesIBJA = stage.name === 'Ornament Auction';
         const ibjaRowHtml = usesIBJA ? `
@@ -12012,7 +12040,7 @@
                   <div class="auction-reserve-bar">
                     <div class="arb-label">Reserve Price Floor</div>
                     <div class="arb-track"><div class="arb-fill" style="width:90%"></div><div class="arb-marker" style="left:90%">90% IBJA Value</div></div>
-                    <div class="arb-note" data-tooltip="Settlement waterfall: Principal → Interest → Auction Costs → Surplus refunded to borrower within 7 working days (₹5,000/day penalty on delay). Shortfall becomes an unsecured recovery claim.">Lower of 30-day average close or previous day's close, 22K equivalent — reserve can never be set below this floor.</div>
+                    <div class="arb-note" data-tooltip="Settlement waterfall: Principal → Interest → Auction Costs → Surplus refunded to borrower within 7 working days (₹5,000/day penalty on delay). Shortfall becomes an unsecured recovery claim.">Lower of 30-day average close or previous day's close, 22K equivalent - reserve can never be set below this floor.</div>
                   </div>
                 </div>
               </div>
@@ -12022,7 +12050,7 @@
         const flowArrow = `<div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>`;
 
         // NOTE: persona/journey flow (customer card -> token -> ops cards)
-        // intentionally removed per request — this stage view now shows
+        // intentionally removed per request - this stage view now shows
         // only Functional Capabilities, Integrations (incl. 2FA), and Gaps.
         trackHtml += `
           <div class="opm-station-col" id="col-${idx}">
@@ -12083,7 +12111,7 @@
 
 
     /* ═══════════════════════════════════════════════════════════
-       SLIDE 7 — WHY FINNONE NEO: WHEEL + CAPABILITY CARDS
+       SLIDE 7 - WHY FINNONE NEO: WHEEL + CAPABILITY CARDS
        ═══════════════════════════════════════════════════════════ */
     var NEO_DATA = [
       {
@@ -12093,7 +12121,7 @@
       },
       {
         tag: 'Compliance', title: 'Automated Regulatory Compliance',
-        desc: 'End-to-end LTV monitoring, tiered limits (85% / 80% / 75%), bullet-repayment caps and mandatory purity certification — all automated.',
+        desc: 'End-to-end LTV monitoring, tiered limits (85% / 80% / 75%), bullet-repayment caps and mandatory purity certification - all automated.',
         benefit: 'Zero compliance gaps · LTV auto-adjusts to gold price · full regulatory audit trail'
       },
       {
@@ -12178,7 +12206,7 @@
         content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Private Banks have seen their gold loan portfolio share decline from 24% in Mar'22 to 16% by Dec'25, even as their absolute book has grown 2.4x, as growth in NBFCs and PSU banks has outpaced them.</p><ul style='color:var(--muted);font-size:0.9rem;padding-left:20px;line-height:1.8'><li>Losing relative share to NBFCs and PSU banks</li><li>Focus on premium, urban customer segments</li><li>Slowest portfolio growth of the three categories</li></ul>";
       } else if (segment === 'nbfc') {
         title = "NBFC Segment";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>NBFCs are the fastest-growing segment, expanding their portfolio share from 7% in Mar'22 to 11% by Dec'25 — an 8.9x growth in absolute balances. Their growth is driven by deep rural penetration, highly optimized operations, and extremely fast disbursal times.</p><ul style='color:var(--muted);font-size:0.9rem;padding-left:20px;line-height:1.8'><li>Hyper-local branch presence</li><li>High loan-to-value (LTV) ratios</li><li>Customer-centric agile operations</li></ul>";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>NBFCs are the fastest-growing segment, expanding their portfolio share from 7% in Mar'22 to 11% by Dec'25 - an 8.9x growth in absolute balances. Their growth is driven by deep rural penetration, highly optimized operations, and extremely fast disbursal times.</p><ul style='color:var(--muted);font-size:0.9rem;padding-left:20px;line-height:1.8'><li>Hyper-local branch presence</li><li>High loan-to-value (LTV) ratios</li><li>Customer-centric agile operations</li></ul>";
       } else {
         title = "Other Lenders";
         content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Co-operative banks and other small institutions held roughly 11% of the market in Mar'22, moderating to about 10% by Dec'25. This segment is seeing gradual consolidation.</p>";
@@ -12233,22 +12261,22 @@
         content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The number of borrowers carrying more than ₹2.5L has grown 3.5x in three years. This concentrates portfolio risk in a segment that is growing faster than the loan book overall.</p>";
       } else if (kpi === 'risk-unsecured') {
         title = "Unsecured Debt Risk (23%)";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>When unsecured debt (credit cards, personal loans, etc.) exceeds 25% of a gold-loan borrower's total borrowing, their ability to keep paying the gold loan during a downturn drops sharply — this now describes nearly a quarter of 2025 originations.</p>";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>When unsecured debt (credit cards, personal loans, etc.) exceeds 25% of a gold-loan borrower's total borrowing, their ability to keep paying the gold loan during a downturn drops sharply - this now describes nearly a quarter of 2025 originations.</p>";
       } else if (kpi === 'risk-stacking') {
         title = "Multi-Loan Stacking Risk (10.7% → 14%)";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The share of borrowers actively juggling three or more high-value gold loans at once has risen from 10.7% to 14% since 2023 — a strong sign of borrowers rolling debt forward to delay a default.</p>";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The share of borrowers actively juggling three or more high-value gold loans at once has risen from 10.7% to 14% since 2023 - a strong sign of borrowers rolling debt forward to delay a default.</p>";
       } else if (kpi === 'ltv-tier1') {
-        title = "Tier 1: ≤ ₹2.5L — 85% Loan-to-Value Cap";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The highest cap in the framework — for every ₹100 of gold value, a lender can lend up to ₹85. Reserved for the smallest, lowest-risk loans, giving these borrowers the most borrowing room.</p>";
+        title = "Tier 1: ≤ ₹2.5L - 85% Loan-to-Value Cap";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The highest cap in the framework - for every ₹100 of gold value, a lender can lend up to ₹85. Reserved for the smallest, lowest-risk loans, giving these borrowers the most borrowing room.</p>";
       } else if (kpi === 'ltv-tier2') {
-        title = "Tier 2: ₹2.5–5L — 80% Loan-to-Value Cap";
+        title = "Tier 2: ₹2.5–5L - 80% Loan-to-Value Cap";
         content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>This is exactly the loan-size band where the missed-payment chart shows risk concentrating, which is why RBI enforces a wider safety margin here against drops in gold prices.</p>";
       } else if (kpi === 'ltv-tier3') {
-        title = "Tier 3: &gt; ₹5L — 75% Loan-to-Value Cap";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The strictest cap in the framework — for every ₹100 of gold value, a lender can lend only ₹75. Keeps large borrowers with more of their own money in the deal, discouraging them from walking away.</p>";
+        title = "Tier 3: &gt; ₹5L - 75% Loan-to-Value Cap";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>The strictest cap in the framework - for every ₹100 of gold value, a lender can lend only ₹75. Keeps large borrowers with more of their own money in the deal, discouraging them from walking away.</p>";
       } else if (kpi === 'ltv-aggregate') {
         title = "Mandatory Compliance Shift";
-        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Under the new RBI rule (DOR.CRE.REC), lenders must pull a borrower's total gold loan exposure across every lender from the credit bureau before setting the loan-to-value limit — checking just the one loan being originated is no longer enough.</p>";
+        content = "<p style='color:var(--muted);font-size:0.95rem;line-height:1.6'>Under the new RBI rule (DOR.CRE.REC), lenders must pull a borrower's total gold loan exposure across every lender from the credit bureau before setting the loan-to-value limit - checking just the one loan being originated is no longer enough.</p>";
       }
 
       var html = "<div style='margin-bottom:20px'><h3 style='margin:0;font-family:var(--serif);font-size:1.6rem;color:var(--gold)'>" + title + "</h3></div>" + content;
@@ -12416,7 +12444,7 @@
        INJECTED FROM OPERATING MODEL
     ═══════════════════════════════════════════════════════════ */
     /* ═══════════════════════════════════════════════════════════
-               OPERATING MODEL SLIDE v2 — data + interaction logic
+               OPERATING MODEL SLIDE v2 - data + interaction logic
                Stages 1–6 and 7 (Loan Servicing): pptx persona journeys /
                feature lists, slides 8–10 & 7.
                Stage 8 (Gold Storage & Audit) and 9 (Collateral Release &
@@ -12435,7 +12463,7 @@
       i: { bg: 'rgba(5,97,137,0.14)', fg: '#056189' }
     };
 
-    /* Illustrated bust — a small flat character, distinguished by role accessory.
+    /* Illustrated bust - a small flat character, distinguished by role accessory.
        'i' (Integration/System) renders as a chip/module instead of a person. */
     function charSVG(type, fg) {
       if (type === 'i') {
@@ -12463,7 +12491,7 @@
     var OLD_STAGES = [
       {
         name: 'Lead Management', tag: 'Origination', decor: 'chat', icon: '📞',
-        desc: 'Capturing interest — digital or walk-in — and converting it into a qualified, deduplicated loan application.',
+        desc: 'Capturing interest - digital or walk-in - and converting it into a qualified, deduplicated loan application.',
         steps: [
           { label: 'Create Lead', desc: 'A new record is opened the moment a customer shows interest, in-branch or online.' },
           { label: 'Update Lead', desc: 'Contact details and intent are refined as the conversation progresses.' },
@@ -12492,7 +12520,7 @@
       },
       {
         name: 'Customer Onboarding', tag: 'Verification', decor: 'scan', icon: '🪪',
-        desc: 'Building a complete, verified applicant profile — identity, income, banking and compliance checks in one pass.',
+        desc: 'Building a complete, verified applicant profile - identity, income, banking and compliance checks in one pass.',
         steps: [
           { label: 'Personal Details', desc: 'Address, contact and demographic data are captured and confirmed.' },
           { label: 'Income Info', desc: 'Income source and stability are recorded to support later credit checks.' },
@@ -12575,7 +12603,7 @@
       },
       {
         name: 'Loan Details (DDE)', tag: 'Structuring', decor: 'slider', icon: '🧾',
-        desc: 'Configuring the loan itself — scheme, tenure, fees and repayment — around the certified gold value.',
+        desc: 'Configuring the loan itself - scheme, tenure, fees and repayment - around the certified gold value.',
         steps: [
           { label: 'Upload Documents', desc: 'Income and address proof are attached to the loan file.' },
           { label: 'Select Product & Scheme', desc: 'The right gold loan scheme is matched to the customer\'s need.' },
@@ -12603,7 +12631,7 @@
       },
       {
         name: 'Credit Appraisal', tag: 'Underwriting', decor: 'stamp', icon: '✅',
-        desc: 'A final risk and policy check before the loan is sanctioned — the last gate before money moves.',
+        desc: 'A final risk and policy check before the loan is sanctioned - the last gate before money moves.',
         steps: [
           { label: 'Review Application', desc: 'The complete file is reviewed end-to-end before a decision.' },
           { label: 'Credit Risk Assessment', desc: 'Repayment capacity and risk flags are evaluated.' },
@@ -12667,7 +12695,7 @@
       },
       {
         name: 'Loan Servicing', tag: 'Servicing', decor: 'jar', icon: '🔄',
-        desc: 'Managing the loan across its life — repayments, renewals and monitoring — until it renews or closes.',
+        desc: 'Managing the loan across its life - repayments, renewals and monitoring - until it renews or closes.',
         steps: [
           { label: 'Repayment Processing', desc: 'EMI, bullet or interest-roll-up payments are recorded against the account.' },
           { label: 'Interest Accrual', desc: 'Interest is calculated and accrued on the outstanding balance daily.' },
@@ -12705,7 +12733,7 @@
       {
         name: 'Gold Storage & Audit', tag: 'Custody', decor: null, scene: 'vault', icon: '🔐',
         desc: 'Keeping every pledged ornament tracked, racked and periodically audited while it sits in the vault.',
-        note: 'pptx gives feature checklists for this stage but no named persona journey — roles below are a reasonable operational read of who performs each function.',
+        note: 'pptx gives feature checklists for this stage but no named persona journey - roles below are a reasonable operational read of who performs each function.',
         steps: [
           { label: 'Gold Tagging & Tracking', desc: 'Every packet gets a unique tag linking it to the loan file and its exact rack position.' },
           { label: 'Pledge Form Filing', desc: 'The signed pledge form is filed and cross-referenced to the packet tag.' },
@@ -12735,8 +12763,8 @@
       },
       {
         name: 'Collateral Management & Auction', tag: 'Closure', decor: null, scene: 'branch', icon: '🔨',
-        desc: 'Closing the loop — gold returns to the customer on repayment, or moves to auction if the loan defaults.',
-        note: 'pptx gives feature checklists for this stage but no named persona journey — roles below are a reasonable operational read of who performs each function.',
+        desc: 'Closing the loop - gold returns to the customer on repayment, or moves to auction if the loan defaults.',
+        note: 'pptx gives feature checklists for this stage but no named persona journey - roles below are a reasonable operational read of who performs each function.',
         steps: [
           { label: 'Repayment & Release Letter', desc: 'Full repayment triggers a release letter authorising the gold to be returned.' },
           { label: 'Collateral Release', desc: 'The packet is pulled from the vault and handed back to the customer.' },
@@ -12751,7 +12779,7 @@
             ]
           },
           {
-            type: 'bo', name: 'Branch Ops', role: 'Servicing', blurb: 'Processes the release — or, on default, initiates the auction path.', tasks: [
+            type: 'bo', name: 'Branch Ops', role: 'Servicing', blurb: 'Processes the release - or, on default, initiates the auction path.', tasks: [
               { t: 'Issue release letter', d: 'Formal authorisation is generated once repayment clears.' },
               { t: 'Release collateral', d: 'Packet is retrieved from the vault and returned to the customer.' },
               { t: 'Initiate auction on default', d: 'Overdue, unrecovered loans are queued for the auction process.' }
@@ -13026,13 +13054,13 @@
       html += '<div class="opm-vault-intake"><div class="opm-char-figure" style="color:' + PERSONA_STYLE.bo.fg + '">' + charSVG('bo', PERSONA_STYLE.bo.fg) + '</div>' +
         '<div class="opm-vault-intake-label">Intake</div><div class="opm-conveyor"></div>' +
         '<svg class="opm-packet-travel" viewBox="0 0 30 26"><rect width="30" height="20" y="6" rx="3" fill="#16acbf"/><rect width="30" height="6" rx="2" fill="#00268e"/></svg></div>';
-      html += '<div class="opm-rack"><div class="opm-block-label">Vault Rack — live tracking</div><div class="opm-rack-grid">';
+      html += '<div class="opm-rack"><div class="opm-block-label">Vault Rack - live tracking</div><div class="opm-rack-grid">';
       for (var i = 0; i < bins; i++) {
         var filled = i < 8, audited = i < 5;
         html += '<div class="opm-bin ' + (filled ? 'filled' : '') + ' ' + (audited ? 'audited' : '') + '" data-bin="' + i + '">' +
           '<span class="opm-bin-icon">' + (filled ? '🟨' : '') + '</span>' +
           '<span class="opm-bin-check">✓</span>' +
-          '<div class="opm-bin-tip">' + (filled ? (audited ? 'Packet #' + (1000 + i) + ' — audited, verified against loan file' : 'Packet #' + (1000 + i) + ' — pending next audit cycle') : 'Empty bin — ready for intake') + '</div>' +
+          '<div class="opm-bin-tip">' + (filled ? (audited ? 'Packet #' + (1000 + i) + ' - audited, verified against loan file' : 'Packet #' + (1000 + i) + ' - pending next audit cycle') : 'Empty bin - ready for intake') + '</div>' +
           '</div>';
       }
       html += '<div class="opm-scan-beam"></div></div><div class="opm-rack-caption">5 of 8 stored packets audited this cycle · click a bin for its status</div></div>';
@@ -13128,7 +13156,7 @@
     try { initApp(); } catch (e) { console.error('Error initializing operating model', e); }
 
     // ============================================================
-    // DECK ENTRANCE — deep-link jump (from the Auditing & Vaulting
+    // DECK ENTRANCE - deep-link jump (from the Auditing & Vaulting
     // deck) vs. the normal first-slide entrance.
     // Runs synchronously here, at the very end of this <script> block,
     // for two reasons:
@@ -13136,7 +13164,7 @@
     //     STAGES) further down the file; calling them any earlier hits
     //     their temporal dead zone and throws.
     //  2. Running before this script finishes means it runs before the
-    //     browser's first paint — so a deep link lands directly on the
+    //     browser's first paint - so a deep link lands directly on the
     //     target slide with no visible flash of the cover slide first.
     // The hash is then stripped from the address bar via replaceState,
     // so a plain refresh afterwards starts fresh at the cover slide
@@ -13154,7 +13182,7 @@
 
   </script>
   <script>
-    // Slide 08 (Why Now) — live "days into enforcement" counter, computed
+    // Slide 08 (Why Now) - live "days into enforcement" counter, computed
     // once from the Apr 1, 2026 RBI enforcement date. Not part of the
     // fragment/counter reveal system since it isn't a count-up animation.
     (function () {
