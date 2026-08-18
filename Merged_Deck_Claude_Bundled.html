@@ -7745,6 +7745,19 @@
       gap: 16px;
     }
 
+    /* Gold Valuation — Weighing Scale and Purity each hold a single vendor,
+       so pair them into one row instead of two near-empty stacked rows;
+       Gold Valuation (IBJA) keeps its own row below, spanning full width. */
+    #col-1 .vendor-groups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    #col-1 .vendor-group:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+
     .vendor-group-label {
       font-size: 1.05rem;
       font-weight: 800;
@@ -11901,7 +11914,7 @@
             <div class="cap-col is-functional">
               <div class="cap-col-title">Functional Capabilities<span class="cap-count">${stageCapabilities.length}</span></div>
               <div class="cap-body">
-                <div class="cap-scene" data-tooltip="${stage.name}">${stageScene}</div>
+                <div class="cap-scene">${stageScene}</div>
                 <div class="cap-list-2col">${capabilitiesHtml}</div>
               </div>
             </div>
@@ -11936,15 +11949,15 @@
                       <button type="button" class="deep-link-btn" style="cursor:pointer; border:1px solid rgba(0,0,0,.18); background:rgba(0,0,0,.04); border-radius:999px; padding:.55rem 1.1rem; font:700 .9rem/1 system-ui,sans-serif;" onclick="window.open('vaulting/Vault Mockups.html','_blank')" data-tooltip="Open the Vaulting mockup dashboard">📊 Vault Dashboard →</button>
                    </div>
                    <div id="vd-level-0" class="vault-grid-ui">
-                      <div class="vault-box" data-tooltip="Central Main Hub" onclick="goVault(1, 'Vault Alpha')">🏛️ Vault Alpha</div>
-                      <div class="vault-box" data-tooltip="Branch Hub North" onclick="goVault(1, 'Vault Beta')">🏛️ Vault Beta</div>
-                      <div class="vault-box" data-tooltip="Branch Hub South" onclick="goVault(1, 'Vault Gamma')">🏛️ Vault Gamma</div>
-                      <div class="vault-box" data-tooltip="Archival Storage" onclick="goVault(1, 'Vault Delta')">🏛️ Vault Delta</div>
+                      <div class="vault-box" onclick="goVault(1, 'Vault Alpha')">🏛️ Vault Alpha</div>
+                      <div class="vault-box" onclick="goVault(1, 'Vault Beta')">🏛️ Vault Beta</div>
+                      <div class="vault-box" onclick="goVault(1, 'Vault Gamma')">🏛️ Vault Gamma</div>
+                      <div class="vault-box" onclick="goVault(1, 'Vault Delta')">🏛️ Vault Delta</div>
                    </div>
                    <div id="vd-level-1" class="vault-grid-ui" style="display:none;">
-                      <div class="vault-box" data-tooltip="High Value Goods" onclick="goVault(2, 'Shelf A')">📚 Shelf A</div>
-                      <div class="vault-box" data-tooltip="Standard Value Goods" onclick="goVault(2, 'Shelf B')">📚 Shelf B</div>
-                      <div class="vault-box" data-tooltip="Pending Auctions" onclick="goVault(2, 'Shelf C')">📚 Shelf C</div>
+                      <div class="vault-box" onclick="goVault(2, 'Shelf A')">📚 Shelf A</div>
+                      <div class="vault-box" onclick="goVault(2, 'Shelf B')">📚 Shelf B</div>
+                      <div class="vault-box" onclick="goVault(2, 'Shelf C')">📚 Shelf C</div>
                    </div>
                    <div id="vd-level-2" class="vault-grid-ui" style="display:none;">
                       <div class="vault-box" onclick="goVault(3, 'Rack 1')">🗄️ Rack 1</div>
@@ -11953,14 +11966,14 @@
                       <div class="vault-box" onclick="goVault(3, 'Rack 4')">🗄️ Rack 4</div>
                    </div>
                    <div id="vd-level-3" class="vault-grid-ui" style="display:none;">
-                      <div class="vault-bin active" data-tooltip="Packet #1000 — Audited & Verified\\nAgainst Loan File"><div class="bin-icon">📦</div><div class="bin-id">BIN A1</div></div>
-                      <div class="vault-bin active" data-tooltip="Packet #1001 — Audited & Verified\\nAgainst Loan File"><div class="bin-icon">📦</div><div class="bin-id">BIN A2</div></div>
-                      <div class="vault-bin active" data-tooltip="Packet #1002 — Audited & Verified\\nAgainst Loan File"><div class="bin-icon">📦</div><div class="bin-id">BIN A3</div></div>
-                      <div class="vault-bin pending" data-tooltip="Packet #1006 — Pending Next Audit Cycle"><div class="bin-icon">⚠️</div><div class="bin-id">BIN A4</div></div>
-                      <div class="vault-bin pending" data-tooltip="Packet #1007 — Pending Next Audit Cycle"><div class="bin-icon">⚠️</div><div class="bin-id">BIN B1</div></div>
-                      <div class="vault-bin" data-tooltip="Empty Bin Slot"><div class="bin-icon"></div><div class="bin-id">BIN B2</div></div>
-                      <div class="vault-bin" data-tooltip="Empty Bin Slot"><div class="bin-icon"></div><div class="bin-id">BIN B3</div></div>
-                      <div class="vault-bin" data-tooltip="Empty Bin Slot"><div class="bin-icon"></div><div class="bin-id">BIN B4</div></div>
+                      <div class="vault-bin active"><div class="bin-icon">📦</div><div class="bin-id">BIN A1</div></div>
+                      <div class="vault-bin active"><div class="bin-icon">📦</div><div class="bin-id">BIN A2</div></div>
+                      <div class="vault-bin active"><div class="bin-icon">📦</div><div class="bin-id">BIN A3</div></div>
+                      <div class="vault-bin pending"><div class="bin-icon">⚠️</div><div class="bin-id">BIN A4</div></div>
+                      <div class="vault-bin pending"><div class="bin-icon">⚠️</div><div class="bin-id">BIN B1</div></div>
+                      <div class="vault-bin"><div class="bin-icon"></div><div class="bin-id">BIN B2</div></div>
+                      <div class="vault-bin"><div class="bin-icon"></div><div class="bin-id">BIN B3</div></div>
+                      <div class="vault-bin"><div class="bin-icon"></div><div class="bin-id">BIN B4</div></div>
                    </div>
                 </div>
               </div>
