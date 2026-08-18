@@ -10077,7 +10077,7 @@
       <div class="cc-slide">
         <div class="cc-header">
           <div class="eyebrow">Operating Model Architecture</div>
-          <h1>Gold Loan Processing Pipeline</h1>
+          <h1>Gold Loan Processing Flow</h1>
           <p class="lede" style="margin-top:4px;">Ten stages, one continuous workflow - hover or click a stage above to inspect who's involved and what's plugged in below.</p>
         </div> <!-- Workflow -->
         <div class="cc-top-nav" id="topNav"></div> <!-- Horizontal Track Viewport -->
@@ -11677,7 +11677,7 @@
       },
       {
         num: '06', name: 'Loan Servicing',
-        sys: { name: 'Collection Gateway', stack: [{ name: 'Cashfree', domain: 'cashfree.com' }, { name: 'Paynimo', domain: 'techprocess.co.in' }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Audit', domain: 'audit.finnone.internal' }, { name: 'Collateral Management', domain: 'collateral.finnone.internal' }, { name: 'Auction', domain: 'auction.finnone.internal' }], lat: 'N/A', uptime: '99.9%', log: "CRON: Daily Accrual Run\n<span class='success'>+₹145.20 Interest Applied</span>\nWEBHOOK: EMI Collected", extra: 'Continuous LTV monitoring ensuring loan health never crosses critical risk thresholds.' },
+        sys: { name: 'Collection Gateway', stack: [{ name: 'Cashfree', domain: 'cashfree.com' }, { name: 'Paynimo', domain: 'techprocess.co.in' }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Audit', domain: 'audit.finnone.internal' }, { name: 'Gold Collateral Management', domain: 'collateral.finnone.internal' }, { name: 'Auction', domain: 'auction.finnone.internal' }], lat: 'N/A', uptime: '99.9%', log: "CRON: Daily Accrual Run\n<span class='success'>+₹145.20 Interest Applied</span>\nWEBHOOK: EMI Collected", extra: 'Continuous LTV monitoring ensuring loan health never crosses critical risk thresholds.' },
         customer: { icon: '👤', name: 'Customer', role: 'Borrower', m1: 'Action', v1: 'Repayment', m2: 'Status', v2: 'Current' },
         ops: [{ icon: '📈', name: 'Central Ops', role: 'Monitoring', m1: 'Alerts', v1: 'LTV Drops', m2: 'Recon', v2: 'Daily', class: 'ops' }],
         token: { icon: '📊', label: 'Account Ledger' },
@@ -11721,7 +11721,7 @@
         modalText: "Scheduled and surprise audits verify that every bin matches the digital ledger. Any discrepancy is logged as a Non-Conformance and routed into the CAP (Corrective Action Plan) workflow."
       },
       {
-        num: '09', name: 'Collateral Management',
+        num: '09', name: 'Gold Collateral Management',
         sys: { name: 'Asset Management Engine', stack: [{ name: 'FinnOne Neo', domain: 'nucleussoftware.com' }], lat: '150ms', uptime: '99.9%', log: "POST /vault/release\n<span class='success'>[200 OK] Auth Verified</span>\nInitiating Release Protocol...", extra: 'Closing out the loan lifecycle securely with 2FA tokenized release algorithms.' },
         customer: { icon: '👤', name: 'Customer', role: 'Borrower', m1: 'Status', v1: 'Closed', m2: 'Asset', v2: 'Returned' },
         ops: [{ icon: '🔐', name: 'Branch Ops', role: 'Release Officer', m1: 'Auth', v1: '2 Factor', m2: 'Action', v2: 'Handover', class: 'ops' }],
@@ -11729,8 +11729,8 @@
         inputs: ['Full Repayment Confirmation', 'Release Letter Authorization'],
         tasks: ['Generate Repayment & Release Letter', 'Execute Collateral Release', 'Perform 2 Factor Verification'],
         outputs: ['Handover Receipt'],
-        capabilities: ['Repayment & Release Letter', 'Collateral Release'],
-        capabilityGroups: [{ label: 'Release Process', names: ['Repayment & Release Letter', 'Collateral Release'] }],
+        capabilities: ['Collateral Creation', 'Collateral Updation', 'Collateral Number', 'Collateral Repository', 'Repayment & Release Letter', 'Gold Release Order', 'Collateral Release'],
+        capabilityGroups: [{ label: 'Collateral Lifecycle', names: ['Collateral Creation', 'Collateral Updation', 'Collateral Number', 'Collateral Repository'] }, { label: 'Release Process', names: ['Repayment & Release Letter', 'Gold Release Order', 'Collateral Release'] }],
         gaps: ['2-Factor Verification'],
         modalText: "Full repayment triggers a secured 2FA asset handover, closing the loan lifecycle. Every account entering maturity is checked at this gate - if repaid, it exits here; if it has crossed 90 days past due, it is instead routed to the Ornament Auction stage under RBI's liquidation framework.",
         decisionFork: {
