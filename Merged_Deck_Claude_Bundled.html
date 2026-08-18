@@ -12005,6 +12005,12 @@
 
           telemetryHtml = `
           <div class="cap-grid cap-grid-2col">
+            <div class="cap-col ${mergedCount ? 'has-gaps' : ''}">
+              <div class="cap-col-title">Roadmap${mergedCount ? `<span class="cap-count" style="background:#F59E0B;">${mergedCount}</span>` : ''}</div>
+              <div class="cap-body">
+                <div class="cap-list-2col">${mergedRoadmapHtml}</div>
+              </div>
+            </div>
             <div class="cap-col is-integrations">
               <div class="cap-col-title">Integrations<span class="cap-count">${stage.sys.stack.length}</span></div>
               <div class="cap-body">
@@ -12013,12 +12019,6 @@
                 </div>
                 ${stackWrapHtml}
                 ${ibjaRowHtml}
-              </div>
-            </div>
-            <div class="cap-col ${mergedCount ? 'has-gaps' : ''}">
-              <div class="cap-col-title">Roadmap${mergedCount ? `<span class="cap-count" style="background:#F59E0B;">${mergedCount}</span>` : ''}</div>
-              <div class="cap-body">
-                <div class="cap-list-2col">${mergedRoadmapHtml}</div>
               </div>
             </div>
           </div>
