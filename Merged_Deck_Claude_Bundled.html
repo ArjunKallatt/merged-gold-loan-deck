@@ -6979,6 +6979,13 @@
       box-sizing: border-box;
     }
 
+    /* Experiment: Vault/Audit/Ornament Auction show only Integrations +
+       Roadmap (no Functional Capabilities column), so give the pair more
+       breathing room than the usual 3-column 1fr/1.5fr/1fr split. */
+    #slide-command-center .cap-grid.cap-grid-2col {
+      grid-template-columns: 1fr 1fr;
+    }
+
     /* ── GLOBAL HOVER TOOLTIPS ── */
     .global-tooltip {
       font-family: var(--sans) !important;
@@ -11974,7 +11981,50 @@
                   </div>
                 </div>` : '';
 
-        let telemetryHtml = `
+        // Experiment: Vault / Audit / Ornament Auction drop the Functional
+        // Capabilities column and fold its contents into Roadmap instead,
+        // leaving just Integrations + Roadmap side by side.
+        const mergeCapsIntoRoadmap = stage.isVaultStage || stage.isAuditStage || stage.isAuctionStage;
+
+        let telemetryHtml;
+        if (mergeCapsIntoRoadmap) {
+          const capsAsRoadmapHtml = stage.capabilityGroups
+            ? stage.capabilityGroups.map(group => {
+              const items = stageCapabilities.filter(c => group.names.includes(c));
+              return items.length ? `<li class="cap-group-label">${group.label}</li>${capItemsHtml(items)}` : '';
+            }).join('') + capItemsHtml(stageCapabilities.filter(c => !stage.capabilityGroups.some(g => g.names.includes(c))))
+            : capItemsHtml(stageCapabilities);
+          const mergedCount = stageCapabilities.length + stageGaps.length;
+          const mergedRoadmapHtml = mergedCount
+            ? `<ul class="cap-list gaps">${capsAsRoadmapHtml}${capItemsHtml(stageGaps)}</ul>`
+            : `<div class="cap-empty">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+                <b>Nothing queued yet</b>
+                <span>Roadmap items for ${stage.name} go here.</span>
+              </div>`;
+
+          telemetryHtml = `
+          <div class="cap-grid cap-grid-2col">
+            <div class="cap-col is-integrations">
+              <div class="cap-col-title">Integrations<span class="cap-count">${stage.sys.stack.length}</span></div>
+              <div class="cap-body">
+                <div class="cap-sys-name" data-tooltip="${stage.sys.extra}" onclick="openModal('${stage.sys.name} Documentation', '${stage.modalText}')" style="cursor:pointer;">
+                  <span class="api-status-dot"></span>${stage.sys.name}
+                </div>
+                ${stackWrapHtml}
+                ${ibjaRowHtml}
+              </div>
+            </div>
+            <div class="cap-col ${mergedCount ? 'has-gaps' : ''}">
+              <div class="cap-col-title">Roadmap${mergedCount ? `<span class="cap-count" style="background:#F59E0B;">${mergedCount}</span>` : ''}</div>
+              <div class="cap-body">
+                ${mergedRoadmapHtml}
+              </div>
+            </div>
+          </div>
+        `;
+        } else {
+          telemetryHtml = `
           <div class="cap-grid">
             <div class="cap-col is-functional">
               <div class="cap-col-title">Functional Capabilities<span class="cap-count">${stageCapabilities.length}</span></div>
@@ -12001,6 +12051,7 @@
             </div>
           </div>
         `;
+        }
 
         if (stage.isVaultStage) {
           telemetryHtml += `
