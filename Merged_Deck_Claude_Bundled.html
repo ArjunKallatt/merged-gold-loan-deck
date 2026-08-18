@@ -11709,7 +11709,7 @@
       },
       {
         num: '08', name: 'Audit',
-        sys: { name: 'Audit & Reconciliation Systems', stack: [{ name: 'CAS', domain: 'cas.finnone.internal' }, { name: 'LMS', domain: 'lms.finnone.internal' }, { name: 'ECM', domain: 'ecm.finnone.internal' }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Webcam', domain: 'webcam.finnone.internal' }, { name: 'Mettler Toledo', domain: 'mt.com' }, { name: 'Fischer', domain: 'fischer-technology.com' }], groups: [{ label: 'Integrations - Internal', names: ['CAS', 'LMS', 'ECM', 'Vault'] }, { label: 'Integrations - External', names: ['Webcam', 'Mettler Toledo', 'Fischer'] }], lat: '85ms', uptime: '99.9%', log: "RUN: Surprise Audit Cycle\n<span class='success'>[MATCHED] 429 / 429 Packets</span>\nReconciliation: Tied Out", extra: 'Surprise and periodic audits cross-check the physical vault against the digital ledger, flagging any variance for CAP.' },
+        sys: { name: 'Audit & Reconciliation Systems', stack: [{ name: 'CAS', domain: 'cas.finnone.internal' }, { name: 'LMS', domain: 'lms.finnone.internal' }, { name: 'ECM', domain: 'ecm.finnone.internal' }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Webcam', domain: 'webcam.finnone.internal' }, { name: 'Mettler Toledo', domain: 'mt.com', pending: true }, { name: 'Fischer', domain: 'fischer-technology.com', pending: true }], groups: [{ label: 'Integrations - Internal', names: ['CAS', 'LMS', 'ECM', 'Vault'] }, { label: 'Integrations - External', names: ['Webcam', 'Mettler Toledo', 'Fischer'] }], lat: '85ms', uptime: '99.9%', log: "RUN: Surprise Audit Cycle\n<span class='success'>[MATCHED] 429 / 429 Packets</span>\nReconciliation: Tied Out", extra: 'Surprise and periodic audits cross-check the physical vault against the digital ledger, flagging any variance for CAP.' },
         customer: { icon: '📋', name: 'Vault Auditor', role: 'Compliance', m1: 'Check', v1: 'Physical', m2: 'Freq', v2: 'Monthly' },
         ops: [{ icon: '🔍', name: 'Central Audit Team', role: 'Reconciliation', m1: 'Scope', v1: 'Ledger vs Bin', m2: 'Escalation', v2: 'CAP Trigger', class: 'ops' }],
         token: { icon: '📑', label: 'Audit Report' },
@@ -11724,7 +11724,7 @@
       },
       {
         num: '09', name: 'Gold Collateral Management',
-        sys: { name: 'Asset Management Engine', stack: [{ name: 'FinnOne Neo', domain: 'nucleussoftware.com' }, { name: 'Aadhaar OTP', domain: 'uidai.gov.in', pending: true }, { name: 'Webcam', domain: 'webcam.finnone.internal' }, { name: 'Facial Recognition', domain: 'facial.finnone.internal', pending: true }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Audit', domain: 'audit.finnone.internal' }], groups: [{ label: 'Integrations - Internal', names: ['FinnOne Neo', 'Vault', 'Audit'] }, { label: 'Integrations - External', names: ['Aadhaar OTP', 'Webcam', 'Facial Recognition'] }], lat: '150ms', uptime: '99.9%', log: "POST /vault/release\n<span class='success'>[200 OK] Auth Verified</span>\nInitiating Release Protocol...", extra: 'Closing out the loan lifecycle securely with 2FA tokenized release algorithms.' },
+        sys: { name: 'Asset Management Engine', stack: [{ name: 'FinnOne Neo', domain: 'nucleussoftware.com' }, { name: 'Webcam', domain: 'webcam.finnone.internal', pending: true }, { name: 'Vault', domain: 'vault.finnone.internal', pending: true }, { name: 'Audit', domain: 'audit.finnone.internal', pending: true }], groups: [{ label: 'Integrations - Internal', names: ['FinnOne Neo', 'Vault', 'Audit'] }, { label: 'Integrations - External', names: ['Webcam'] }], lat: '150ms', uptime: '99.9%', log: "POST /vault/release\n<span class='success'>[200 OK] Auth Verified</span>\nInitiating Release Protocol...", extra: 'Closing out the loan lifecycle securely with 2FA tokenized release algorithms.' },
         customer: { icon: '👤', name: 'Customer', role: 'Borrower', m1: 'Status', v1: 'Closed', m2: 'Asset', v2: 'Returned' },
         ops: [{ icon: '🔐', name: 'Branch Ops', role: 'Release Officer', m1: 'Auth', v1: '2 Factor', m2: 'Action', v2: 'Handover', class: 'ops' }],
         token: { icon: '🏆', label: 'Released Asset' },
@@ -11733,7 +11733,8 @@
         outputs: ['Handover Receipt'],
         capabilities: ['Collateral Creation', 'Collateral Updation', 'Collateral Number', 'Collateral Repository', 'Repayment & Release Letter', 'Gold Release Order', 'Collateral Release'],
         capabilityGroups: [{ label: 'Collateral Lifecycle', names: ['Collateral Creation', 'Collateral Updation', 'Collateral Number', 'Collateral Repository'] }, { label: 'Release Process', names: ['Repayment & Release Letter', 'Gold Release Order', 'Collateral Release'] }],
-        gaps: ['2-Factor Verification'],
+        gaps: ['OTP Validation', 'Facial Recognition'],
+        gapGroups: [{ label: '2-Factor Verification', names: ['OTP Validation', 'Facial Recognition'] }],
         modalText: "Full repayment triggers a secured 2FA asset handover, closing the loan lifecycle. Every account entering maturity is checked at this gate - if repaid, it exits here; if it has crossed 90 days past due, it is instead routed to the Ornament Auction stage under RBI's liquidation framework.",
         decisionFork: {
           question: 'Loan Status at Maturity',
