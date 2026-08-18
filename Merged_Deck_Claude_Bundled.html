@@ -7785,27 +7785,16 @@
       gap: 10px;
     }
 
+    /* A group with a single vendor badge shouldn't stretch across all 3
+       columns - constrain it to a normal badge width instead. */
+    #slide-command-center .cap-fintech-stack:has(> .vendor-badge:only-child) {
+      grid-template-columns: minmax(0, 180px);
+    }
+
     .vendor-groups {
       display: flex;
       flex-direction: column;
       gap: 16px;
-    }
-
-    /* Gold Valuation - Weighing Scale and Purity each hold a single vendor,
-       so pair them into one row instead of two near-empty stacked rows;
-       Gold Valuation (IBJA) keeps its own row below, spanning full width. */
-    #col-1 .vendor-groups {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    #col-1 .vendor-group:nth-child(3) {
-      grid-column: 1 / -1;
-    }
-
-    #col-1 .cap-fintech-stack {
-      grid-template-columns: minmax(0, 180px);
     }
 
     .vendor-group-label {
@@ -11626,7 +11615,7 @@
       },
       {
         num: '02', name: 'Gold Valuation',
-        sys: { name: 'Valuation & IoT Metrics', stack: [{ name: 'Mettler Toledo', domain: 'mt.com', pending: true }, { name: 'Fischer', domain: 'fischer-technology.com', pending: true }, { name: 'IBJA', domain: 'ibja.co.in' }], groups: [{ label: 'Weighing Scale', names: ['Mettler Toledo'] }, { label: 'Purity', names: ['Fischer'] }, { label: 'Gold Valuation', names: ['IBJA'] }], lat: '32ms', uptime: '99.9%', log: "WSS //iot.scale.local\n<span class='success'>STREAM: 42.500g</span>\nGET /ibja/22k -> ₹13,640/g", extra: 'Pulling real-time bullion spot pricing from IBJA APIs.' },
+        sys: { name: 'Valuation & IoT Metrics', stack: [{ name: 'Mettler Toledo', domain: 'mt.com', pending: true }, { name: 'Fischer', domain: 'fischer-technology.com', pending: true }, { name: 'IBJA', domain: 'ibja.co.in' }], groups: [{ label: 'Weighing Scale / XRF', names: ['Mettler Toledo', 'Fischer'] }, { label: 'Gold Valuation', names: ['IBJA'] }], lat: '32ms', uptime: '99.9%', log: "WSS //iot.scale.local\n<span class='success'>STREAM: 42.500g</span>\nGET /ibja/22k -> ₹13,640/g", extra: 'Pulling real-time bullion spot pricing from IBJA APIs.' },
         customer: { icon: '👤', name: 'Customer', role: 'Applicant', m1: 'Action', v1: 'Handover', m2: 'Asset', v2: 'Ornaments' },
         ops: [
           { icon: '🔍', name: 'Appraiser', role: 'Valuation', m1: 'Tool', v1: 'IoT Scale', m2: 'Test', v2: 'XRF Scan', class: 'ops' },
@@ -11714,7 +11703,7 @@
       },
       {
         num: '08', name: 'Audit',
-        sys: { name: 'Audit & Reconciliation Systems', stack: [{ name: 'CAS', domain: 'cas.finnone.internal' }, { name: 'LMS', domain: 'lms.finnone.internal' }, { name: 'ECM', domain: 'ecm.finnone.internal' }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Mettler Toledo', domain: 'mt.com' }, { name: 'Fischer', domain: 'fischer-technology.com' }], groups: [{ label: 'Core Systems', names: ['CAS', 'LMS', 'ECM', 'Vault'] }, { label: 'Weighing Scale', names: ['Mettler Toledo'] }, { label: 'XRF', names: ['Fischer'] }], lat: '85ms', uptime: '99.9%', log: "RUN: Surprise Audit Cycle\n<span class='success'>[MATCHED] 429 / 429 Packets</span>\nReconciliation: Tied Out", extra: 'Surprise and periodic audits cross-check the physical vault against the digital ledger, flagging any variance for CAP.' },
+        sys: { name: 'Audit & Reconciliation Systems', stack: [{ name: 'CAS', domain: 'cas.finnone.internal' }, { name: 'LMS', domain: 'lms.finnone.internal' }, { name: 'ECM', domain: 'ecm.finnone.internal' }, { name: 'Vault', domain: 'vault.finnone.internal' }, { name: 'Mettler Toledo', domain: 'mt.com' }, { name: 'Fischer', domain: 'fischer-technology.com' }], groups: [{ label: 'Core Systems', names: ['CAS', 'LMS', 'ECM', 'Vault'] }, { label: 'Weighing Scale / XRF', names: ['Mettler Toledo', 'Fischer'] }], lat: '85ms', uptime: '99.9%', log: "RUN: Surprise Audit Cycle\n<span class='success'>[MATCHED] 429 / 429 Packets</span>\nReconciliation: Tied Out", extra: 'Surprise and periodic audits cross-check the physical vault against the digital ledger, flagging any variance for CAP.' },
         customer: { icon: '📋', name: 'Vault Auditor', role: 'Compliance', m1: 'Check', v1: 'Physical', m2: 'Freq', v2: 'Monthly' },
         ops: [{ icon: '🔍', name: 'Central Audit Team', role: 'Reconciliation', m1: 'Scope', v1: 'Ledger vs Bin', m2: 'Escalation', v2: 'CAP Trigger', class: 'ops' }],
         token: { icon: '📑', label: 'Audit Report' },
