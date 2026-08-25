@@ -10142,42 +10142,58 @@
       </div>
 
       <style>
-        #slide-roadmap .rmt-slide { width:100%; height:100%; padding:110px 64px 48px; box-sizing:border-box; display:flex; flex-direction:column; }
-        #slide-roadmap .rmt-header .eyebrow { font-family:var(--mono); font-size:1rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--muted-dim); }
-        #slide-roadmap .rmt-header h1 { font-size:3rem; font-weight:800; color:var(--paper); margin-top:10px; }
-        #slide-roadmap .rmt-header .lede { color:var(--muted); font-size:1.35rem; max-width:1300px; margin-top:12px; line-height:1.45; }
-        #slide-roadmap .rmt-stats { display:flex; gap:24px; margin-top:34px; flex:none; }
-        #slide-roadmap .rmt-stat { flex:1; border-radius:var(--radius-lg); padding:24px 30px; display:flex; align-items:center; gap:20px; box-shadow:var(--shadow-sm); border:1px solid var(--line); background:#fff; }
-        #slide-roadmap .rmt-stat b { font-family:var(--mono); font-size:3.4rem; font-weight:800; line-height:1; }
-        #slide-roadmap .rmt-stat span { font-size:1.05rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); line-height:1.4; }
+        #slide-roadmap {
+          font-family: var(--sans);
+          background:
+            radial-gradient(1200px 700px at 80% -10%, rgba(6, 83, 199, .12), transparent 60%),
+            radial-gradient(900px 500px at -5% 110%, rgba(245, 158, 11, .08), transparent 60%),
+            #F8FAFC;
+          color: var(--paper);
+        }
+        #slide-roadmap::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          background-image: linear-gradient(to right, var(--line-soft) 1px, transparent 1px), linear-gradient(to bottom, var(--line-soft) 1px, transparent 1px);
+          background-size: 32px 32px;
+          z-index: -1;
+          pointer-events: none;
+        }
+        #slide-roadmap .rmt-slide { width:100%; height:100%; padding:100px 40px 40px; box-sizing:border-box; display:flex; flex-direction:column; }
+        #slide-roadmap .rmt-header { margin-bottom:10px; flex:none; }
+        #slide-roadmap .rmt-header h1 { font-family:var(--sans); font-size:2.4rem; font-weight:800; letter-spacing:-0.02em; color:var(--paper); }
+        #slide-roadmap .rmt-stats { display:flex; gap:16px; margin-top:22px; flex:none; }
+        #slide-roadmap .rmt-stat { flex:1; border-radius:var(--radius); padding:16px 22px; display:flex; align-items:center; gap:16px; box-shadow:var(--shadow-sm); border:1px solid var(--glass-border); background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+        #slide-roadmap .rmt-stat b { font-family:var(--mono); font-size:2.2rem; font-weight:800; line-height:1; }
+        #slide-roadmap .rmt-stat span { font-size:.85rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); line-height:1.4; }
         #slide-roadmap .rmt-stat-p0 b { color:#0891A8; }
         #slide-roadmap .rmt-stat-p1 b { color:#0653C7; }
         #slide-roadmap .rmt-stat-p2 b { color:#B45F06; }
-        #slide-roadmap .rmt-stat-p0 { border-left:6px solid #1AC8E0; }
-        #slide-roadmap .rmt-stat-p1 { border-left:6px solid #0653C7; }
-        #slide-roadmap .rmt-stat-p2 { border-left:6px solid #F59E0B; }
+        #slide-roadmap .rmt-stat-p0 { border-left:4px solid #1AC8E0; }
+        #slide-roadmap .rmt-stat-p1 { border-left:4px solid #0653C7; }
+        #slide-roadmap .rmt-stat-p2 { border-left:4px solid #F59E0B; }
 
-        #slide-roadmap .rmt-rail { display:flex; align-items:center; margin-top:48px; position:relative; flex:none; }
-        #slide-roadmap .rmt-rail::before { content:''; position:absolute; left:32px; right:32px; top:32px; height:4px; background:var(--line); z-index:0; }
-        #slide-roadmap .rmt-node { position:relative; z-index:1; flex:1; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; }
-        #slide-roadmap .rmt-node-dot { width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:800; font-size:1.4rem; color:#fff; background:var(--muted-dim); box-shadow:0 2px 6px rgba(0,1,55,.14); transition:transform var(--anim-fast) var(--ease-spring), box-shadow var(--anim-fast); border:4px solid #fff; }
-        #slide-roadmap .rmt-node-label { font-size:1.05rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+        #slide-roadmap .rmt-rail { display:flex; align-items:center; margin-top:30px; position:relative; flex:none; }
+        #slide-roadmap .rmt-rail::before { content:''; position:absolute; left:28px; right:28px; top:26px; height:3px; background:var(--line); z-index:0; }
+        #slide-roadmap .rmt-node { position:relative; z-index:1; flex:1; display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; }
+        #slide-roadmap .rmt-node-dot { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:800; font-size:1.1rem; color:#fff; background:var(--muted-dim); box-shadow:0 2px 6px rgba(0,1,55,.14); transition:transform var(--anim-fast) var(--ease-spring), box-shadow var(--anim-fast); border:3px solid #F8FAFC; }
+        #slide-roadmap .rmt-node-label { font-size:.85rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
         #slide-roadmap .rmt-node.p0 .rmt-node-dot { background:#1AC8E0; }
         #slide-roadmap .rmt-node.p1 .rmt-node-dot { background:#0653C7; }
         #slide-roadmap .rmt-node.p2 .rmt-node-dot { background:#F59E0B; }
         #slide-roadmap .rmt-node:hover .rmt-node-dot { transform:scale(1.08); }
-        #slide-roadmap .rmt-node.active .rmt-node-dot { transform:scale(1.22); box-shadow:0 6px 16px rgba(0,1,55,.28), 0 0 0 4px rgba(6,83,199,.12); }
+        #slide-roadmap .rmt-node.active .rmt-node-dot { transform:scale(1.2); box-shadow:0 6px 16px rgba(0,1,55,.28), 0 0 0 4px rgba(6,83,199,.12); }
         #slide-roadmap .rmt-node.active .rmt-node-label { color:var(--paper); }
 
-        #slide-roadmap .rmt-panel { margin-top:44px; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:36px 42px; flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
-        #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:18px; border-bottom:1px solid var(--line-soft); padding-bottom:18px; margin-bottom:26px; flex:none; }
-        #slide-roadmap .rmt-panel-month { font-size:2.1rem; font-weight:800; color:var(--paper); }
-        #slide-roadmap .rmt-panel-phase { font-family:var(--mono); font-size:1.05rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; padding:6px 16px; border-radius:20px; color:#fff; }
-        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(3, 1fr); gap:32px 40px; align-content:center; flex:1 1 auto; }
-        #slide-roadmap .rmt-item { display:flex; gap:16px; align-items:flex-start; }
-        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.9rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:8px; padding:5px 11px; margin-top:2px; }
-        #slide-roadmap .rmt-item-body b { display:block; font-size:1.3rem; color:var(--paper); font-weight:700; line-height:1.35; }
-        #slide-roadmap .rmt-item-body span { display:block; font-size:1.08rem; color:var(--muted); margin-top:6px; line-height:1.4; }
+        #slide-roadmap .rmt-panel { margin-top:26px; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:28px 34px; flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+        #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line-soft); padding-bottom:14px; margin-bottom:20px; flex:none; }
+        #slide-roadmap .rmt-panel-month { font-size:1.6rem; font-weight:800; color:var(--paper); }
+        #slide-roadmap .rmt-panel-phase { font-family:var(--mono); font-size:.85rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; padding:5px 14px; border-radius:20px; color:#fff; }
+        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px 32px; align-content:center; flex:1 1 auto; }
+        #slide-roadmap .rmt-item { display:flex; gap:14px; align-items:flex-start; }
+        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.72rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:6px; padding:4px 9px; margin-top:2px; }
+        #slide-roadmap .rmt-item-body b { display:block; font-size:1.05rem; color:var(--paper); font-weight:700; line-height:1.35; }
+        #slide-roadmap .rmt-item-body span { display:block; font-size:.9rem; color:var(--muted); margin-top:5px; line-height:1.4; }
       </style>
 
       <script>
