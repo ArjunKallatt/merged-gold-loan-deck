@@ -11899,7 +11899,7 @@
         const showAmberTick = stage.isVaultStage || stage.isAuditStage || stage.isAuctionStage;
         const vendorBadgeHtml = vendor => `
             <div class="vendor-badge">
-                ${vendor.pending ? `<span class="vendor-pending-badge">!</span>` : (showAmberTick ? `<span class="vendor-amber-tick">✓</span>` : '')}
+                ${vendor.pending ? `<span class="vendor-pending-badge">!</span>` : (showAmberTick ? `<span class="vendor-amber-tick">!</span>` : '')}
                 <img src="${getLogo(vendor.domain)}" alt="${vendor.name}" class="vendor-logo">
                 <span class="vendor-name">${vendor.name}</span>
             </div>
