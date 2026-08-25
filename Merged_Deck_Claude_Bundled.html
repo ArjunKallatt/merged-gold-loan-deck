@@ -10118,6 +10118,8 @@
             <span style="color: var(--muted); font-size: 0.9em; font-weight: 500;">· Gold Loan Suite</span>
           </div>
         </div>
+        <div class="slide-no"><span class="sn-cur">06</span><span class="sn-rule"></span>12</div>
+      </div>
       <div class="rmt-slide" id="rmtSlide">
         <div class="rmt-header">
           <div class="eyebrow">Process Flow · Roadmap</div>
@@ -10216,8 +10218,9 @@
         #slide-roadmap .rmt-head-cell:hover { color:var(--paper); }
         #slide-roadmap .rmt-head-cell.p0-col { border-right:2px solid rgba(26,200,224,.35); }
         #slide-roadmap .rmt-head-cell.p1-col { border-right:2px solid rgba(6,83,199,.3); }
-        #slide-roadmap .rmt-cell { height:26px; border-radius:6px; cursor:pointer; background:rgba(0,1,55,.05); border:1px solid transparent; transition:transform var(--anim-fast) var(--ease-spring), box-shadow var(--anim-fast); }
-        #slide-roadmap .rmt-cell:hover { transform:scaleY(1.15); }
+        #slide-roadmap .rmt-cell { height:28px; border-radius:6px; cursor:pointer; background:rgba(0,1,55,.05); border:1px solid transparent; opacity:.55; transition:opacity var(--anim-fast) var(--ease-smooth), box-shadow var(--anim-fast) var(--ease-smooth); }
+        #slide-roadmap .rmt-cell.filled { opacity:1; }
+        #slide-roadmap .rmt-cell:hover { box-shadow:0 0 0 2px rgba(11,21,51,.35) inset; }
         #slide-roadmap .rmt-cell.filled.p0 { background:#1AC8E0; }
         #slide-roadmap .rmt-cell.filled.p1 { background:#0653C7; }
         #slide-roadmap .rmt-cell.filled.p2 { background:#F59E0B; }
@@ -10321,7 +10324,7 @@
             var counts = rmtCountsFor(d.m);
             var tip = 'Month ' + d.m + ' \\u00b7 ' + d.items.length + ' item' + (d.items.length === 1 ? '' : 's') + '\\n' +
               RMT_MODULES.map(function (k) { return k + ' ' + counts[k]; }).join(' \\u00b7 ');
-            return '<div class="rmt-head-cell ' + cls + '" data-m="' + d.m + '" data-tooltip="' + tip + '" onclick="rmtSelectMonth(' + d.m + ')">M' + d.m + '</div>';
+            return '<div class="rmt-head-cell ' + cls + '" data-m="' + d.m + '" data-tooltip="' + tip + '" onmouseenter="rmtSelectMonth(' + d.m + ')">M' + d.m + '</div>';
           }).join('');
 
           RMT_MODULES.forEach(function (mod) {
@@ -10330,7 +10333,7 @@
               var count = rmtCountsFor(d.m)[mod];
               var filled = count > 0;
               var tip = mod + ' \\u00b7 Month ' + d.m + ' \\u00b7 ' + count + ' item' + (count === 1 ? '' : 's');
-              return '<div class="rmt-cell' + (filled ? ' filled ' + d.phase : '') + '" data-m="' + d.m + '" data-tooltip="' + tip + '" onclick="rmtSelectMonth(' + d.m + ')"></div>';
+              return '<div class="rmt-cell' + (filled ? ' filled ' + d.phase : '') + '" data-m="' + d.m + '" data-tooltip="' + tip + '" onmouseenter="rmtSelectMonth(' + d.m + ')"></div>';
             }).join('');
           });
         }
@@ -10561,13 +10564,13 @@
         @keyframes wtpPulse { 0%,100% { box-shadow:0 4px 14px rgba(0,1,55,.16), 0 0 0 0 rgba(11,21,51,.30); } 50% { box-shadow:0 4px 14px rgba(0,1,55,.16), 0 0 0 14px rgba(11,21,51,0); } }
 
         #slide-wtp .wtp-plan-col { flex:1; display:flex; flex-direction:column; padding-top:2px; justify-content:space-between; }
-        #slide-wtp .wtp-plan-item { display:flex; gap:20px; padding:28px 0; border-bottom:1px solid var(--line-soft); align-items:flex-start; }
-        #slide-wtp .wtp-plan-num { font-family:var(--mono); font-weight:800; color:#fff; background:linear-gradient(135deg, #24345F, #0B1533); flex:none; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.15rem; box-shadow:var(--shadow-sm); }
-        #slide-wtp .wtp-plan-item h3 { font-size:1.5rem; font-weight:800; color:var(--paper); }
-        #slide-wtp .wtp-plan-item p { font-size:1.12rem; color:var(--muted); margin-top:8px; line-height:1.5; }
+        #slide-wtp .wtp-plan-item { display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line-soft); align-items:flex-start; }
+        #slide-wtp .wtp-plan-num { font-family:var(--mono); font-weight:800; color:#fff; background:linear-gradient(135deg, #24345F, #0B1533); flex:none; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.9rem; box-shadow:var(--shadow-sm); }
+        #slide-wtp .wtp-plan-item h3 { font-size:1.15rem; font-weight:800; color:var(--paper); }
+        #slide-wtp .wtp-plan-item p { font-size:.92rem; color:var(--muted); margin-top:4px; line-height:1.45; }
         #slide-wtp .wtp-plan-dim h3, #slide-wtp .wtp-plan-dim p { color:var(--muted); }
         #slide-wtp .wtp-plan-dim .wtp-plan-num { background:var(--muted-dim); }
-        #slide-wtp .wtp-footnote { font-size:1rem; color:var(--muted-dim); margin-top:22px; padding:18px 20px; line-height:1.5; background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.22); border-radius:var(--radius); }
+        #slide-wtp .wtp-footnote { font-size:.8rem; color:var(--muted-dim); margin-top:16px; padding:10px 14px; line-height:1.4; background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.22); border-radius:var(--radius); }
       </style>
 
       <script>
