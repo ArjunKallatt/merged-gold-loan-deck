@@ -10118,20 +10118,50 @@
             <span style="color: var(--muted); font-size: 0.9em; font-weight: 500;">· Gold Loan Suite</span>
           </div>
         </div>
-        <div class="slide-no"><span class="sn-cur">06</span><span class="sn-rule"></span>12</div>
-      </div>
       <div class="rmt-slide" id="rmtSlide">
         <div class="rmt-header">
           <div class="eyebrow">Process Flow · Roadmap</div>
           <h1>Build Roadmap · Month 1 to Month 10</h1>
-          <p class="lede" style="margin-top:4px;">36 requirements across LMS, Audit &amp; Vault, sequenced MVP &rarr; Enhancement &rarr; Maturity - click a month to see what ships.</p>
+          <p class="lede" style="margin-top:4px;">36 requirements across LMS, Audit, Auction &amp; Vault, sequenced MVP &rarr; Enhancement &rarr; Maturity - hover a month for a preview, click to pin its detail.</p>
         </div>
         <div class="rmt-stats">
+          <div class="rmt-stat rmt-stat-total"><b class="counter" data-target="36">0</b><span>Requirements<br/>Total</span></div>
           <div class="rmt-stat rmt-stat-p0"><b class="counter" data-target="14">0</b><span>P0 · MVP<br/>Months 1-4</span></div>
           <div class="rmt-stat rmt-stat-p1"><b class="counter" data-target="10">0</b><span>P1 · Enhancement<br/>Months 5-7</span></div>
           <div class="rmt-stat rmt-stat-p2"><b class="counter" data-target="12">0</b><span>P2 · Maturity<br/>Months 8-10</span></div>
         </div>
-        <div class="rmt-rail" id="rmtRail"></div>
+
+        <div class="rmt-grid-wrap">
+          <div class="rmt-grid" id="rmtGrid">
+            <div class="rmt-row rmt-row-head">
+              <div class="rmt-rowlabel"></div>
+              <div class="rmt-cells" id="rmtHeadCells"></div>
+            </div>
+            <div class="rmt-row" data-mod="LMS">
+              <div class="rmt-rowlabel">LMS</div>
+              <div class="rmt-cells" data-mod="LMS"></div>
+            </div>
+            <div class="rmt-row" data-mod="Audit">
+              <div class="rmt-rowlabel">Audit</div>
+              <div class="rmt-cells" data-mod="Audit"></div>
+            </div>
+            <div class="rmt-row" data-mod="Auction">
+              <div class="rmt-rowlabel">Auction</div>
+              <div class="rmt-cells" data-mod="Auction"></div>
+            </div>
+            <div class="rmt-row" data-mod="Vault">
+              <div class="rmt-rowlabel">Vault</div>
+              <div class="rmt-cells" data-mod="Vault"></div>
+            </div>
+          </div>
+          <div class="rmt-legend">
+            <span><i class="rmt-swatch rmt-sw-p0"></i>P0 · MVP</span>
+            <span><i class="rmt-swatch rmt-sw-p1"></i>P1 · Enhancement</span>
+            <span><i class="rmt-swatch rmt-sw-p2"></i>P2 · Maturity</span>
+            <span><i class="rmt-swatch rmt-sw-idle"></i>No items scheduled</span>
+          </div>
+        </div>
+
         <div class="rmt-panel">
           <div class="rmt-panel-head">
             <span class="rmt-panel-month" id="rmtPanelMonth">Month 1</span>
@@ -10160,9 +10190,9 @@
           pointer-events: none;
         }
         #slide-roadmap .rmt-slide { width:100%; height:100%; padding:100px 40px 40px; box-sizing:border-box; display:flex; flex-direction:column; }
-        #slide-roadmap .rmt-header { margin-bottom:10px; flex:none; }
+        #slide-roadmap .rmt-header { flex:none; }
         #slide-roadmap .rmt-header h1 { font-family:var(--sans); font-size:2.4rem; font-weight:800; letter-spacing:-0.02em; color:var(--paper); }
-        #slide-roadmap .rmt-stats { display:flex; gap:16px; margin-top:22px; flex:none; }
+        #slide-roadmap .rmt-stats { display:flex; gap:18px; margin-top:28px; flex:none; }
         #slide-roadmap .rmt-stat { flex:1; border-radius:var(--radius); padding:16px 22px; display:flex; align-items:center; gap:16px; box-shadow:var(--shadow-sm); border:1px solid var(--glass-border); background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
         #slide-roadmap .rmt-stat b { font-family:var(--mono); font-size:2.2rem; font-weight:800; line-height:1; }
         #slide-roadmap .rmt-stat span { font-size:.85rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); line-height:1.4; }
@@ -10172,28 +10202,46 @@
         #slide-roadmap .rmt-stat-p0 { border-left:4px solid #1AC8E0; }
         #slide-roadmap .rmt-stat-p1 { border-left:4px solid #0653C7; }
         #slide-roadmap .rmt-stat-p2 { border-left:4px solid #F59E0B; }
+        #slide-roadmap .rmt-stat-total b { color:var(--paper); }
+        #slide-roadmap .rmt-stat-total { border-left:4px solid var(--paper); }
 
-        #slide-roadmap .rmt-rail { display:flex; align-items:center; margin-top:30px; position:relative; flex:none; }
-        #slide-roadmap .rmt-rail::before { content:''; position:absolute; left:28px; right:28px; top:26px; height:3px; background:var(--line); z-index:0; }
-        #slide-roadmap .rmt-node { position:relative; z-index:1; flex:1; display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; }
-        #slide-roadmap .rmt-node-dot { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:800; font-size:1.1rem; color:#fff; background:var(--muted-dim); box-shadow:0 2px 6px rgba(0,1,55,.14); transition:transform var(--anim-fast) var(--ease-spring), box-shadow var(--anim-fast); border:3px solid #F8FAFC; }
-        #slide-roadmap .rmt-node-label { font-size:.85rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
-        #slide-roadmap .rmt-node.p0 .rmt-node-dot { background:#1AC8E0; }
-        #slide-roadmap .rmt-node.p1 .rmt-node-dot { background:#0653C7; }
-        #slide-roadmap .rmt-node.p2 .rmt-node-dot { background:#F59E0B; }
-        #slide-roadmap .rmt-node:hover .rmt-node-dot { transform:scale(1.08); }
-        #slide-roadmap .rmt-node.active .rmt-node-dot { transform:scale(1.2); box-shadow:0 6px 16px rgba(0,1,55,.28), 0 0 0 4px rgba(6,83,199,.12); }
-        #slide-roadmap .rmt-node.active .rmt-node-label { color:var(--paper); }
+        #slide-roadmap .rmt-grid-wrap { margin-top:26px; flex:none; }
+        #slide-roadmap .rmt-grid { background:rgba(255,255,255,0.65); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:16px 20px 10px; }
+        #slide-roadmap .rmt-row { display:flex; align-items:center; gap:10px; }
+        #slide-roadmap .rmt-row + .rmt-row { margin-top:8px; }
+        #slide-roadmap .rmt-row-head { margin-bottom:6px; padding-bottom:10px; border-bottom:1px solid var(--line-soft); }
+        #slide-roadmap .rmt-rowlabel { flex:none; width:64px; font-size:.82rem; font-weight:800; color:var(--paper); text-transform:uppercase; letter-spacing:.04em; }
+        #slide-roadmap .rmt-cells { flex:1; display:grid; grid-template-columns:repeat(10, 1fr); gap:6px; }
+        #slide-roadmap .rmt-head-cell { text-align:center; font-family:var(--mono); font-size:.72rem; font-weight:800; color:var(--muted); padding:4px 0 8px; border-radius:6px; cursor:pointer; transition:color var(--anim-fast), background var(--anim-fast); }
+        #slide-roadmap .rmt-head-cell:hover { color:var(--paper); }
+        #slide-roadmap .rmt-head-cell.p0-col { border-right:2px solid rgba(26,200,224,.35); }
+        #slide-roadmap .rmt-head-cell.p1-col { border-right:2px solid rgba(6,83,199,.3); }
+        #slide-roadmap .rmt-cell { height:26px; border-radius:6px; cursor:pointer; background:rgba(0,1,55,.05); border:1px solid transparent; transition:transform var(--anim-fast) var(--ease-spring), box-shadow var(--anim-fast); }
+        #slide-roadmap .rmt-cell:hover { transform:scaleY(1.15); }
+        #slide-roadmap .rmt-cell.filled.p0 { background:#1AC8E0; }
+        #slide-roadmap .rmt-cell.filled.p1 { background:#0653C7; }
+        #slide-roadmap .rmt-cell.filled.p2 { background:#F59E0B; }
+        #slide-roadmap .rmt-cell.selected, #slide-roadmap .rmt-head-cell.selected { box-shadow:0 0 0 2px var(--paper); }
+        #slide-roadmap .rmt-head-cell.selected { background:rgba(11,21,51,.08); color:var(--paper); }
 
-        #slide-roadmap .rmt-panel { margin-top:26px; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:28px 34px; flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
-        #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line-soft); padding-bottom:14px; margin-bottom:20px; flex:none; }
-        #slide-roadmap .rmt-panel-month { font-size:1.6rem; font-weight:800; color:var(--paper); }
-        #slide-roadmap .rmt-panel-phase { font-family:var(--mono); font-size:.85rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; padding:5px 14px; border-radius:20px; color:#fff; }
-        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px 32px; align-content:center; flex:1 1 auto; }
-        #slide-roadmap .rmt-item { display:flex; gap:14px; align-items:flex-start; }
-        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.72rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:6px; padding:4px 9px; margin-top:2px; }
-        #slide-roadmap .rmt-item-body b { display:block; font-size:1.05rem; color:var(--paper); font-weight:700; line-height:1.35; }
-        #slide-roadmap .rmt-item-body span { display:block; font-size:.9rem; color:var(--muted); margin-top:5px; line-height:1.4; }
+        #slide-roadmap .rmt-legend { display:flex; gap:22px; margin-top:14px; flex-wrap:wrap; }
+        #slide-roadmap .rmt-legend span { display:flex; align-items:center; gap:7px; font-size:.78rem; font-weight:600; color:var(--muted); }
+        #slide-roadmap .rmt-swatch { width:12px; height:12px; border-radius:3px; display:inline-block; }
+        #slide-roadmap .rmt-sw-p0 { background:#1AC8E0; }
+        #slide-roadmap .rmt-sw-p1 { background:#0653C7; }
+        #slide-roadmap .rmt-sw-p2 { background:#F59E0B; }
+        #slide-roadmap .rmt-sw-idle { background:rgba(0,1,55,.08); border:1px solid var(--line); }
+
+        #slide-roadmap .rmt-panel { margin-top:22px; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:24px 30px; flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+        #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line-soft); padding-bottom:12px; margin-bottom:18px; flex:none; }
+        #slide-roadmap .rmt-panel-month { font-size:1.5rem; font-weight:800; color:var(--paper); }
+        #slide-roadmap .rmt-panel-phase { font-family:var(--mono); font-size:.82rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; padding:5px 14px; border-radius:20px; color:#fff; }
+        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(4, 1fr); gap:18px 24px; align-content:start; flex:1 1 auto; overflow-y:auto; }
+        #slide-roadmap .rmt-item { display:flex; gap:12px; align-items:flex-start; }
+        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.66rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:6px; padding:4px 8px; margin-top:2px; }
+        #slide-roadmap .rmt-item-body b { display:block; font-size:.98rem; color:var(--paper); font-weight:700; line-height:1.3; }
+        #slide-roadmap .rmt-item-body span { display:block; font-size:.82rem; color:var(--muted); margin-top:4px; line-height:1.35; }
+        #slide-roadmap .rmt-empty-row { font-size:.9rem; color:var(--muted-dim); font-style:italic; grid-column:1 / -1; }
       </style>
 
       <script>
@@ -10243,42 +10291,79 @@
             { mod: 'Vault', epic: 'Integrations - External', req: 'Webcam, Packet Management, Attendance Management' }
           ]},
           { m: 9, phase: 'p2', phaseLabel: 'P2 · Maturity', items: [
-            { mod: 'LMS', epic: 'Auction', req: 'Auctioneer Master' },
-            { mod: 'LMS', epic: 'Auction', req: 'Integration with Audit Module' },
+            { mod: 'Auction', epic: 'Auction', req: 'Auctioneer Master' },
+            { mod: 'Auction', epic: 'Auction', req: 'Integration with Audit Module' },
             { mod: 'Audit', epic: 'Dashboards', req: 'Persona-Driven Dashboards (3-4 Personas)' },
             { mod: 'Vault', epic: 'Notification Real-Time', req: 'Notification on Vault Out/Other Activities' }
           ]},
           { m: 10, phase: 'p2', phaseLabel: 'P2 · Maturity', items: [
-            { mod: 'LMS', epic: 'Auction', req: 'Auctioneer-Level Accounting' },
+            { mod: 'Auction', epic: 'Auction', req: 'Auctioneer-Level Accounting' },
             { mod: 'Audit', epic: 'Notification', req: 'CAP & Audit Closure Notifications' },
             { mod: 'Audit', epic: 'mAudit', req: 'Mobile-Based Application for Audit Process' },
             { mod: 'Vault', epic: 'Dashboards', req: 'Real-Time Inventory Snapshot Dashboard' }
           ]}
         ];
+        var RMT_MODULES = ['LMS', 'Audit', 'Auction', 'Vault'];
         var RMT_PHASE_COLOR = { p0: '#1AC8E0', p1: '#0653C7', p2: '#F59E0B' };
+        var RMT_SELECTED = 1;
+
+        function rmtCountsFor(m) {
+          var data = RMT_MONTHS[m - 1];
+          var counts = {}; RMT_MODULES.forEach(function (k) { counts[k] = 0; });
+          data.items.forEach(function (it) { counts[it.mod] = (counts[it.mod] || 0) + 1; });
+          return counts;
+        }
+
+        function rmtBuildGrid() {
+          var headWrap = document.getElementById('rmtHeadCells');
+          headWrap.innerHTML = RMT_MONTHS.map(function (d) {
+            var cls = d.m === 4 ? 'p0-col' : (d.m === 7 ? 'p1-col' : '');
+            var counts = rmtCountsFor(d.m);
+            var tip = 'Month ' + d.m + ' \\u00b7 ' + d.items.length + ' item' + (d.items.length === 1 ? '' : 's') + '\\n' +
+              RMT_MODULES.map(function (k) { return k + ' ' + counts[k]; }).join(' \\u00b7 ');
+            return '<div class="rmt-head-cell ' + cls + '" data-m="' + d.m + '" data-tooltip="' + tip + '" onclick="rmtSelectMonth(' + d.m + ')">M' + d.m + '</div>';
+          }).join('');
+
+          RMT_MODULES.forEach(function (mod) {
+            var rowWrap = document.querySelector('.rmt-cells[data-mod="' + mod + '"]');
+            rowWrap.innerHTML = RMT_MONTHS.map(function (d) {
+              var count = rmtCountsFor(d.m)[mod];
+              var filled = count > 0;
+              var tip = mod + ' \\u00b7 Month ' + d.m + ' \\u00b7 ' + count + ' item' + (count === 1 ? '' : 's');
+              return '<div class="rmt-cell' + (filled ? ' filled ' + d.phase : '') + '" data-m="' + d.m + '" data-tooltip="' + tip + '" onclick="rmtSelectMonth(' + d.m + ')"></div>';
+            }).join('');
+          });
+        }
 
         function rmtSelectMonth(m) {
+          RMT_SELECTED = m;
           var data = RMT_MONTHS[m - 1];
-          document.querySelectorAll('#rmtRail .rmt-node').forEach(function (n) {
-            n.classList.toggle('active', parseInt(n.getAttribute('data-m'), 10) === m);
+          document.querySelectorAll('#rmtGrid [data-m]').forEach(function (el) {
+            el.classList.toggle('selected', parseInt(el.getAttribute('data-m'), 10) === m);
           });
           document.getElementById('rmtPanelMonth').textContent = 'Month ' + m;
           var phaseEl = document.getElementById('rmtPanelPhase');
           phaseEl.textContent = data.phaseLabel;
           phaseEl.style.background = RMT_PHASE_COLOR[data.phase];
-          document.getElementById('rmtItems').innerHTML = data.items.map(function (it) {
+
+          var counts = rmtCountsFor(m);
+          var html = '';
+          RMT_MODULES.forEach(function (mod) {
+            if (counts[mod] === 0) {
+              html += '<div class="rmt-empty-row">' + mod + ' - No items scheduled this month</div>';
+            }
+          });
+          html += data.items.map(function (it) {
             return '<div class="rmt-item"><span class="rmt-item-mod">' + it.mod + '</span>' +
               '<div class="rmt-item-body"><b>' + it.req + '</b><span>' + it.epic + '</span></div></div>';
           }).join('');
+          document.getElementById('rmtItems').innerHTML = html;
         }
 
         (function rmtInit() {
-          var rail = document.getElementById('rmtRail');
-          if (!rail) return;
-          rail.innerHTML = RMT_MONTHS.map(function (d) {
-            return '<div class="rmt-node ' + d.phase + '" data-m="' + d.m + '" onclick="rmtSelectMonth(' + d.m + ')">' +
-              '<div class="rmt-node-dot">' + d.m + '</div><div class="rmt-node-label">Mo ' + d.m + '</div></div>';
-          }).join('');
+          var grid = document.getElementById('rmtGrid');
+          if (!grid) return;
+          rmtBuildGrid();
           rmtSelectMonth(1);
         })();
       </script>
@@ -10391,25 +10476,25 @@
               <div class="wtp-quad-label wtp-q-br">Modernise</div>
 
               <div class="wtp-bubble wtp-b-hollow" style="width:82px;height:82px;left:20%;top:68%;animation-delay:.05s;" data-tooltip="China · 52% — niche / defer for now">
-                <img class="wtp-flag" src="https://flagcdn.com/w80/cn.png" alt="China flag"><span class="wtp-bv">52%</span><span class="wtp-bl">China</span>
+                <img class="wtp-flag" src="https://flagcdn.com/w160/cn.png" alt="China flag"><span class="wtp-tint"></span><span class="wtp-bv">52%</span><span class="wtp-bl">China</span>
               </div>
               <div class="wtp-bubble wtp-b-mid" style="width:96px;height:96px;left:24%;top:32%;animation-delay:.15s;" data-tooltip="Vietnam · 65% — validate before build">
-                <img class="wtp-flag" src="https://flagcdn.com/w80/vn.png" alt="Vietnam flag"><span class="wtp-bv">65%</span><span class="wtp-bl">Vietnam</span>
+                <img class="wtp-flag" src="https://flagcdn.com/w160/vn.png" alt="Vietnam flag"><span class="wtp-tint"></span><span class="wtp-bv">65%</span><span class="wtp-bl">Vietnam</span>
               </div>
               <div class="wtp-bubble wtp-b-mid" style="width:99px;height:99px;left:46%;top:50%;animation-delay:.25s;" data-tooltip="Türkiye · 68% — validate before build">
-                <img class="wtp-flag" src="https://flagcdn.com/w80/tr.png" alt="Türkiye flag"><span class="wtp-bv">68%</span><span class="wtp-bl">Türkiye</span>
+                <img class="wtp-flag" src="https://flagcdn.com/w160/tr.png" alt="Türkiye flag"><span class="wtp-tint"></span><span class="wtp-bv">68%</span><span class="wtp-bl">Türkiye</span>
               </div>
               <div class="wtp-bubble wtp-b-hi" style="width:112px;height:112px;left:62%;top:30%;animation-delay:.35s;" data-tooltip="Saudi Arabia · 82% — scale now, best greenfield GCC opportunity">
-                <img class="wtp-flag" src="https://flagcdn.com/w80/sa.png" alt="Saudi Arabia flag"><span class="wtp-bv">82%</span><span class="wtp-bl">Saudi</span>
+                <img class="wtp-flag" src="https://flagcdn.com/w160/sa.png" alt="Saudi Arabia flag"><span class="wtp-tint"></span><span class="wtp-bv">82%</span><span class="wtp-bl">Saudi</span>
               </div>
               <div class="wtp-bubble wtp-b-hi wtp-b-lead" style="width:124px;height:124px;left:81%;top:24%;animation-delay:.45s;" data-tooltip="UAE · 92% — proven licensed route, GCC reference implementation">
-                <img class="wtp-flag" src="https://flagcdn.com/w80/ae.png" alt="UAE flag"><span class="wtp-bv">92%</span><span class="wtp-bl">UAE</span>
+                <img class="wtp-flag" src="https://flagcdn.com/w160/ae.png" alt="UAE flag"><span class="wtp-tint"></span><span class="wtp-bv">92%</span><span class="wtp-bl">UAE</span>
               </div>
               <div class="wtp-bubble wtp-b-lo" style="width:106px;height:106px;left:58%;top:73%;animation-delay:.55s;" data-tooltip="Indonesia · 90% — LMS modernisation play, not new-category creation">
-                <img class="wtp-flag" src="https://flagcdn.com/w80/id.png" alt="Indonesia flag"><span class="wtp-bv">90%</span><span class="wtp-bl">Indonesia</span>
+                <img class="wtp-flag" src="https://flagcdn.com/w160/id.png" alt="Indonesia flag"><span class="wtp-tint"></span><span class="wtp-bv">90%</span><span class="wtp-bl">Indonesia</span>
               </div>
               <div class="wtp-bubble wtp-b-lo" style="width:103px;height:103px;left:77%;top:76%;animation-delay:.65s;" data-tooltip="Philippines · 88% — LMS modernisation play, not new-category creation">
-                <img class="wtp-flag" src="https://flagcdn.com/w80/ph.png" alt="Philippines flag"><span class="wtp-bv">88%</span><span class="wtp-bl">Philippines</span>
+                <img class="wtp-flag" src="https://flagcdn.com/w160/ph.png" alt="Philippines flag"><span class="wtp-tint"></span><span class="wtp-bv">88%</span><span class="wtp-bl">Philippines</span>
               </div>
             </div>
             <div class="wtp-axis-label wtp-axis-x">Regulatory Readiness <span class="wtp-arrow">&rarr;</span></div>
@@ -10461,18 +10546,17 @@
         #slide-wtp .wtp-q-bl { bottom:0; left:0; }
         #slide-wtp .wtp-q-br { bottom:0; right:0; color:var(--teal); }
 
-        #slide-wtp .wtp-bubble { position:absolute; transform:translate(-50%,-50%) scale(0); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,1,55,.16); cursor:default; opacity:0; }
+        #slide-wtp .wtp-bubble { position:absolute; transform:translate(-50%,-50%) scale(0); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; box-shadow:0 4px 14px rgba(0,1,55,.22), 0 0 0 3px #fff; cursor:default; opacity:0; overflow:hidden; background:#dbe2ea; padding-bottom:10px; }
         #slide-wtp .wtp-matrix.play .wtp-bubble { animation: wtpPop .6s var(--ease-bounce) forwards; }
         @keyframes wtpPop { 0% { transform:translate(-50%,-50%) scale(0); opacity:0; } 70% { transform:translate(-50%,-50%) scale(1.1); opacity:1; } 100% { transform:translate(-50%,-50%) scale(1); opacity:1; } }
-        #slide-wtp .wtp-flag { width:30px; height:22px; object-fit:cover; border-radius:4px; box-shadow:0 0 0 2px rgba(255,255,255,.85), 0 2px 5px rgba(0,0,0,.3); }
-        #slide-wtp .wtp-bv { font-family:var(--mono); font-weight:800; font-size:1.15rem; color:#fff; line-height:1.15; margin-top:2px; }
-        #slide-wtp .wtp-bl { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.95); text-transform:uppercase; letter-spacing:.03em; margin-top:1px; }
-        #slide-wtp .wtp-b-hollow .wtp-flag { filter:none; }
-        #slide-wtp .wtp-b-hi { background:radial-gradient(circle at 35% 30%, #24345F, #0B1533); }
-        #slide-wtp .wtp-b-mid { background:radial-gradient(circle at 35% 30%, #E8A93D, #B45F06); }
-        #slide-wtp .wtp-b-lo { background:radial-gradient(circle at 35% 30%, #1AC8E0, #0891A8); }
-        #slide-wtp .wtp-b-hollow { background:#fff; border:2px solid var(--line); box-shadow:none; }
-        #slide-wtp .wtp-b-hollow .wtp-bv, #slide-wtp .wtp-b-hollow .wtp-bl { color:var(--muted); }
+        #slide-wtp .wtp-flag { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+        #slide-wtp .wtp-tint { position:absolute; inset:0; z-index:1; }
+        #slide-wtp .wtp-bv { position:relative; z-index:2; font-family:var(--mono); font-weight:800; font-size:1.15rem; color:#fff; line-height:1.15; text-shadow:0 1px 4px rgba(0,0,0,.65); }
+        #slide-wtp .wtp-bl { position:relative; z-index:2; font-size:.72rem; font-weight:700; color:rgba(255,255,255,.96); text-transform:uppercase; letter-spacing:.03em; margin-top:1px; text-shadow:0 1px 4px rgba(0,0,0,.65); }
+        #slide-wtp .wtp-b-hi .wtp-tint { background:linear-gradient(to top, rgba(11,21,51,.82) 0%, rgba(11,21,51,.28) 55%, rgba(11,21,51,0) 100%); }
+        #slide-wtp .wtp-b-mid .wtp-tint { background:linear-gradient(to top, rgba(180,95,6,.82) 0%, rgba(180,95,6,.24) 55%, rgba(180,95,6,0) 100%); }
+        #slide-wtp .wtp-b-lo .wtp-tint { background:linear-gradient(to top, rgba(8,145,168,.82) 0%, rgba(8,145,168,.24) 55%, rgba(8,145,168,0) 100%); }
+        #slide-wtp .wtp-b-hollow .wtp-tint { background:linear-gradient(to top, rgba(15,23,42,.72) 0%, rgba(15,23,42,.15) 55%, rgba(15,23,42,0) 100%); }
         #slide-wtp .wtp-b-lead { z-index:2; animation: wtpPop .6s var(--ease-bounce) forwards, wtpPulse 2.6s ease-in-out .8s infinite; }
         @keyframes wtpPulse { 0%,100% { box-shadow:0 4px 14px rgba(0,1,55,.16), 0 0 0 0 rgba(11,21,51,.30); } 50% { box-shadow:0 4px 14px rgba(0,1,55,.16), 0 0 0 14px rgba(11,21,51,0); } }
 
