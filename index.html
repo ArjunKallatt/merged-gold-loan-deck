@@ -11598,7 +11598,7 @@
     const STAGES = [
       {
         num: '01', name: 'Customer Onboarding',
-        sys: { name: 'Origination & Identity Verification', stack: [{ name: 'UIDAI', domain: 'uidai.gov.in' }, { name: 'Karza', domain: 'karza.in' }, { name: 'NSDL', domain: 'nsdl.co.in' }, { name: 'DigiLocker', domain: 'digilocker.gov.in' }, { name: 'Signzy', domain: 'signzy.com' }, { name: 'IDfy', domain: 'idfy.com' }, { name: 'Digio', domain: 'digio.in' }, { name: 'Pixl', domain: 'pixl.co.in' }, { name: 'Veri5 Digital', domain: 'veri5digital.com' }], groups: [{ label: 'ID Verification', names: ['UIDAI', 'NSDL', 'Karza', 'DigiLocker', 'Digio', 'IDfy'] }, { label: 'VKYC', names: ['Veri5 Digital', 'Pixl', 'Signzy'] }], lat: '450ms', uptime: '99.5%', log: "POST /api/crm/lead\n<span class='success'>[200 OK] Dedupe: CLEAN</span>\nGET /uidai/auth\n<span class='success'>[200 OK] Match: 98.4%</span>\nPOST /karza/aml -> <span class='success'>CLEARED</span>", extra: 'Deduplication engine cross-references legacy data, then integrates closely with NSDL and CKYCR databases for seamless compliance.' },
+        sys: { name: 'Origination & Identity Verification', stack: [{ name: 'UIDAI', domain: 'uidai.gov.in' }, { name: 'Karza', domain: 'karza.in' }, { name: 'NSDL', domain: 'nsdl.co.in' }, { name: 'DigiLocker', domain: 'digilocker.gov.in' }, { name: 'Signzy', domain: 'signzy.com' }, { name: 'IDfy', domain: 'idfy.com' }, { name: 'Digio', domain: 'digio.in' }, { name: 'Pixl', domain: 'pixl.co.in' }, { name: 'Veri5 Digital', domain: 'veri5digital.com' }, { name: 'Webcam', domain: 'webcam.finnone.internal' }], groups: [{ label: 'ID Verification', names: ['UIDAI', 'NSDL', 'Karza', 'DigiLocker', 'Digio', 'IDfy'] }, { label: 'VKYC', names: ['Veri5 Digital', 'Pixl', 'Signzy'] }, { label: 'Integrations - External', names: ['Webcam'] }], lat: '450ms', uptime: '99.5%', log: "POST /api/crm/lead\n<span class='success'>[200 OK] Dedupe: CLEAN</span>\nGET /uidai/auth\n<span class='success'>[200 OK] Match: 98.4%</span>\nPOST /karza/aml -> <span class='success'>CLEARED</span>", extra: 'Deduplication engine cross-references legacy data, then integrates closely with NSDL and CKYCR databases for seamless compliance.' },
         customer: { icon: '👤', name: 'Customer', role: 'Applicant', m1: 'Channel', v1: 'Web/Branch', m2: 'Docs', v2: 'Provided' },
         ops: [
           { icon: '👔', name: 'Sales Manager', role: 'Origination', m1: 'Queue', v1: 'Priority', m2: 'Action', v2: 'Schedule', class: 'ops' },
@@ -11611,7 +11611,6 @@
         outputs: ['Unique Lead ID', 'Verified Customer ID', 'Risk Scorecard'],
         capabilities: ['Create Lead', 'Update Lead', 'Manage Lead', 'KYC Upload', 'KYC Verification', 'Mobile/Email Verification', 'Occupation Details', 'Income Details', 'Bank Account Details', 'Bank Account Verification', 'Customer Deduplication', 'Negative List Check / AML Check', 'Risk Categorization', 'Nominee Details Capture', 'Customer ID Creation (CIF)', 'Applicant Demographic Data Entry'],
         capabilityGroups: [{ label: 'Lead Management', names: ['Create Lead', 'Update Lead', 'Manage Lead'] }, { label: 'KYC & Compliance', names: ['KYC Upload', 'KYC Verification', 'Customer Deduplication', 'Negative List Check / AML Check', 'Risk Categorization', 'Customer ID Creation (CIF)'] }, { label: 'Applicant Details', names: ['Mobile/Email Verification', 'Occupation Details', 'Income Details', 'Bank Account Details', 'Bank Account Verification', 'Nominee Details Capture', 'Applicant Demographic Data Entry'] }],
-        gaps: ['Customer Live Photo Capture'],
         modalText: "From first inquiry to verified profile in one motion: the system routes Web/Branch leads to the right Sales Manager queue while deduping in real time, then Branch Ops runs biometrics and CKYC/BSA API validation before the customer is cleared to proceed."
       },
       {
@@ -11640,9 +11639,8 @@
         inputs: ['Collateral Value', 'Desired Tenure', 'Income/Consumption Data'],
         tasks: ['Calculate Loan Amount', 'Verify Loan Purpose', 'Product Selection', 'Scheme Selection', 'Calculate LTV on Maturity Amount', 'Configure repayment terms', 'Map fees & charges', 'Generate EMI summary'],
         outputs: ['Loan Scheme Selected', 'Finalized Repayment Plan'],
-        capabilities: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection', 'Repayment Details'],
-        capabilityGroups: [{ label: 'Loan Setup', names: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection'] }, { label: 'Repayment', names: ['Repayment Details'] }],
-        gaps: ['LTV on Maturity Amount'],
+        capabilities: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection', 'LTV on Maturity Amount', 'RBI LTV Norms', 'Repayment Details', 'Rebate with Interest Rollup', 'Bullet with Monthly Installment', 'Bullet with Quarterly/Half Yearly Installment'],
+        capabilityGroups: [{ label: 'Loan Setup', names: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection', 'LTV on Maturity Amount', 'RBI LTV Norms'] }, { label: 'Repayment', names: ['Repayment Details', 'Rebate with Interest Rollup', 'Bullet with Monthly Installment', 'Bullet with Quarterly/Half Yearly Installment'] }],
         modalText: "Once valued, FinnOne Neo and Branch Ops calculate eligible margins, map fees, configure repayment terms, and generate a binding EMI amortization layout."
       },
       {
@@ -11654,8 +11652,8 @@
         inputs: ['Complete Loan File', 'Appraisal Certificate', 'KYC Report'],
         tasks: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'Account Verification (Perfios)', 'Fraud/Risk Detection (Sherlock)', 'RCU Check', 'STP Approval', 'Execute Sanction Authority Matrix'],
         outputs: ['Approve / Send Back / Reject', 'Signed Sanction Letter'],
-        capabilities: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'RCU Check', 'STP Approval', 'Sanction Authority Matrix', 'Provisioning Policy', 'Deviation Policy', 'Approve', 'Send Back', 'Reject'],
-        capabilityGroups: [{ label: 'Application Review', names: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'RCU Check', 'Sanction Authority Matrix', 'Provisioning Policy', 'Deviation Policy'] }, { label: 'Decision', names: ['Approve', 'Send Back', 'Reject', 'STP Approval'] }],
+        capabilities: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'RCU Check', 'FI Check', 'STP Approval', 'Sanction Authority Matrix', 'Provisioning Policy', 'Deviation Policy', 'Approve', 'Send Back', 'Reject'],
+        capabilityGroups: [{ label: 'Application Review', names: ['Review Application', 'Edit Application', 'Credit Bureau Check', 'RCU Check', 'FI Check', 'Sanction Authority Matrix', 'Provisioning Policy', 'Deviation Policy'] }, { label: 'Decision', names: ['Approve', 'Send Back', 'Reject', 'STP Approval'] }],
         gaps: [],
         modalText: "Underwriters perform final credit validations using integrated external risk tools (Experian, Sherlock) and account verification (Perfios)."
       },
