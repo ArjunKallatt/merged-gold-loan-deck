@@ -7853,6 +7853,23 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
     }
 
+    .vendor-amber-tick {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #F59E0B;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+    }
+
     #slide-command-center .vendor-name {
       line-height: 1.25;
     }
@@ -11879,9 +11896,10 @@
             <span class="pf-label">${stage.name}</span>
           </div>`;
 
+        const showAmberTick = stage.isVaultStage || stage.isAuditStage || stage.isAuctionStage;
         const vendorBadgeHtml = vendor => `
             <div class="vendor-badge">
-                ${vendor.pending ? `<span class="vendor-pending-badge">!</span>` : ''}
+                ${vendor.pending ? `<span class="vendor-pending-badge">!</span>` : (showAmberTick ? `<span class="vendor-amber-tick">✓</span>` : '')}
                 <img src="${getLogo(vendor.domain)}" alt="${vendor.name}" class="vendor-logo">
                 <span class="vendor-name">${vendor.name}</span>
             </div>
