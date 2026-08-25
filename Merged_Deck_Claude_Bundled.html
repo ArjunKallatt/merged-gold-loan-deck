@@ -10390,26 +10390,26 @@
               <div class="wtp-quad-label wtp-q-bl">Niche / Defer</div>
               <div class="wtp-quad-label wtp-q-br">Modernise</div>
 
-              <div class="wtp-bubble wtp-b-hollow" style="width:58px;height:58px;left:20%;top:68%;animation-delay:.05s;" data-tooltip="China · 52% — niche / defer for now">
-                <span class="wtp-bv">52%</span><span class="wtp-bl">China</span>
+              <div class="wtp-bubble wtp-b-hollow" style="width:82px;height:82px;left:20%;top:68%;animation-delay:.05s;" data-tooltip="China · 52% — niche / defer for now">
+                <span class="wtp-flag">🇨🇳</span><span class="wtp-bv">52%</span><span class="wtp-bl">China</span>
               </div>
-              <div class="wtp-bubble wtp-b-mid" style="width:68px;height:68px;left:24%;top:32%;animation-delay:.15s;" data-tooltip="Vietnam · 65% — validate before build">
-                <span class="wtp-bv">65%</span><span class="wtp-bl">Vietnam</span>
+              <div class="wtp-bubble wtp-b-mid" style="width:96px;height:96px;left:24%;top:32%;animation-delay:.15s;" data-tooltip="Vietnam · 65% — validate before build">
+                <span class="wtp-flag">🇻🇳</span><span class="wtp-bv">65%</span><span class="wtp-bl">Vietnam</span>
               </div>
-              <div class="wtp-bubble wtp-b-mid" style="width:70px;height:70px;left:46%;top:50%;animation-delay:.25s;" data-tooltip="Türkiye · 68% — validate before build">
-                <span class="wtp-bv">68%</span><span class="wtp-bl">Türkiye</span>
+              <div class="wtp-bubble wtp-b-mid" style="width:99px;height:99px;left:46%;top:50%;animation-delay:.25s;" data-tooltip="Türkiye · 68% — validate before build">
+                <span class="wtp-flag">🇹🇷</span><span class="wtp-bv">68%</span><span class="wtp-bl">Türkiye</span>
               </div>
-              <div class="wtp-bubble wtp-b-hi" style="width:80px;height:80px;left:62%;top:30%;animation-delay:.35s;" data-tooltip="Saudi Arabia · 82% — scale now, best greenfield GCC opportunity">
-                <span class="wtp-bv">82%</span><span class="wtp-bl">Saudi</span>
+              <div class="wtp-bubble wtp-b-hi" style="width:112px;height:112px;left:62%;top:30%;animation-delay:.35s;" data-tooltip="Saudi Arabia · 82% — scale now, best greenfield GCC opportunity">
+                <span class="wtp-flag">🇸🇦</span><span class="wtp-bv">82%</span><span class="wtp-bl">Saudi</span>
               </div>
-              <div class="wtp-bubble wtp-b-hi wtp-b-lead" style="width:88px;height:88px;left:81%;top:24%;animation-delay:.45s;" data-tooltip="UAE · 92% — proven licensed route, GCC reference implementation">
-                <span class="wtp-bv">92%</span><span class="wtp-bl">UAE</span>
+              <div class="wtp-bubble wtp-b-hi wtp-b-lead" style="width:124px;height:124px;left:81%;top:24%;animation-delay:.45s;" data-tooltip="UAE · 92% — proven licensed route, GCC reference implementation">
+                <span class="wtp-flag">🇦🇪</span><span class="wtp-bv">92%</span><span class="wtp-bl">UAE</span>
               </div>
-              <div class="wtp-bubble wtp-b-lo" style="width:76px;height:76px;left:58%;top:73%;animation-delay:.55s;" data-tooltip="Indonesia · 90% — LMS modernisation play, not new-category creation">
-                <span class="wtp-bv">90%</span><span class="wtp-bl">Indonesia</span>
+              <div class="wtp-bubble wtp-b-lo" style="width:106px;height:106px;left:58%;top:73%;animation-delay:.55s;" data-tooltip="Indonesia · 90% — LMS modernisation play, not new-category creation">
+                <span class="wtp-flag">🇮🇩</span><span class="wtp-bv">90%</span><span class="wtp-bl">Indonesia</span>
               </div>
-              <div class="wtp-bubble wtp-b-lo" style="width:74px;height:74px;left:77%;top:76%;animation-delay:.65s;" data-tooltip="Philippines · 88% — LMS modernisation play, not new-category creation">
-                <span class="wtp-bv">88%</span><span class="wtp-bl">Philippines</span>
+              <div class="wtp-bubble wtp-b-lo" style="width:103px;height:103px;left:77%;top:76%;animation-delay:.65s;" data-tooltip="Philippines · 88% — LMS modernisation play, not new-category creation">
+                <span class="wtp-flag">🇵🇭</span><span class="wtp-bv">88%</span><span class="wtp-bl">Philippines</span>
               </div>
             </div>
             <div class="wtp-axis-label wtp-axis-x">Regulatory Readiness <span class="wtp-arrow">&rarr;</span></div>
@@ -10458,8 +10458,10 @@
         #slide-wtp .wtp-bubble { position:absolute; transform:translate(-50%,-50%) scale(0); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,1,55,.16); cursor:default; opacity:0; }
         #slide-wtp .wtp-matrix.play .wtp-bubble { animation: wtpPop .6s var(--ease-bounce) forwards; }
         @keyframes wtpPop { 0% { transform:translate(-50%,-50%) scale(0); opacity:0; } 70% { transform:translate(-50%,-50%) scale(1.1); opacity:1; } 100% { transform:translate(-50%,-50%) scale(1); opacity:1; } }
-        #slide-wtp .wtp-bv { font-family:var(--mono); font-weight:800; font-size:.92rem; color:#fff; line-height:1.1; }
-        #slide-wtp .wtp-bl { font-size:.62rem; font-weight:700; color:rgba(255,255,255,.92); text-transform:uppercase; letter-spacing:.03em; margin-top:2px; }
+        #slide-wtp .wtp-flag { font-size:1.5rem; line-height:1; filter:drop-shadow(0 1px 2px rgba(0,0,0,.25)); }
+        #slide-wtp .wtp-bv { font-family:var(--mono); font-weight:800; font-size:1.15rem; color:#fff; line-height:1.15; margin-top:2px; }
+        #slide-wtp .wtp-bl { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.95); text-transform:uppercase; letter-spacing:.03em; margin-top:1px; }
+        #slide-wtp .wtp-b-hollow .wtp-flag { filter:none; }
         #slide-wtp .wtp-b-hi { background:radial-gradient(circle at 35% 30%, #2F7FED, #0139D6); }
         #slide-wtp .wtp-b-mid { background:radial-gradient(circle at 35% 30%, #4C9BE8, #0653C7); }
         #slide-wtp .wtp-b-lo { background:radial-gradient(circle at 35% 30%, #6FC8D6, #0891A8); }
@@ -10468,14 +10470,14 @@
         #slide-wtp .wtp-b-lead { z-index:2; animation: wtpPop .6s var(--ease-bounce) forwards, wtpPulse 2.6s ease-in-out .8s infinite; }
         @keyframes wtpPulse { 0%,100% { box-shadow:0 4px 14px rgba(0,1,55,.16), 0 0 0 0 rgba(1,57,214,.35); } 50% { box-shadow:0 4px 14px rgba(0,1,55,.16), 0 0 0 14px rgba(1,57,214,0); } }
 
-        #slide-wtp .wtp-plan-col { flex:1; display:flex; flex-direction:column; padding-top:2px; }
-        #slide-wtp .wtp-plan-item { display:flex; gap:16px; padding:16px 0; border-bottom:1px solid var(--line-soft); }
-        #slide-wtp .wtp-plan-num { font-family:var(--mono); font-size:1.1rem; font-weight:800; color:var(--brass-dim); flex:none; width:32px; }
-        #slide-wtp .wtp-plan-item h3 { font-size:1.15rem; font-weight:800; color:var(--paper); }
-        #slide-wtp .wtp-plan-item p { font-size:.92rem; color:var(--muted); margin-top:4px; line-height:1.45; }
+        #slide-wtp .wtp-plan-col { flex:1; display:flex; flex-direction:column; padding-top:2px; justify-content:space-between; }
+        #slide-wtp .wtp-plan-item { display:flex; gap:20px; padding:28px 0; border-bottom:1px solid var(--line-soft); align-items:flex-start; }
+        #slide-wtp .wtp-plan-num { font-family:var(--mono); font-weight:800; color:#fff; background:var(--gradient-accent); flex:none; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.15rem; box-shadow:var(--shadow-sm); }
+        #slide-wtp .wtp-plan-item h3 { font-size:1.5rem; font-weight:800; color:var(--paper); }
+        #slide-wtp .wtp-plan-item p { font-size:1.12rem; color:var(--muted); margin-top:8px; line-height:1.5; }
         #slide-wtp .wtp-plan-dim h3, #slide-wtp .wtp-plan-dim p { color:var(--muted); }
-        #slide-wtp .wtp-plan-dim .wtp-plan-num { color:var(--muted-dim); }
-        #slide-wtp .wtp-footnote { font-size:.8rem; color:var(--muted-dim); margin-top:auto; padding-top:16px; line-height:1.4; }
+        #slide-wtp .wtp-plan-dim .wtp-plan-num { background:var(--muted-dim); }
+        #slide-wtp .wtp-footnote { font-size:1rem; color:var(--muted-dim); margin-top:22px; padding:18px 20px; line-height:1.5; background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.22); border-radius:var(--radius); }
       </style>
 
       <script>
