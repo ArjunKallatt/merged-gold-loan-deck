@@ -10123,51 +10123,29 @@
       <div class="rmt-slide" id="rmtSlide">
         <div class="rmt-header">
           <div class="eyebrow">Process Flow · Roadmap</div>
-          <h1>Build Roadmap · Month 1 to Month 10</h1>
-          <p class="lede" style="margin-top:4px;">36 requirements across LMS, Audit, Auction &amp; Vault, sequenced MVP &rarr; Enhancement &rarr; Maturity - hover a month for a preview, click to pin its detail.</p>
-        </div>
-        <div class="rmt-stats">
-          <div class="rmt-stat rmt-stat-total"><b class="counter" data-target="36">0</b><span>Requirements<br/>Total</span></div>
-          <div class="rmt-stat rmt-stat-p0"><b class="counter" data-target="14">0</b><span>P0 · MVP<br/>Months 1-4</span></div>
-          <div class="rmt-stat rmt-stat-p1"><b class="counter" data-target="10">0</b><span>P1 · Enhancement<br/>Months 5-7</span></div>
-          <div class="rmt-stat rmt-stat-p2"><b class="counter" data-target="12">0</b><span>P2 · Maturity<br/>Months 8-10</span></div>
+          <h1>Build Roadmap · P0 to P2</h1>
+          <p class="lede" style="margin-top:4px;">50 requirements across LMS, Audit, Auction &amp; Vault, sequenced MVP &rarr; Enhancement &rarr; Maturity - hover or click a phase to see what's in it.</p>
         </div>
 
-        <div class="rmt-grid-wrap">
-          <div class="rmt-grid" id="rmtGrid">
-            <div class="rmt-row rmt-row-head">
-              <div class="rmt-rowlabel"></div>
-              <div class="rmt-cells" id="rmtHeadCells"></div>
-            </div>
-            <div class="rmt-row" data-mod="LMS">
-              <div class="rmt-rowlabel">LMS</div>
-              <div class="rmt-cells" data-mod="LMS"></div>
-            </div>
-            <div class="rmt-row" data-mod="Audit">
-              <div class="rmt-rowlabel">Audit</div>
-              <div class="rmt-cells" data-mod="Audit"></div>
-            </div>
-            <div class="rmt-row" data-mod="Auction">
-              <div class="rmt-rowlabel">Auction</div>
-              <div class="rmt-cells" data-mod="Auction"></div>
-            </div>
-            <div class="rmt-row" data-mod="Vault">
-              <div class="rmt-rowlabel">Vault</div>
-              <div class="rmt-cells" data-mod="Vault"></div>
-            </div>
+        <div class="rmt-phase-tabs" id="rmtPhaseTabs">
+          <div class="rmt-phase-tab" data-p="p0">
+            <b class="counter" data-target="25">0</b>
+            <span>P0 · MVP<br/>Months 1-4</span>
           </div>
-          <div class="rmt-legend">
-            <span><i class="rmt-swatch rmt-sw-p0"></i>P0 · MVP</span>
-            <span><i class="rmt-swatch rmt-sw-p1"></i>P1 · Enhancement</span>
-            <span><i class="rmt-swatch rmt-sw-p2"></i>P2 · Maturity</span>
-            <span><i class="rmt-swatch rmt-sw-idle"></i>No items scheduled</span>
+          <div class="rmt-phase-tab" data-p="p1">
+            <b class="counter" data-target="11">0</b>
+            <span>P1 · Enhancement<br/>Months 4-7</span>
+          </div>
+          <div class="rmt-phase-tab" data-p="p2">
+            <b class="counter" data-target="14">0</b>
+            <span>P2 · Maturity<br/>Months 7-10</span>
           </div>
         </div>
 
         <div class="rmt-panel">
           <div class="rmt-panel-head">
-            <span class="rmt-panel-month" id="rmtPanelMonth">Month 1</span>
             <span class="rmt-panel-phase" id="rmtPanelPhase">P0 · MVP</span>
+            <span class="rmt-panel-sub" id="rmtPanelSub">Months 1-4</span>
           </div>
           <div class="rmt-items" id="rmtItems"></div>
         </div>
@@ -10194,168 +10172,130 @@
         #slide-roadmap .rmt-slide { width:100%; height:100%; padding:100px 40px 40px; box-sizing:border-box; display:flex; flex-direction:column; }
         #slide-roadmap .rmt-header { flex:none; }
         #slide-roadmap .rmt-header h1 { font-family:var(--sans); font-size:2.4rem; font-weight:800; letter-spacing:-0.02em; color:var(--paper); }
-        #slide-roadmap .rmt-stats { display:flex; gap:18px; margin-top:28px; flex:none; }
-        #slide-roadmap .rmt-stat { flex:1; border-radius:var(--radius); padding:16px 22px; display:flex; align-items:center; gap:16px; box-shadow:var(--shadow-sm); border:1px solid var(--glass-border); background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
-        #slide-roadmap .rmt-stat b { font-family:var(--mono); font-size:2.2rem; font-weight:800; line-height:1; }
-        #slide-roadmap .rmt-stat span { font-size:.85rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); line-height:1.4; }
-        #slide-roadmap .rmt-stat-p0 b { color:#0891A8; }
-        #slide-roadmap .rmt-stat-p1 b { color:#0653C7; }
-        #slide-roadmap .rmt-stat-p2 b { color:#B45F06; }
-        #slide-roadmap .rmt-stat-p0 { border-left:4px solid #1AC8E0; }
-        #slide-roadmap .rmt-stat-p1 { border-left:4px solid #0653C7; }
-        #slide-roadmap .rmt-stat-p2 { border-left:4px solid #F59E0B; }
-        #slide-roadmap .rmt-stat-total b { color:var(--paper); }
-        #slide-roadmap .rmt-stat-total { border-left:4px solid var(--paper); }
 
-        #slide-roadmap .rmt-grid-wrap { margin-top:26px; flex:none; }
-        #slide-roadmap .rmt-grid { background:rgba(255,255,255,0.65); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:16px 20px 10px; }
-        #slide-roadmap .rmt-row { display:flex; align-items:center; gap:10px; }
-        #slide-roadmap .rmt-row + .rmt-row { margin-top:8px; }
-        #slide-roadmap .rmt-row-head { margin-bottom:6px; padding-bottom:10px; border-bottom:1px solid var(--line-soft); }
-        #slide-roadmap .rmt-rowlabel { flex:none; width:64px; font-size:.82rem; font-weight:800; color:var(--paper); text-transform:uppercase; letter-spacing:.04em; }
-        #slide-roadmap .rmt-cells { flex:1; display:grid; grid-template-columns:repeat(10, 1fr); gap:6px; }
-        #slide-roadmap .rmt-head-cell { text-align:center; font-family:var(--mono); font-size:.88rem; font-weight:800; color:var(--paper); padding:6px 0 10px; border-radius:6px; cursor:pointer; transition:color var(--anim-fast), background var(--anim-fast); }
-        #slide-roadmap .rmt-head-cell:hover { color:var(--paper); }
-        #slide-roadmap .rmt-head-cell.p0-col { border-right:2px solid rgba(26,200,224,.35); }
-        #slide-roadmap .rmt-head-cell.p1-col { border-right:2px solid rgba(6,83,199,.3); }
-        #slide-roadmap .rmt-cell { height:28px; border-radius:6px; cursor:pointer; background:rgba(0,1,55,.05); border:1px solid transparent; opacity:.55; transition:opacity var(--anim-fast) var(--ease-smooth), box-shadow var(--anim-fast) var(--ease-smooth); }
-        #slide-roadmap .rmt-cell.filled { opacity:1; }
-        #slide-roadmap .rmt-cell:hover { box-shadow:0 0 0 2px rgba(11,21,51,.35) inset; }
-        #slide-roadmap .rmt-cell.filled.p0 { background:#1AC8E0; }
-        #slide-roadmap .rmt-cell.filled.p1 { background:#0653C7; }
-        #slide-roadmap .rmt-cell.filled.p2 { background:#F59E0B; }
-        #slide-roadmap .rmt-cell.selected, #slide-roadmap .rmt-head-cell.selected { box-shadow:0 0 0 2px var(--paper); }
-        #slide-roadmap .rmt-head-cell.selected { background:rgba(11,21,51,.08); color:var(--paper); }
+        #slide-roadmap .rmt-phase-tabs { display:flex; gap:20px; margin-top:28px; flex:none; }
+        #slide-roadmap .rmt-phase-tab { flex:1; cursor:pointer; border-radius:var(--radius-lg); padding:22px 26px; display:flex; flex-direction:column; gap:6px; box-shadow:var(--shadow-sm); border:2px solid var(--glass-border); background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:transform var(--anim-fast) var(--ease-spring), box-shadow var(--anim-fast), border-color var(--anim-fast); }
+        #slide-roadmap .rmt-phase-tab:hover { transform:translateY(-3px); box-shadow:var(--shadow-hover); }
+        #slide-roadmap .rmt-phase-tab b { font-family:var(--mono); font-size:2.6rem; font-weight:800; line-height:1; }
+        #slide-roadmap .rmt-phase-tab span { font-size:.9rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); line-height:1.4; margin-top:4px; }
+        #slide-roadmap .rmt-phase-tab[data-p="p0"] { border-left:6px solid #1AC8E0; }
+        #slide-roadmap .rmt-phase-tab[data-p="p0"] b { color:#0891A8; }
+        #slide-roadmap .rmt-phase-tab[data-p="p1"] { border-left:6px solid #0653C7; }
+        #slide-roadmap .rmt-phase-tab[data-p="p1"] b { color:#0653C7; }
+        #slide-roadmap .rmt-phase-tab[data-p="p2"] { border-left:6px solid #F59E0B; }
+        #slide-roadmap .rmt-phase-tab[data-p="p2"] b { color:#B45F06; }
+        #slide-roadmap .rmt-phase-tab.selected { border-color:var(--paper); box-shadow:var(--shadow-hover); }
 
-        #slide-roadmap .rmt-legend { display:flex; gap:22px; margin-top:14px; flex-wrap:wrap; }
-        #slide-roadmap .rmt-legend span { display:flex; align-items:center; gap:7px; font-size:.78rem; font-weight:600; color:var(--muted); }
-        #slide-roadmap .rmt-swatch { width:12px; height:12px; border-radius:3px; display:inline-block; }
-        #slide-roadmap .rmt-sw-p0 { background:#1AC8E0; }
-        #slide-roadmap .rmt-sw-p1 { background:#0653C7; }
-        #slide-roadmap .rmt-sw-p2 { background:#F59E0B; }
-        #slide-roadmap .rmt-sw-idle { background:rgba(0,1,55,.08); border:1px solid var(--line); }
-
-        #slide-roadmap .rmt-panel { margin-top:22px; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:24px 30px; flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
-        #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line-soft); padding-bottom:12px; margin-bottom:18px; flex:none; }
-        #slide-roadmap .rmt-panel-month { font-size:1.5rem; font-weight:800; color:var(--paper); }
-        #slide-roadmap .rmt-panel-phase { font-family:var(--mono); font-size:.82rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; padding:5px 14px; border-radius:20px; color:#fff; }
-        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px; align-content:start; flex:1 1 auto; overflow-y:auto; }
-        #slide-roadmap .rmt-item { display:flex; flex-direction:column; gap:10px; align-items:flex-start; background:rgba(255,255,255,0.65); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:20px 22px; box-shadow:var(--shadow-sm); box-sizing:border-box; height:100%; }
-        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.78rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:6px; padding:5px 10px; }
-        #slide-roadmap .rmt-item-body b { display:block; font-size:1.15rem; color:var(--paper); font-weight:700; line-height:1.35; }
-        #slide-roadmap .rmt-item-body span { display:block; font-size:.92rem; color:var(--muted); margin-top:6px; line-height:1.4; }
+        #slide-roadmap .rmt-panel { margin-top:26px; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:26px 30px; flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+        #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line-soft); padding-bottom:14px; margin-bottom:18px; flex:none; }
+        #slide-roadmap .rmt-panel-phase { font-size:1.5rem; font-weight:800; color:var(--paper); }
+        #slide-roadmap .rmt-panel-sub { font-family:var(--mono); font-size:.85rem; font-weight:700; color:var(--muted-dim); text-transform:uppercase; letter-spacing:.05em; }
+        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(4, 1fr); gap:22px; flex:1 1 auto; overflow-y:auto; align-content:start; }
+        #slide-roadmap .rmt-modcol-label { font-size:.85rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--teal); margin-bottom:12px; }
+        #slide-roadmap .rmt-modcol { display:flex; flex-direction:column; gap:12px; }
+        #slide-roadmap .rmt-item { background:rgba(255,255,255,0.65); border:1px solid var(--glass-border); border-radius:var(--radius); padding:12px 14px; box-shadow:var(--shadow-sm); box-sizing:border-box; }
+        #slide-roadmap .rmt-item b { display:block; font-size:.9rem; color:var(--paper); font-weight:700; line-height:1.32; }
+        #slide-roadmap .rmt-item span { display:block; font-size:.75rem; color:var(--muted); margin-top:5px; line-height:1.35; }
       </style>
 
       <script>
-        var RMT_MONTHS = [
-          { m: 1, phase: 'p0', phaseLabel: 'P0 · MVP', items: [
-            { mod: 'Vault', epic: 'Vault Creation', req: 'Vault Creation & Management' },
-            { mod: 'Vault', epic: 'Integrations - Internal', req: 'CAS, ECM, Audit & LMS for Collateral Lodgement' },
-            { mod: 'Audit', epic: 'Audit Initiation', req: 'Branch Risk Master, Classification Trigger Masters & Case Sampling Logic' },
-            { mod: 'LMS', epic: 'Repayment with Rebate Process', req: 'Interest Roll Up with Total Due & Rebate' }
-          ]},
-          { m: 2, phase: 'p0', phaseLabel: 'P0 · MVP', items: [
-            { mod: 'LMS', epic: 'Repayment with Rebate Process', req: 'Bullet with Quarterly/Half Yearly Installment (Total Due)' },
-            { mod: 'LMS', epic: 'Repayment with Rebate Process', req: 'Bullet with Monthly Installment Payment (Total Due)' },
-            { mod: 'Vault', epic: 'Vault In/Vault Out Process', req: 'Vault Logging & Monitoring, Releasing Collateral from Vault' },
-            { mod: 'Audit', epic: 'Audit Execution', req: 'Audit Execution Screens, Completion Process (Stages 3-4)' }
-          ]},
-          { m: 3, phase: 'p0', phaseLabel: 'P0 · MVP', items: [
-            { mod: 'LMS', epic: 'Repayment with Rebate Process', req: 'Structured Repayment Schedule' },
-            { mod: 'LMS', epic: 'Margin Call', req: 'Margin Breach Process' },
-            { mod: 'Vault', epic: 'Temporary Vault Out/In Process', req: 'Temporary Vault In/Out Process' },
-            { mod: 'Audit', epic: 'Audit Closure', req: 'Closure Report & Stages' }
-          ]},
-          { m: 4, phase: 'p0', phaseLabel: 'P0 · MVP', items: [
-            { mod: 'LMS', epic: 'Gold Loan Revaluation Process', req: 'Total LTV & Interest Amortized till date' },
-            { mod: 'LMS', epic: 'Gold Loan Revaluation Process', req: 'LTV Monitoring Dashboards & Notifications' }
-          ]},
-          { m: 5, phase: 'p1', phaseLabel: 'P1 · Enhancement', items: [
-            { mod: 'LMS', epic: 'Contract Upload for Gold as Collateral', req: 'Updating Collateral Details of Gold Loan through Contract Upload' },
-            { mod: 'Vault', epic: 'Key Management Process', req: 'Key Allocation, Management, Attendance Linking & Holiday Calendar' },
-            { mod: 'Audit', epic: 'Integrations - Internal', req: 'CAS, LMS, ECM & Vault Management System' },
-            { mod: 'LMS', epic: 'Collateral Release Process', req: 'Redemption by a Blood Relative / Legal Heir' }
-          ]},
-          { m: 6, phase: 'p1', phaseLabel: 'P1 · Enhancement', items: [
-            { mod: 'LMS', epic: 'Collateral Release Process', req: "Borrower's Death" },
-            { mod: 'LMS', epic: 'Collateral Release Process', req: 'Partial Release in LMS' },
-            { mod: 'Vault', epic: 'Vault Opening Process', req: 'Trigger, Notification Process & Allocation Process' },
-            { mod: 'Audit', epic: 'Corrective Action Plan', req: 'Separate Workflow, Tracking, Notification & Other Actions' }
-          ]},
-          { m: 7, phase: 'p1', phaseLabel: 'P1 · Enhancement', items: [
-            { mod: 'Vault', epic: 'Reports', req: 'Bin-Wise Collateral Details, Vault Level MIS Snapshot' },
-            { mod: 'Audit', epic: 'Reports', req: 'Audit Reports 4-5 (Gold Inventory, Packet-Wise, Branch Audit)' }
-          ]},
-          { m: 8, phase: 'p2', phaseLabel: 'P2 · Maturity', items: [
-            { mod: 'LMS', epic: 'Collateral Release Process', req: 'OTP Validation / Facial Recognition / Image Capture' },
-            { mod: 'LMS', epic: 'Audit/Vault Enhancements', req: 'Integration with Audit & Vault Management, Loan Viewer Enhancements' },
-            { mod: 'Audit', epic: 'Integrations - External', req: 'Webcam, Weighing Scale, XRF' },
-            { mod: 'Vault', epic: 'Integrations - External', req: 'Webcam, Packet Management, Attendance Management' }
-          ]},
-          { m: 9, phase: 'p2', phaseLabel: 'P2 · Maturity', items: [
-            { mod: 'Auction', epic: 'Auction', req: 'Auctioneer Master' },
-            { mod: 'Auction', epic: 'Auction', req: 'Integration with Audit Module' },
-            { mod: 'Audit', epic: 'Dashboards', req: 'Persona-Driven Dashboards (3-4 Personas)' },
-            { mod: 'Vault', epic: 'Notification Real-Time', req: 'Notification on Vault Out/Other Activities' }
-          ]},
-          { m: 10, phase: 'p2', phaseLabel: 'P2 · Maturity', items: [
-            { mod: 'Auction', epic: 'Auction', req: 'Auctioneer-Level Accounting' },
-            { mod: 'Audit', epic: 'Notification', req: 'CAP & Audit Closure Notifications' },
-            { mod: 'Audit', epic: 'mAudit', req: 'Mobile-Based Application for Audit Process' },
-            { mod: 'Vault', epic: 'Dashboards', req: 'Real-Time Inventory Snapshot Dashboard' }
-          ]}
-        ];
+        var RMT_ITEMS = {
+          p0: {
+            label: 'P0 · MVP', sub: 'Months 1-4',
+            items: [
+              { mod: 'LMS', epic: 'Repayment with Rebate Process', req: 'Interest Roll Up with Total Due & Rebate' },
+              { mod: 'LMS', epic: 'Repayment with Rebate Process', req: 'Bullet with Quarterly/Half Yearly Installment (Total Due)' },
+              { mod: 'LMS', epic: 'Repayment with Rebate Process', req: 'Bullet with Monthly Installment Payment (Total Due)' },
+              { mod: 'LMS', epic: 'Repayment with Rebate Process', req: 'Structured Repayment Schedule' },
+              { mod: 'LMS', epic: 'Gold Loan Revaluation Process', req: 'Total LTV & Interest Amortized till date' },
+              { mod: 'LMS', epic: 'Gold Loan Revaluation Process', req: 'LTV Monitoring Dashboards & Notifications' },
+              { mod: 'LMS', epic: 'Margin Call', req: 'Margin Breach Process' },
+              { mod: 'Audit', epic: 'Audit Initiation', req: 'Branch Risk Master, Classification Trigger Masters & Case Sampling Logic' },
+              { mod: 'Audit', epic: 'Audit Execution', req: 'Audit Execution Screens, Completion Process (Stages 3-4)' },
+              { mod: 'Audit', epic: 'Audit Closure', req: 'Closure Report & Stages' },
+              { mod: 'Vault', epic: 'Vault Creation', req: 'Vault Creation & Management' },
+              { mod: 'Vault', epic: 'Vault In/Vault Out Process', req: 'Vault Logging & Monitoring, Releasing Collateral from Vault' },
+              { mod: 'Vault', epic: 'Temporary Vault Out/In Process', req: 'Temporary Vault In/Out Process' },
+              { mod: 'Vault', epic: 'Integrations - Internal', req: 'CAS, ECM, Audit & LMS for Collateral Lodgement' },
+              { mod: 'Auction', epic: 'Auctioneer Master', req: 'Master' },
+              { mod: 'Auction', epic: 'Auctioneer Empanelment Process', req: 'Empanelment of Board-Approved Auctioneers' },
+              { mod: 'Auction', epic: 'Auction Process', req: 'Core Auction Process' },
+              { mod: 'Auction', epic: 'Auction Creation', req: 'Process Flow - 4 Stage Flow' },
+              { mod: 'Auction', epic: 'Notification / Letters', req: 'Letters 2, Notifications SMS etc' },
+              { mod: 'Auction', epic: 'Bundling of Packets', req: 'Packet Creation & Tagging of Gold' },
+              { mod: 'Auction', epic: 'Auction Portal Creation', req: 'Portal Creation & Login' },
+              { mod: 'Auction', epic: 'Portal Bid Management', req: 'Bid Generation, Bidding Process, Acceptance' },
+              { mod: 'Auction', epic: 'Bid Approval', req: 'Bid Approval & Deviation Process' },
+              { mod: 'Auction', epic: 'Final Payment Collection', req: 'Payment Gateway Integration, Maker Checker' },
+              { mod: 'Auction', epic: 'Accounting at Auctioneer & Packet Level', req: 'Accounting at Auctioneer & Packet Level' }
+            ]
+          },
+          p1: {
+            label: 'P1 · Enhancement', sub: 'Months 4-7',
+            items: [
+              { mod: 'LMS', epic: 'Contract Upload for Gold as Collateral', req: 'Updating Collateral Details of Gold Loan through Contract Upload' },
+              { mod: 'LMS', epic: 'Collateral Release Process', req: 'Redemption by a Blood Relative / Legal Heir' },
+              { mod: 'LMS', epic: 'Collateral Release Process', req: "Borrower's Death" },
+              { mod: 'LMS', epic: 'Collateral Release Process', req: 'Partial Release in LMS' },
+              { mod: 'Audit', epic: 'Corrective Action Plan', req: 'Separate Workflow, Tracking, Notification & Other Actions' },
+              { mod: 'Audit', epic: 'Integrations - Internal', req: 'CAS, LMS, ECM & Vault Management System' },
+              { mod: 'Audit', epic: 'Reports', req: 'Audit Reports 4-5 (Gold Inventory, Packet-Wise, Branch Audit)' },
+              { mod: 'Vault', epic: 'Key Management Process', req: 'Key Allocation, Management, Attendance Linking & Holiday Calendar' },
+              { mod: 'Vault', epic: 'Vault Opening Process', req: 'Trigger, Notification Process & Allocation Process' },
+              { mod: 'Vault', epic: 'Reports', req: 'Bin-Wise Collateral Details, Vault Level MIS Snapshot' },
+              { mod: 'Auction', epic: 'Integrations', req: 'Internal + External' }
+            ]
+          },
+          p2: {
+            label: 'P2 · Maturity', sub: 'Months 7-10',
+            items: [
+              { mod: 'LMS', epic: 'Collateral Release Process', req: 'OTP Validation / Facial Recognition / Image Capture' },
+              { mod: 'LMS', epic: 'Audit/Vault Enhancements', req: 'Integration with Audit & Vault Management, Loan Viewer Enhancements' },
+              { mod: 'LMS', epic: 'Auction', req: 'Auctioneer Master' },
+              { mod: 'LMS', epic: 'Auction', req: 'Integration with Audit Module' },
+              { mod: 'LMS', epic: 'Auction', req: 'Auctioneer-Level Accounting' },
+              { mod: 'Audit', epic: 'Dashboards', req: 'Persona-Driven Dashboards (3-4 Personas)' },
+              { mod: 'Audit', epic: 'Notification', req: 'CAP & Audit Closure Notifications' },
+              { mod: 'Audit', epic: 'Integrations - External', req: 'Webcam, Weighing Scale, XRF' },
+              { mod: 'Audit', epic: 'mAudit', req: 'Mobile-Based Application for Audit Process' },
+              { mod: 'Vault', epic: 'Integrations - External', req: 'Webcam, Packet Management, Attendance Management' },
+              { mod: 'Vault', epic: 'Notification Real-Time', req: 'Notification on Vault Out/Other Activities' },
+              { mod: 'Vault', epic: 'Dashboards', req: 'Real-Time Inventory Snapshot Dashboard' },
+              { mod: 'Auction', epic: 'Reports', req: 'Auction Reports' },
+              { mod: 'Auction', epic: 'Dashboards', req: 'Inventory Snapshot & Dashboard on Real Time' }
+            ]
+          }
+        };
         var RMT_MODULES = ['LMS', 'Audit', 'Auction', 'Vault'];
-        var RMT_PHASE_COLOR = { p0: '#1AC8E0', p1: '#0653C7', p2: '#F59E0B' };
-        var RMT_SELECTED = 1;
 
-        function rmtCountsFor(m) {
-          var data = RMT_MONTHS[m - 1];
-          var counts = {}; RMT_MODULES.forEach(function (k) { counts[k] = 0; });
-          data.items.forEach(function (it) { counts[it.mod] = (counts[it.mod] || 0) + 1; });
-          return counts;
-        }
+        function rmtSelectPhase(p) {
+          var data = RMT_ITEMS[p];
+          document.querySelectorAll('#rmtPhaseTabs .rmt-phase-tab').forEach(function (el) {
+            el.classList.toggle('selected', el.getAttribute('data-p') === p);
+          });
+          document.getElementById('rmtPanelPhase').textContent = data.label;
+          document.getElementById('rmtPanelSub').textContent = data.sub;
 
-        function rmtBuildGrid() {
-          var headWrap = document.getElementById('rmtHeadCells');
-          headWrap.innerHTML = RMT_MONTHS.map(function (d) {
-            var cls = d.m === 4 ? 'p0-col' : (d.m === 7 ? 'p1-col' : '');
-            return '<div class="rmt-head-cell ' + cls + '" data-m="' + d.m + '" onmouseenter="rmtSelectMonth(' + d.m + ')">M' + d.m + '</div>';
-          }).join('');
-
-          RMT_MODULES.forEach(function (mod) {
-            var rowWrap = document.querySelector('.rmt-cells[data-mod="' + mod + '"]');
-            rowWrap.innerHTML = RMT_MONTHS.map(function (d) {
-              var count = rmtCountsFor(d.m)[mod];
-              var filled = count > 0;
-              return '<div class="rmt-cell' + (filled ? ' filled ' + d.phase : '') + '" data-m="' + d.m + '" onmouseenter="rmtSelectMonth(' + d.m + ')"></div>';
+          var html = RMT_MODULES.map(function (mod) {
+            var modItems = data.items.filter(function (it) { return it.mod === mod; });
+            if (!modItems.length) return '';
+            var cards = modItems.map(function (it) {
+              return '<div class="rmt-item"><b>' + it.req + '</b><span>' + it.epic + '</span></div>';
             }).join('');
-          });
-        }
-
-        function rmtSelectMonth(m) {
-          RMT_SELECTED = m;
-          var data = RMT_MONTHS[m - 1];
-          document.querySelectorAll('#rmtGrid [data-m]').forEach(function (el) {
-            el.classList.toggle('selected', parseInt(el.getAttribute('data-m'), 10) === m);
-          });
-          document.getElementById('rmtPanelMonth').textContent = 'Month ' + m;
-          var phaseEl = document.getElementById('rmtPanelPhase');
-          phaseEl.textContent = data.phaseLabel;
-          phaseEl.style.background = RMT_PHASE_COLOR[data.phase];
-
-          var html = data.items.map(function (it) {
-            return '<div class="rmt-item"><span class="rmt-item-mod">' + it.mod + '</span>' +
-              '<div class="rmt-item-body"><b>' + it.req + '</b><span>' + it.epic + '</span></div></div>';
+            return '<div class="rmt-modcol"><div class="rmt-modcol-label">' + mod + '</div>' + cards + '</div>';
           }).join('');
           document.getElementById('rmtItems').innerHTML = html;
         }
 
         (function rmtInit() {
-          var grid = document.getElementById('rmtGrid');
-          if (!grid) return;
-          rmtBuildGrid();
-          rmtSelectMonth(1);
+          var tabs = document.getElementById('rmtPhaseTabs');
+          if (!tabs) return;
+          tabs.querySelectorAll('.rmt-phase-tab').forEach(function (el) {
+            var p = el.getAttribute('data-p');
+            el.addEventListener('mouseenter', function () { rmtSelectPhase(p); });
+            el.addEventListener('click', function () { rmtSelectPhase(p); });
+          });
+          rmtSelectPhase('p0');
         })();
       </script>
     </section>
