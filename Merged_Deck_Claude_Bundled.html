@@ -11639,8 +11639,8 @@
         inputs: ['Collateral Value', 'Desired Tenure', 'Income/Consumption Data'],
         tasks: ['Calculate Loan Amount', 'Verify Loan Purpose', 'Product Selection', 'Scheme Selection', 'Calculate LTV on Maturity Amount', 'Configure repayment terms', 'Map fees & charges', 'Generate EMI summary'],
         outputs: ['Loan Scheme Selected', 'Finalized Repayment Plan'],
-        capabilities: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection', 'LTV on Maturity Amount', 'RBI LTV Norms', 'Repayment Details', 'Interest Roll Up with Total Due & Rebate', 'Bullet with Quarterly/Half Yearly Installment (Total Due)', 'Bullet with Monthly Installment Payment (Total Due)'],
-        capabilityGroups: [{ label: 'Loan Setup', names: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection', 'LTV on Maturity Amount', 'RBI LTV Norms'] }, { label: 'Repayment', names: ['Repayment Details', 'Interest Roll Up with Total Due & Rebate', 'Bullet with Quarterly/Half Yearly Installment (Total Due)', 'Bullet with Monthly Installment Payment (Total Due)'] }],
+        capabilities: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection', 'LTV on Maturity Amount', 'RBI LTV Norms', 'Repayment Details', 'Rebate with Interest Rollup', 'Bullet with Monthly Installment', 'Bullet with Quarterly/Half Yearly Installment'],
+        capabilityGroups: [{ label: 'Loan Setup', names: ['Loan Amount', 'Loan Purpose (Income/Consumption)', 'Product Selection', 'Scheme Selection', 'LTV on Maturity Amount', 'RBI LTV Norms'] }, { label: 'Repayment', names: ['Repayment Details', 'Rebate with Interest Rollup', 'Bullet with Monthly Installment', 'Bullet with Quarterly/Half Yearly Installment'] }],
         modalText: "Once valued, FinnOne Neo and Branch Ops calculate eligible margins, map fees, configure repayment terms, and generate a binding EMI amortization layout."
       },
       {
