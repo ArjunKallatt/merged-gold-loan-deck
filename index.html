@@ -10123,7 +10123,7 @@
       <div class="rmt-slide" id="rmtSlide">
         <div class="rmt-header">
           <div class="eyebrow">Process Flow · Roadmap</div>
-          <h1>Build Roadmap · P0 to P2</h1>
+          <h1>Product Build Roadmap</h1>
           <p class="lede" style="margin-top:4px;">50 requirements across LMS, Audit, Auction &amp; Vault, sequenced MVP &rarr; Enhancement &rarr; Maturity - hover or click a phase to see what's in it.</p>
         </div>
 
@@ -10176,8 +10176,8 @@
         #slide-roadmap .rmt-phase-tabs { display:flex; gap:20px; margin-top:28px; flex:none; }
         #slide-roadmap .rmt-phase-tab { flex:1; cursor:pointer; border-radius:var(--radius-lg); padding:22px 26px; display:flex; flex-direction:column; gap:6px; box-shadow:var(--shadow-sm); border:2px solid var(--glass-border); background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:transform var(--anim-fast) var(--ease-spring), box-shadow var(--anim-fast), border-color var(--anim-fast); }
         #slide-roadmap .rmt-phase-tab:hover { transform:translateY(-3px); box-shadow:var(--shadow-hover); }
-        #slide-roadmap .rmt-phase-tab b { font-family:var(--mono); font-size:2.6rem; font-weight:800; line-height:1; }
-        #slide-roadmap .rmt-phase-tab span { font-size:.9rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); line-height:1.4; margin-top:4px; }
+        #slide-roadmap .rmt-phase-tab b { font-family:var(--mono); font-size:2.1rem; font-weight:800; line-height:1; }
+        #slide-roadmap .rmt-phase-tab span { font-size:1.25rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:var(--paper); line-height:1.35; margin-top:6px; }
         #slide-roadmap .rmt-phase-tab[data-p="p0"] { border-left:6px solid #1AC8E0; }
         #slide-roadmap .rmt-phase-tab[data-p="p0"] b { color:#0891A8; }
         #slide-roadmap .rmt-phase-tab[data-p="p1"] { border-left:6px solid #0653C7; }
@@ -10190,12 +10190,12 @@
         #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line-soft); padding-bottom:14px; margin-bottom:18px; flex:none; }
         #slide-roadmap .rmt-panel-phase { font-size:1.5rem; font-weight:800; color:var(--paper); }
         #slide-roadmap .rmt-panel-sub { font-family:var(--mono); font-size:.85rem; font-weight:700; color:var(--muted-dim); text-transform:uppercase; letter-spacing:.05em; }
-        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(4, 1fr); gap:22px; flex:1 1 auto; overflow-y:auto; align-content:start; }
-        #slide-roadmap .rmt-modcol-label { font-size:.85rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--teal); margin-bottom:12px; }
-        #slide-roadmap .rmt-modcol { display:flex; flex-direction:column; gap:12px; }
-        #slide-roadmap .rmt-item { background:rgba(255,255,255,0.65); border:1px solid var(--glass-border); border-radius:var(--radius); padding:12px 14px; box-shadow:var(--shadow-sm); box-sizing:border-box; }
-        #slide-roadmap .rmt-item b { display:block; font-size:.9rem; color:var(--paper); font-weight:700; line-height:1.32; }
-        #slide-roadmap .rmt-item span { display:block; font-size:.75rem; color:var(--muted); margin-top:5px; line-height:1.35; }
+        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:14px; flex:1 1 auto; overflow-y:auto; align-content:start; }
+        #slide-roadmap .rmt-modcol-label { grid-column:1 / -1; font-size:1.05rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--teal); margin:14px 0 2px; padding-top:10px; border-top:1px solid var(--line-soft); }
+        #slide-roadmap .rmt-modcol-label:first-child { margin-top:0; padding-top:0; border-top:none; }
+        #slide-roadmap .rmt-item { background:rgba(255,255,255,0.7); border:1px solid var(--glass-border); border-radius:var(--radius); padding:14px 16px; box-shadow:var(--shadow-sm); box-sizing:border-box; }
+        #slide-roadmap .rmt-item b { display:block; font-size:1.02rem; color:var(--paper); font-weight:700; line-height:1.3; }
+        #slide-roadmap .rmt-item span { display:block; font-size:.84rem; color:var(--muted); margin-top:6px; line-height:1.4; }
       </style>
 
       <script>
@@ -10282,7 +10282,7 @@
             var cards = modItems.map(function (it) {
               return '<div class="rmt-item"><b>' + it.req + '</b><span>' + it.epic + '</span></div>';
             }).join('');
-            return '<div class="rmt-modcol"><div class="rmt-modcol-label">' + mod + '</div>' + cards + '</div>';
+            return '<div class="rmt-modcol-label">' + mod + '</div>' + cards;
           }).join('');
           document.getElementById('rmtItems').innerHTML = html;
         }
