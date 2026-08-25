@@ -10214,7 +10214,7 @@
         #slide-roadmap .rmt-row-head { margin-bottom:6px; padding-bottom:10px; border-bottom:1px solid var(--line-soft); }
         #slide-roadmap .rmt-rowlabel { flex:none; width:64px; font-size:.82rem; font-weight:800; color:var(--paper); text-transform:uppercase; letter-spacing:.04em; }
         #slide-roadmap .rmt-cells { flex:1; display:grid; grid-template-columns:repeat(10, 1fr); gap:6px; }
-        #slide-roadmap .rmt-head-cell { text-align:center; font-family:var(--mono); font-size:.72rem; font-weight:800; color:var(--muted); padding:4px 0 8px; border-radius:6px; cursor:pointer; transition:color var(--anim-fast), background var(--anim-fast); }
+        #slide-roadmap .rmt-head-cell { text-align:center; font-family:var(--mono); font-size:.88rem; font-weight:800; color:var(--paper); padding:6px 0 10px; border-radius:6px; cursor:pointer; transition:color var(--anim-fast), background var(--anim-fast); }
         #slide-roadmap .rmt-head-cell:hover { color:var(--paper); }
         #slide-roadmap .rmt-head-cell.p0-col { border-right:2px solid rgba(26,200,224,.35); }
         #slide-roadmap .rmt-head-cell.p1-col { border-right:2px solid rgba(6,83,199,.3); }
@@ -10239,11 +10239,12 @@
         #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line-soft); padding-bottom:12px; margin-bottom:18px; flex:none; }
         #slide-roadmap .rmt-panel-month { font-size:1.5rem; font-weight:800; color:var(--paper); }
         #slide-roadmap .rmt-panel-phase { font-family:var(--mono); font-size:.82rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; padding:5px 14px; border-radius:20px; color:#fff; }
-        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(4, 1fr); gap:18px 24px; align-content:start; flex:1 1 auto; overflow-y:auto; }
-        #slide-roadmap .rmt-item { display:flex; gap:12px; align-items:flex-start; }
-        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.66rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:6px; padding:4px 8px; margin-top:2px; }
-        #slide-roadmap .rmt-item-body b { display:block; font-size:.98rem; color:var(--paper); font-weight:700; line-height:1.3; }
-        #slide-roadmap .rmt-item-body span { display:block; font-size:.82rem; color:var(--muted); margin-top:4px; line-height:1.35; }
+        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; align-content:start; flex:1 1 auto; overflow-y:auto; }
+        #slide-roadmap .rmt-item { display:flex; flex-direction:column; gap:8px; align-items:flex-start; background:rgba(255,255,255,0.55); border:1px solid var(--glass-border); border-radius:var(--radius); padding:12px 14px; box-shadow:var(--shadow-sm); box-sizing:border-box; height:100%; }
+        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.66rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:6px; padding:4px 8px; }
+        #slide-roadmap .rmt-item-body b { display:block; font-size:.92rem; color:var(--paper); font-weight:700; line-height:1.32; }
+        #slide-roadmap .rmt-item-body span { display:block; font-size:.78rem; color:var(--muted); margin-top:5px; line-height:1.35; }
+        #slide-roadmap .rmt-empty-row { background:rgba(255,255,255,0.35); border:1px dashed var(--line); border-radius:var(--radius); padding:12px 14px; box-sizing:border-box; }
         #slide-roadmap .rmt-empty-row { font-size:.9rem; color:var(--muted-dim); font-style:italic; grid-column:1 / -1; }
       </style>
 
@@ -10473,31 +10474,40 @@
           <div class="wtp-matrix-col">
             <div class="wtp-axis-label wtp-axis-y">Greenfield Potential <span class="wtp-arrow">&uarr;</span></div>
             <div class="wtp-matrix" id="wtpMatrix">
+              <span class="wtp-tick-x" style="left:0%;">0%</span><span class="wtp-tick-x" style="left:25%;">25%</span><span class="wtp-tick-x" style="left:50%;">50%</span><span class="wtp-tick-x" style="left:75%;">75%</span><span class="wtp-tick-x" style="left:100%;">100%</span>
+              <span class="wtp-tick-y" style="top:100%;">0%</span><span class="wtp-tick-y" style="top:75%;">25%</span><span class="wtp-tick-y" style="top:50%;">50%</span><span class="wtp-tick-y" style="top:25%;">75%</span><span class="wtp-tick-y" style="top:0%;">100%</span>
+              <div class="wtp-stem-v" style="left:20%;top:68%;height:calc(100% - 68%);"></div><div class="wtp-stem-h" style="top:68%;left:0;width:20%;"></div>
+              <div class="wtp-stem-v" style="left:24%;top:32%;height:calc(100% - 32%);"></div><div class="wtp-stem-h" style="top:32%;left:0;width:24%;"></div>
+              <div class="wtp-stem-v" style="left:46%;top:50%;height:calc(100% - 50%);"></div><div class="wtp-stem-h" style="top:50%;left:0;width:46%;"></div>
+              <div class="wtp-stem-v" style="left:62%;top:30%;height:calc(100% - 30%);"></div><div class="wtp-stem-h" style="top:30%;left:0;width:62%;"></div>
+              <div class="wtp-stem-v" style="left:81%;top:24%;height:calc(100% - 24%);"></div><div class="wtp-stem-h" style="top:24%;left:0;width:81%;"></div>
+              <div class="wtp-stem-v" style="left:58%;top:73%;height:calc(100% - 73%);"></div><div class="wtp-stem-h" style="top:73%;left:0;width:58%;"></div>
+              <div class="wtp-stem-v" style="left:77%;top:76%;height:calc(100% - 76%);"></div><div class="wtp-stem-h" style="top:76%;left:0;width:77%;"></div>
               <div class="wtp-quad-label wtp-q-tl">Validate</div>
               <div class="wtp-quad-label wtp-q-tr">Scale Now</div>
               <div class="wtp-quad-label wtp-q-bl">Niche / Defer</div>
               <div class="wtp-quad-label wtp-q-br">Modernise</div>
 
-              <div class="wtp-bubble wtp-b-hollow" style="width:82px;height:82px;left:20%;top:68%;animation-delay:.05s;" data-tooltip="China · 52% — niche / defer for now">
-                <img class="wtp-flag" src="https://flagcdn.com/w160/cn.png" alt="China flag"><span class="wtp-tint"></span><span class="wtp-bv">52%</span><span class="wtp-bl">China</span>
+              <div class="wtp-bubble wtp-b-hollow" style="width:92px;left:20%;top:68%;animation-delay:.05s;" data-tooltip="China · 52% — niche / defer for now">
+                <div class="wtp-flag-wrap"><img class="wtp-flag" src="https://flagcdn.com/w160/cn.png" alt="China flag"></div><span class="wtp-bv">52%</span><span class="wtp-bl">China</span>
               </div>
-              <div class="wtp-bubble wtp-b-mid" style="width:96px;height:96px;left:24%;top:32%;animation-delay:.15s;" data-tooltip="Vietnam · 65% — validate before build">
-                <img class="wtp-flag" src="https://flagcdn.com/w160/vn.png" alt="Vietnam flag"><span class="wtp-tint"></span><span class="wtp-bv">65%</span><span class="wtp-bl">Vietnam</span>
+              <div class="wtp-bubble wtp-b-mid" style="width:104px;left:24%;top:32%;animation-delay:.15s;" data-tooltip="Vietnam · 65% — validate before build">
+                <div class="wtp-flag-wrap"><img class="wtp-flag" src="https://flagcdn.com/w160/vn.png" alt="Vietnam flag"></div><span class="wtp-bv">65%</span><span class="wtp-bl">Vietnam</span>
               </div>
-              <div class="wtp-bubble wtp-b-mid" style="width:99px;height:99px;left:46%;top:50%;animation-delay:.25s;" data-tooltip="Türkiye · 68% — validate before build">
-                <img class="wtp-flag" src="https://flagcdn.com/w160/tr.png" alt="Türkiye flag"><span class="wtp-tint"></span><span class="wtp-bv">68%</span><span class="wtp-bl">Türkiye</span>
+              <div class="wtp-bubble wtp-b-mid" style="width:108px;left:46%;top:50%;animation-delay:.25s;" data-tooltip="Türkiye · 68% — validate before build">
+                <div class="wtp-flag-wrap"><img class="wtp-flag" src="https://flagcdn.com/w160/tr.png" alt="Türkiye flag"></div><span class="wtp-bv">68%</span><span class="wtp-bl">Türkiye</span>
               </div>
-              <div class="wtp-bubble wtp-b-hi" style="width:112px;height:112px;left:62%;top:30%;animation-delay:.35s;" data-tooltip="Saudi Arabia · 82% — scale now, best greenfield GCC opportunity">
-                <img class="wtp-flag" src="https://flagcdn.com/w160/sa.png" alt="Saudi Arabia flag"><span class="wtp-tint"></span><span class="wtp-bv">82%</span><span class="wtp-bl">Saudi</span>
+              <div class="wtp-bubble wtp-b-hi" style="width:120px;left:62%;top:30%;animation-delay:.35s;" data-tooltip="Saudi Arabia · 82% — scale now, best greenfield GCC opportunity">
+                <div class="wtp-flag-wrap"><img class="wtp-flag" src="https://flagcdn.com/w160/sa.png" alt="Saudi Arabia flag"></div><span class="wtp-bv">82%</span><span class="wtp-bl">Saudi</span>
               </div>
-              <div class="wtp-bubble wtp-b-hi wtp-b-lead" style="width:124px;height:124px;left:81%;top:24%;animation-delay:.45s;" data-tooltip="UAE · 92% — proven licensed route, GCC reference implementation">
-                <img class="wtp-flag" src="https://flagcdn.com/w160/ae.png" alt="UAE flag"><span class="wtp-tint"></span><span class="wtp-bv">92%</span><span class="wtp-bl">UAE</span>
+              <div class="wtp-bubble wtp-b-hi wtp-b-lead" style="width:132px;left:81%;top:24%;animation-delay:.45s;" data-tooltip="UAE · 92% — proven licensed route, GCC reference implementation">
+                <div class="wtp-flag-wrap"><img class="wtp-flag" src="https://flagcdn.com/w160/ae.png" alt="UAE flag"></div><span class="wtp-bv">92%</span><span class="wtp-bl">UAE</span>
               </div>
-              <div class="wtp-bubble wtp-b-lo" style="width:106px;height:106px;left:58%;top:73%;animation-delay:.55s;" data-tooltip="Indonesia · 90% — LMS modernisation play, not new-category creation">
-                <img class="wtp-flag" src="https://flagcdn.com/w160/id.png" alt="Indonesia flag"><span class="wtp-tint"></span><span class="wtp-bv">90%</span><span class="wtp-bl">Indonesia</span>
+              <div class="wtp-bubble wtp-b-lo" style="width:114px;left:58%;top:73%;animation-delay:.55s;" data-tooltip="Indonesia · 90% — LMS modernisation play, not new-category creation">
+                <div class="wtp-flag-wrap"><img class="wtp-flag" src="https://flagcdn.com/w160/id.png" alt="Indonesia flag"></div><span class="wtp-bv">90%</span><span class="wtp-bl">Indonesia</span>
               </div>
-              <div class="wtp-bubble wtp-b-lo" style="width:103px;height:103px;left:77%;top:76%;animation-delay:.65s;" data-tooltip="Philippines · 88% — LMS modernisation play, not new-category creation">
-                <img class="wtp-flag" src="https://flagcdn.com/w160/ph.png" alt="Philippines flag"><span class="wtp-tint"></span><span class="wtp-bv">88%</span><span class="wtp-bl">Philippines</span>
+              <div class="wtp-bubble wtp-b-lo" style="width:111px;left:77%;top:76%;animation-delay:.65s;" data-tooltip="Philippines · 88% — LMS modernisation play, not new-category creation">
+                <div class="wtp-flag-wrap"><img class="wtp-flag" src="https://flagcdn.com/w160/ph.png" alt="Philippines flag"></div><span class="wtp-bv">88%</span><span class="wtp-bl">Philippines</span>
               </div>
             </div>
             <div class="wtp-axis-label wtp-axis-x">Regulatory Readiness <span class="wtp-arrow">&rarr;</span></div>
@@ -10538,28 +10548,38 @@
           background:
             linear-gradient(to bottom right, rgba(11,21,51,.06), transparent 55%) top right / 50% 50% no-repeat,
             linear-gradient(to top left, rgba(148,163,184,.10), transparent 55%) bottom left / 50% 50% no-repeat,
+            repeating-linear-gradient(to right, rgba(11,21,51,.055) 0, rgba(11,21,51,.055) 1px, transparent 1px, transparent 20%),
+            repeating-linear-gradient(to bottom, rgba(11,21,51,.055) 0, rgba(11,21,51,.055) 1px, transparent 1px, transparent 20%),
             rgba(255,255,255,0.65);
           backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
         }
-        #slide-wtp .wtp-matrix::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--line); }
-        #slide-wtp .wtp-matrix::after { content:''; position:absolute; top:50%; left:0; right:0; height:1px; background:var(--line); }
-        #slide-wtp .wtp-quad-label { position:absolute; font-size:.75rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted-dim); padding:12px 16px; }
+        #slide-wtp .wtp-matrix::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:rgba(11,21,51,.22); }
+        #slide-wtp .wtp-matrix::after { content:''; position:absolute; top:50%; left:0; right:0; height:1px; background:rgba(11,21,51,.22); }
+        #slide-wtp .wtp-quad-label { position:absolute; font-size:.75rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted-dim); padding:12px 16px; z-index:2; }
+        #slide-wtp .wtp-tick-x, #slide-wtp .wtp-tick-y { position:absolute; font-family:var(--mono); font-size:.62rem; font-weight:700; color:var(--muted-dim); opacity:.7; }
+        #slide-wtp .wtp-tick-x { bottom:4px; transform:translateX(-50%); }
+        #slide-wtp .wtp-tick-y { left:6px; transform:translateY(-50%); }
+        #slide-wtp .wtp-stem-v, #slide-wtp .wtp-stem-h { position:absolute; border-style:dotted; border-color:rgba(11,21,51,.28); pointer-events:none; z-index:0; }
+        #slide-wtp .wtp-stem-v { top:0; border-left-width:2px; width:0; }
+        #slide-wtp .wtp-stem-h { left:0; border-top-width:2px; height:0; }
         #slide-wtp .wtp-q-tl { top:0; left:0; }
         #slide-wtp .wtp-q-tr { top:0; right:0; color:var(--paper); }
         #slide-wtp .wtp-q-bl { bottom:0; left:0; }
         #slide-wtp .wtp-q-br { bottom:0; right:0; color:var(--teal); }
 
-        #slide-wtp .wtp-bubble { position:absolute; transform:translate(-50%,-50%) scale(0); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; box-shadow:0 4px 14px rgba(0,1,55,.22), 0 0 0 3px #fff; cursor:default; opacity:0; overflow:hidden; background:#dbe2ea; padding-bottom:10px; }
+        #slide-wtp .wtp-bubble { position:absolute; transform:translate(-50%,-50%) scale(0); border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; box-shadow:0 4px 14px rgba(0,1,55,.22); cursor:default; opacity:0; padding:9px 10px 10px; box-sizing:border-box; }
         #slide-wtp .wtp-matrix.play .wtp-bubble { animation: wtpPop .6s var(--ease-bounce) forwards; }
         @keyframes wtpPop { 0% { transform:translate(-50%,-50%) scale(0); opacity:0; } 70% { transform:translate(-50%,-50%) scale(1.1); opacity:1; } 100% { transform:translate(-50%,-50%) scale(1); opacity:1; } }
-        #slide-wtp .wtp-flag { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
-        #slide-wtp .wtp-tint { position:absolute; inset:0; z-index:1; }
-        #slide-wtp .wtp-bv { position:relative; z-index:2; font-family:var(--mono); font-weight:800; font-size:1.15rem; color:#fff; line-height:1.15; text-shadow:0 1px 4px rgba(0,0,0,.65); }
-        #slide-wtp .wtp-bl { position:relative; z-index:2; font-size:.72rem; font-weight:700; color:rgba(255,255,255,.96); text-transform:uppercase; letter-spacing:.03em; margin-top:1px; text-shadow:0 1px 4px rgba(0,0,0,.65); }
-        #slide-wtp .wtp-b-hi .wtp-tint { background:linear-gradient(to top, rgba(11,21,51,.82) 0%, rgba(11,21,51,.28) 55%, rgba(11,21,51,0) 100%); }
-        #slide-wtp .wtp-b-mid .wtp-tint { background:linear-gradient(to top, rgba(180,95,6,.82) 0%, rgba(180,95,6,.24) 55%, rgba(180,95,6,0) 100%); }
-        #slide-wtp .wtp-b-lo .wtp-tint { background:linear-gradient(to top, rgba(8,145,168,.82) 0%, rgba(8,145,168,.24) 55%, rgba(8,145,168,0) 100%); }
-        #slide-wtp .wtp-b-hollow .wtp-tint { background:linear-gradient(to top, rgba(15,23,42,.72) 0%, rgba(15,23,42,.15) 55%, rgba(15,23,42,0) 100%); }
+        #slide-wtp .wtp-flag-wrap { width:100%; aspect-ratio:3/2; border-radius:6px; overflow:hidden; background:#fff; box-shadow:0 0 0 1px rgba(0,0,0,.12); }
+        #slide-wtp .wtp-flag { width:100%; height:100%; object-fit:contain; display:block; }
+        #slide-wtp .wtp-bv { font-family:var(--mono); font-weight:800; font-size:1.05rem; color:#fff; line-height:1.1; }
+        #slide-wtp .wtp-bl { font-size:.66rem; font-weight:700; color:rgba(255,255,255,.96); text-transform:uppercase; letter-spacing:.03em; }
+        #slide-wtp .wtp-b-hi { background:linear-gradient(135deg, #24345F, #0B1533); }
+        #slide-wtp .wtp-b-mid { background:linear-gradient(135deg, #E8A93D, #B45F06); }
+        #slide-wtp .wtp-b-lo { background:linear-gradient(135deg, #1AC8E0, #0891A8); }
+        #slide-wtp .wtp-b-hollow { background:#fff; border:2px solid var(--line); }
+        #slide-wtp .wtp-b-hollow .wtp-bv { color:var(--paper); }
+        #slide-wtp .wtp-b-hollow .wtp-bl { color:var(--muted); }
         #slide-wtp .wtp-b-lead { z-index:2; animation: wtpPop .6s var(--ease-bounce) forwards, wtpPulse 2.6s ease-in-out .8s infinite; }
         @keyframes wtpPulse { 0%,100% { box-shadow:0 4px 14px rgba(0,1,55,.16), 0 0 0 0 rgba(11,21,51,.30); } 50% { box-shadow:0 4px 14px rgba(0,1,55,.16), 0 0 0 14px rgba(11,21,51,0); } }
 
