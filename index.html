@@ -10239,13 +10239,11 @@
         #slide-roadmap .rmt-panel-head { display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line-soft); padding-bottom:12px; margin-bottom:18px; flex:none; }
         #slide-roadmap .rmt-panel-month { font-size:1.5rem; font-weight:800; color:var(--paper); }
         #slide-roadmap .rmt-panel-phase { font-family:var(--mono); font-size:.82rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; padding:5px 14px; border-radius:20px; color:#fff; }
-        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; align-content:start; flex:1 1 auto; overflow-y:auto; }
-        #slide-roadmap .rmt-item { display:flex; flex-direction:column; gap:8px; align-items:flex-start; background:rgba(255,255,255,0.55); border:1px solid var(--glass-border); border-radius:var(--radius); padding:12px 14px; box-shadow:var(--shadow-sm); box-sizing:border-box; height:100%; }
-        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.66rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:6px; padding:4px 8px; }
-        #slide-roadmap .rmt-item-body b { display:block; font-size:.92rem; color:var(--paper); font-weight:700; line-height:1.32; }
-        #slide-roadmap .rmt-item-body span { display:block; font-size:.78rem; color:var(--muted); margin-top:5px; line-height:1.35; }
-        #slide-roadmap .rmt-empty-row { background:rgba(255,255,255,0.35); border:1px dashed var(--line); border-radius:var(--radius); padding:12px 14px; box-sizing:border-box; }
-        #slide-roadmap .rmt-empty-row { font-size:.9rem; color:var(--muted-dim); font-style:italic; grid-column:1 / -1; }
+        #slide-roadmap .rmt-items { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px; align-content:start; flex:1 1 auto; overflow-y:auto; }
+        #slide-roadmap .rmt-item { display:flex; flex-direction:column; gap:10px; align-items:flex-start; background:rgba(255,255,255,0.65); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:20px 22px; box-shadow:var(--shadow-sm); box-sizing:border-box; height:100%; }
+        #slide-roadmap .rmt-item-mod { flex:none; font-family:var(--mono); font-size:.78rem; font-weight:800; letter-spacing:.04em; color:#fff; background:var(--muted-dim); border-radius:6px; padding:5px 10px; }
+        #slide-roadmap .rmt-item-body b { display:block; font-size:1.15rem; color:var(--paper); font-weight:700; line-height:1.35; }
+        #slide-roadmap .rmt-item-body span { display:block; font-size:.92rem; color:var(--muted); margin-top:6px; line-height:1.4; }
       </style>
 
       <script>
@@ -10322,10 +10320,7 @@
           var headWrap = document.getElementById('rmtHeadCells');
           headWrap.innerHTML = RMT_MONTHS.map(function (d) {
             var cls = d.m === 4 ? 'p0-col' : (d.m === 7 ? 'p1-col' : '');
-            var counts = rmtCountsFor(d.m);
-            var tip = 'Month ' + d.m + ' \\u00b7 ' + d.items.length + ' item' + (d.items.length === 1 ? '' : 's') + '\\n' +
-              RMT_MODULES.map(function (k) { return k + ' ' + counts[k]; }).join(' \\u00b7 ');
-            return '<div class="rmt-head-cell ' + cls + '" data-m="' + d.m + '" data-tooltip="' + tip + '" onmouseenter="rmtSelectMonth(' + d.m + ')">M' + d.m + '</div>';
+            return '<div class="rmt-head-cell ' + cls + '" data-m="' + d.m + '" onmouseenter="rmtSelectMonth(' + d.m + ')">M' + d.m + '</div>';
           }).join('');
 
           RMT_MODULES.forEach(function (mod) {
@@ -10333,8 +10328,7 @@
             rowWrap.innerHTML = RMT_MONTHS.map(function (d) {
               var count = rmtCountsFor(d.m)[mod];
               var filled = count > 0;
-              var tip = mod + ' \\u00b7 Month ' + d.m + ' \\u00b7 ' + count + ' item' + (count === 1 ? '' : 's');
-              return '<div class="rmt-cell' + (filled ? ' filled ' + d.phase : '') + '" data-m="' + d.m + '" data-tooltip="' + tip + '" onmouseenter="rmtSelectMonth(' + d.m + ')"></div>';
+              return '<div class="rmt-cell' + (filled ? ' filled ' + d.phase : '') + '" data-m="' + d.m + '" onmouseenter="rmtSelectMonth(' + d.m + ')"></div>';
             }).join('');
           });
         }
@@ -10350,14 +10344,7 @@
           phaseEl.textContent = data.phaseLabel;
           phaseEl.style.background = RMT_PHASE_COLOR[data.phase];
 
-          var counts = rmtCountsFor(m);
-          var html = '';
-          RMT_MODULES.forEach(function (mod) {
-            if (counts[mod] === 0) {
-              html += '<div class="rmt-empty-row">' + mod + ' - No items scheduled this month</div>';
-            }
-          });
-          html += data.items.map(function (it) {
+          var html = data.items.map(function (it) {
             return '<div class="rmt-item"><span class="rmt-item-mod">' + it.mod + '</span>' +
               '<div class="rmt-item-body"><b>' + it.req + '</b><span>' + it.epic + '</span></div></div>';
           }).join('');
