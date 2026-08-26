@@ -8,8 +8,9 @@ Static, self-contained HTML slide decks for a Gold Loan business presentation (F
 
 ## Files
 
-- `Merged_Deck_Claude_Bundled.html` — main executive deck, single self-contained HTML file (~3.4MB). This is the canonical/tracked file.
-- `Merged_Deck_Claude_Bundled.html.bak`, `Merged_Deck_Claude_Bundled copy.html`, `Merged_Deck_Claude_Bundled copy 2.html` — snapshots/working copies of the main deck. Check with the user which copy is the active edit target before making changes; don't assume it's the tracked one.
+- `Gold_Loan_Executive_Deck.html` — main executive deck, single self-contained HTML file (~4MB). This is the canonical/tracked file. (Renamed from `Merged_Deck_Claude_Bundled.html`.)
+- `index.html` — exact copy of `Gold_Loan_Executive_Deck.html`, kept in sync so GitHub Pages (which serves from the repo root) shows the deck at the site root. Update both files together when editing the main deck.
+- `Merged_Deck_Claude_Bundled.html.bak`, `Merged_Deck_Claude_Bundled copy.html`, `Merged_Deck_Claude_Bundled copy 2.html` — snapshots/working copies of the main deck, still under the old filename. Check with the user which copy is the active edit target before making changes; don't assume it's the tracked one.
 - `Gold loan Auditing and Vaulting Deck copy.html` — deep-dive deck for Auditing & Vaulting content, opened from the main deck via "Vaulting →" / "Auditing →" buttons.
 - `Auction/Auction Mockups.htm`, `Audit/Audit Mockups.html`, `vaulting/Vault Mockups.html` — standalone mockup files for auction/audit/vaulting sections.
 - `FinnOne Neo - Why Now (refined).html` — standalone slide/section, smaller file.
@@ -37,13 +38,13 @@ Each deck is one HTML file with three inline blocks in `<head>`/`<body>`, no ext
 The main deck links out to the Auditing & Vaulting deck via `openDeepDive(hash, currentSlideId)`:
 ```js
 function openDeepDive(hash, currentSlideId) {
-  var self = 'Merged_Deck_Claude_Bundled.html#' + currentSlideId;
+  var self = 'Gold_Loan_Executive_Deck.html#' + currentSlideId;
   var target = encodeURI('Gold loan Auditing and Vaulting Deck copy.html');
   var url = target + '?return=' + encodeURIComponent(self) + '#' + hash;
   navTo(url);
 }
 ```
-**Gotcha:** `self` hardcodes the filename `Merged_Deck_Claude_Bundled.html`, not the current document's actual filename. If you're editing one of the copy/snapshot files (e.g. `Merged_Deck_Claude_Bundled__1_.html`), the "back" link from the deep-dive deck will return to the original tracked file, not the copy — keep this in mind when testing deep-dive navigation from a copy.
+**Gotcha:** `self` hardcodes the filename `Gold_Loan_Executive_Deck.html`, not the current document's actual filename. If you're editing one of the copy/snapshot files (e.g. `Merged_Deck_Claude_Bundled copy.html`), the "back" link from the deep-dive deck will return to the renamed tracked file, not the copy — keep this in mind when testing deep-dive navigation from a copy.
 
 The Auditing & Vaulting deck reads the return link back via `URLSearchParams(location.search).get('return')`.
 
@@ -52,5 +53,6 @@ The Auditing & Vaulting deck reads the return link back via `URLSearchParams(loc
 ## Working with these files
 
 - There's no build/lint/test command — verify changes by opening the HTML file directly in a browser.
-- Files are large (2-2.5MB); prefer targeted `grep`/`Edit` over reading the whole file into context. Slide sections are delimited by large comment banners like `<!-- ═══ SLIDE 1 — COVER ═══ -->`.
+- Files are large (2-4MB); prefer targeted `grep`/`Edit` over reading the whole file into context. Slide sections are delimited by large comment banners like `<!-- ═══ SLIDE 1 — COVER ═══ -->`.
+- Editing `Gold_Loan_Executive_Deck.html` for real (not a copy/snapshot)? Mirror the change into `index.html` too, or the two drift out of sync.
 - When adding/removing/reordering slides, check `onSlideEnter(n)` for index-based `if (n === N)` setup calls that need updating, and check `data-title` attributes used by the slide picker.
