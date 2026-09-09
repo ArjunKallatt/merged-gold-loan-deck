@@ -584,15 +584,15 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     </div>
     
     <div class="card">
-      <div class="card-head"><div class="card-title"><i class="ti ti-shield-alert"></i>Branch Risk & Compliance Comparison</div></div>
+      <div class="card-head"><div class="card-title"><i class="ti ti-shield-alert"></i>Branch Audit Risk Score</div><a href="javascript:void(0)" onclick="goTo('riskscore')" style="font-size:10px;color:#fff">Full breakdown →</a></div>
       <div class="tbl-wrap">
         <table class="sched-table">
           <thead><tr><th>Branch</th><th>Risk Score</th><th>Repeat Findings</th><th>Trend</th></tr></thead>
           <tbody>
-            <tr><td>Karol Bagh</td><td><span class="badge bc">High (8.2)</span></td><td>4</td><td style="color:var(--red)"><i class="ti ti-trending-up"></i> Worsening</td></tr>
-            <tr><td>Laxmi Nagar</td><td><span class="badge bc">High (7.5)</span></td><td>2</td><td style="color:var(--amber)"><i class="ti ti-minus"></i> Stable</td></tr>
-            <tr><td>Dwarka</td><td><span class="badge bm">Medium (5.4)</span></td><td>1</td><td style="color:var(--green)"><i class="ti ti-trending-down"></i> Improving</td></tr>
-            <tr><td>Rohini</td><td><span class="badge bl">Low (3.1)</span></td><td>0</td><td style="color:var(--green)"><i class="ti ti-minus"></i> Stable</td></tr>
+            <tr class="rs-branch-row" onclick="rsGoToBranch('Karol Bagh')"><td>Karol Bagh</td><td><span class="badge bc">High (82)</span></td><td>4</td><td style="color:var(--red)"><i class="ti ti-trending-up"></i> Worsening</td></tr>
+            <tr class="rs-branch-row" onclick="rsGoToBranch('Laxmi Nagar')"><td>Laxmi Nagar</td><td><span class="badge bc">High (75)</span></td><td>2</td><td style="color:var(--amber)"><i class="ti ti-minus"></i> Stable</td></tr>
+            <tr class="rs-branch-row" onclick="rsGoToBranch('Dwarka')"><td>Dwarka</td><td><span class="badge bm">Medium (54)</span></td><td>1</td><td style="color:var(--green)"><i class="ti ti-trending-down"></i> Improving</td></tr>
+            <tr class="rs-branch-row" onclick="rsGoToBranch('Rohini')"><td>Rohini</td><td><span class="badge bl">Low (31)</span></td><td>0</td><td style="color:var(--green)"><i class="ti ti-minus"></i> Stable</td></tr>
           </tbody>
         </table>
       </div>
@@ -683,6 +683,139 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     <div class="qa-card" onclick="goTo('trigger')"><div><div class="qa-title">Audit Planning</div><div class="qa-sub">Initiate and schedule a new audit</div></div><button class="btn btn-gold btn-sm"><i class="ti ti-calendar-plus"></i>Plan</button></div>
     <div class="qa-card" onclick="goTo('observations')"><div><div class="qa-title">Manage CAPs</div><div class="qa-sub">Review Corrective Action Plans</div></div><button class="btn btn-primary btn-sm"><i class="ti ti-shield-check"></i>Review</button></div>
     <div class="qa-card" onclick="goTo('reports')"><div><div class="qa-title">Executive Summary</div><div class="qa-sub">Draft and approve audit reports</div></div><button class="btn btn-ghost btn-sm"><i class="ti ti-file-certificate"></i>Reports</button></div>
+  </div>
+</div>
+</div>
+
+<div class="page-section" id="page-riskscore">
+<div class="content">
+  <style>
+    .rs-tophead{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .rs-tabs{display:flex;gap:8px;border-bottom:1px solid var(--base-200);margin:14px 0 20px}
+    .rs-tab{padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer;color:var(--base-500);border-bottom:3px solid transparent;margin-bottom:-1px;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit;display:flex;align-items:center;gap:6px}
+    .rs-tab.active{color:var(--blue-700);border-bottom-color:var(--blue-600)}
+    .rs-tab .ti{font-size:15px}
+    .rs-g2{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start}
+    @media (max-width:900px){.rs-g2{grid-template-columns:1fr}}
+    .rs-branch-row{cursor:pointer;transition:background .12s}
+    .rs-branch-row:hover td{background:var(--blue-50)}
+    .rs-branch-row.sel td{background:var(--blue-50)}
+    .rs-branch-row.sel td:first-child{box-shadow:inset 3px 0 0 var(--blue-600)}
+    .rs-ring{position:relative;width:104px;height:104px;flex-shrink:0;border-radius:50%}
+    .rs-ring::after{content:'';position:absolute;inset:10px;border-radius:50%;background:var(--base-25)}
+    .rs-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:var(--base-900);z-index:1}
+    .rs-ring-num small{font-size:11px;font-weight:600;color:var(--base-500);margin-left:2px}
+    .rs-score-top{display:flex;align-items:center;gap:18px;padding-bottom:16px;border-bottom:1px solid var(--base-200);margin-bottom:14px}
+    .rs-cat-row{display:grid;grid-template-columns:130px 1fr 38px;align-items:center;gap:10px;font-size:12px;margin-bottom:9px}
+    .rs-cat-name{color:var(--base-600)}
+    .rs-cat-track{height:7px;border-radius:99px;background:var(--base-200);overflow:hidden}
+    .rs-cat-fill{height:100%;border-radius:99px;background:var(--blue-500)}
+    .rs-cat-fill.hi{background:var(--red)}
+    .rs-cat-fill.lo{background:var(--green)}
+    .rs-cat-val{font-weight:700;color:var(--base-800);text-align:right}
+    .rs-why{font-size:12.5px;color:var(--base-600);line-height:1.6;background:var(--base-25);border:1px solid var(--base-200);border-radius:var(--r);padding:12px 14px;margin-top:4px}
+    .rs-meta{font-size:11px;color:var(--base-500);margin-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+    .rs-lockband{display:flex;gap:12px;align-items:center;background:var(--blue-50);border:1px solid var(--blue-200);border-radius:var(--r);padding:12px 16px;margin-bottom:18px;font-size:12.5px;color:var(--blue-800)}
+    .rs-lockband .ti{font-size:20px;color:var(--blue-600);flex-shrink:0}
+    .rs-total-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--base-25);border:1px solid var(--base-200);border-radius:var(--r2);padding:14px 18px;margin-bottom:18px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+    .rs-total-bar .rs-tb-num{font-size:13px;font-family:inherit}
+    .rs-total-bar .rs-tb-num b{font-size:16px}
+    .rs-total-ok{color:var(--green)}
+    .rs-total-bad{color:var(--red)}
+    .rs-cat-card{border:1px solid var(--base-200);border-radius:var(--r2);margin-bottom:12px;background:var(--base-25);overflow:hidden}
+    .rs-cat-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;flex-wrap:wrap}
+    .rs-cat-head:hover{background:var(--blue-50)}
+    .rs-cat-head .rs-ch-name{font-weight:600;font-size:13.5px;color:var(--base-900);flex:1;min-width:180px}
+    .rs-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:3px 8px;border-radius:99px}
+    .rs-tag-inherent{background:var(--blue-50);color:var(--blue-700);border:1px solid var(--blue-200)}
+    .rs-tag-control{background:#F3E8FF;color:#7E22CE;border:1px solid #E9D5FF}
+    .rs-tag-mand{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd)}
+    .rs-tag-added{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd)}
+    .rs-slider{width:150px;accent-color:var(--blue-600)}
+    .rs-wnum{font-family:inherit;font-weight:700;color:var(--blue-700);font-size:13.5px;width:44px;text-align:right}
+    .rs-chev{transition:transform .15s;color:var(--base-400)}
+    .rs-cat-card.open .rs-chev{transform:rotate(180deg)}
+    .rs-params{display:none;padding:4px 16px 14px 16px;border-top:1px solid var(--base-200)}
+    .rs-cat-card.open .rs-params{display:block}
+    .rs-param-row{display:flex;align-items:center;gap:10px;padding:7px 2px;font-size:12.5px;border-bottom:1px dashed var(--base-200)}
+    .rs-param-row:last-of-type{border-bottom:none}
+    .rs-param-row input[type=checkbox]{accent-color:var(--blue-600);width:15px;height:15px;flex-shrink:0}
+    .rs-param-row span.pname{flex:1;color:var(--base-700)}
+    .rs-param-row.inactive span.pname{color:var(--base-400);text-decoration:line-through}
+    .rs-param-share{font-size:10.5px;color:var(--base-500);font-family:inherit;width:44px;text-align:right;flex-shrink:0}
+    .rs-param-del{cursor:pointer;color:var(--base-400);font-size:14px;flex-shrink:0}
+    .rs-param-del:hover{color:var(--red)}
+    .rs-addparam{display:flex;gap:8px;margin-top:8px;padding-top:8px}
+    .rs-addparam input{flex:1;padding:7px 10px;font-size:12px;border:1px solid var(--base-300);border-radius:var(--r);background:#fff}
+    .rs-guard-note{font-size:10.5px;color:var(--base-500);margin-top:6px;line-height:1.5}
+    .rs-balance-line{font-size:11.5px;color:var(--base-600);margin-top:2px}
+  </style>
+
+  <div class="rs-tophead">
+    <div class="page-head" style="margin-bottom:0">
+      <div class="page-title">Branch Audit Risk Score</div>
+      <div class="page-sub">System-generated audit-prioritisation score &nbsp;&middot;&nbsp; Methodology v3.3 &nbsp;&middot;&nbsp; Not RBI's formula &mdash; institution-configured</div>
+    </div>
+  </div>
+
+  <div class="rs-tabs">
+    <button class="rs-tab active" id="rs-tab-card" onclick="rsShowTab('card')"><i class="ti ti-list-details"></i>Score Card</button>
+    <button class="rs-tab" id="rs-tab-config" onclick="rsShowTab('config')"><i class="ti ti-settings"></i>Configure Weights</button>
+  </div>
+
+  <div id="rs-view-card">
+    <div class="stat-row">
+      <div class="stat-card"><i class="ti ti-building-bank stat-icon"></i><div class="stat-num">54</div><div class="stat-label">Branches Scored</div><div class="stat-delta" style="color:var(--base-500)">Delhi NCR region</div></div>
+      <div class="stat-card"><i class="ti ti-gauge stat-icon"></i><div class="stat-num" style="color:var(--blue-700)">53</div><div class="stat-label">Avg. Score (0&ndash;100)</div><div class="stat-delta" style="color:var(--base-500)">Recalculated daily</div></div>
+      <div class="stat-card"><i class="ti ti-alert-triangle stat-icon"></i><div class="stat-num" style="color:var(--red)">9</div><div class="stat-label">High-Risk Branches</div><div class="stat-delta" style="color:var(--red)">Score &ge; 70</div></div>
+      <div class="stat-card"><i class="ti ti-clock-exclamation stat-icon"></i><div class="stat-num" style="color:var(--amber)">1</div><div class="stat-label">Never Audited</div><div class="stat-delta" style="color:var(--amber)">Running on default score</div></div>
+    </div>
+
+    <div class="rs-g2">
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-list-numbers"></i>Branches Ranked by Risk</div><span style="font-size:10.5px;color:var(--blue-200)">Click a branch to see its breakdown</span></div>
+        <div class="tbl-wrap">
+          <table class="sched-table" id="rs-branch-table">
+            <thead><tr><th>Branch</th><th>Score</th><th>Band</th><th>Top Driver</th><th>Last Audit</th></tr></thead>
+            <tbody id="rs-branch-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-report-analytics"></i>Score Breakdown</div></div>
+        <div style="border:1px solid var(--base-200);border-radius:var(--r2);padding:18px;background:var(--base-25)">
+          <div class="rs-score-top">
+            <div class="rs-ring" id="rs-ring"><div class="rs-ring-num" id="rs-ring-num">&ndash;</div></div>
+            <div>
+              <div style="font-size:15px;font-weight:700;color:var(--base-900)" id="rs-branch-name">&ndash;</div>
+              <div id="rs-branch-badge" style="margin:4px 0"></div>
+              <div style="font-size:11px;color:var(--base-500)" id="rs-branch-code">&ndash;</div>
+            </div>
+          </div>
+          <div id="rs-cat-bars"></div>
+          <div class="rs-why" id="rs-why">&ndash;</div>
+          <div class="rs-meta">
+            <span>Methodology v3.3, published by Head of Audit</span>
+            <span><i class="ti ti-lock" style="font-size:11px"></i> Read-only for Auditor &amp; Branch Manager</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rs-view-config" style="display:none">
+    <div class="rs-lockband"><i class="ti ti-shield-lock"></i><div><b>Head of Audit only.</b> Category weights and the parameters feeding each category are configured here. Auditors and Branch Managers see the Score Card tab only, read-only &mdash; per the role model in the Branch Audit Risk Score research note.</div></div>
+
+    <div class="rs-total-bar">
+      <div class="rs-tb-num">Total allocated &nbsp;<b id="rs-total-val">100%</b> <span id="rs-total-state" class="rs-total-ok">&mdash; balanced</span>
+        <div class="rs-balance-line" id="rs-balance-line">Inherent 38% / Control 62% &mdash; within the 30&ndash;50% / 50&ndash;70% guardrail</div>
+      </div>
+      <button class="btn btn-primary btn-sm" id="rs-save-btn" onclick="rsSave()"><i class="ti ti-device-floppy"></i>Publish New Version</button>
+    </div>
+
+    <div id="rs-cat-list"></div>
+    <div class="rs-guard-note" style="margin-top:4px">Guardrails enforced live: each category is bounded to its permitted range, Vault &amp; Custody Controls is mandatory and floored, the inherent/control split must stay within its band, and the total must equal 100% before publishing. All numbers above are proposed defaults for this mockup, not RBI-prescribed values.</div>
   </div>
 </div>
 </div>
@@ -989,6 +1122,7 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
         <div><div style="font-size:11px;color:var(--base-500)">Risk Rank</div><div style="font-weight:600;color:var(--red)">#2 Highest Risk</div></div>
         <div><div style="font-size:11px;color:var(--base-500)">Key Risk Drivers</div><div style="font-weight:600;color:var(--base-900)">LTV Breaches, Overdue CAPs</div></div>
         <div><div style="font-size:11px;color:var(--base-500)">Last Audited</div><div style="font-weight:600;color:var(--base-900)">Aug 2024 (14 months ago)</div></div>
+        <div><div style="font-size:11px;color:var(--base-500)">Branch Audit Risk Score</div><div style="font-weight:600"><a href="javascript:void(0)" onclick="rsGoToBranch('Laxmi Nagar')">75 · view breakdown →</a></div></div>
       </div>
     </div>
   </div>
@@ -1014,7 +1148,7 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     </div>
     
     <div class="g3" style="margin-bottom:10px;padding-top:16px;border-top:1px solid var(--base-200)">
-      <div class="field"><label>Min Risk Score Threshold</label><input type="range" min="0" max="100" value="60" style="accent-color:var(--blue-600)"></div>
+      <div class="field"><label>Min Risk Score Threshold <a href="javascript:void(0)" onclick="goTo('riskscore')" style="font-size:10.5px;font-weight:400">(configure methodology →)</a></label><input type="range" min="0" max="100" value="60" style="accent-color:var(--blue-600)"></div>
       <div class="field"><label>Sample Size Target</label><select><option>10% of Active Accounts</option><option>20% of Active Accounts</option><option>Custom Number (e.g. 30)</option></select></div>
       <div class="field"><label>Confidence Level</label><select><option>95%</option><option>90%</option><option>99%</option></select></div>
     </div>
@@ -1871,6 +2005,7 @@ function navTo(url) {
 --------------------------------------------------------- */
 const NAV_ITEMS = [
   { id:'dashboard',  href:'dashboard.html',     icon:'ti-layout-dashboard',  label:'Dashboard' },
+  { id:'riskscore',  href:'risk-score.html',    icon:'ti-gauge',            label:'Risk Score' },
   { id:'trigger',    href:'trigger.html',       icon:'ti-file-plus',        label:'Audit Trigger' },
   { id:'sampling',   href:'sampling.html',      icon:'ti-filter',           label:'Branch Sampling' },
   { id:'field',      href:'field.html',         icon:'ti-clipboard-list',   label:'Field Audit' },
@@ -1879,7 +2014,7 @@ const NAV_ITEMS = [
 ];
 
 const BC_LABELS = {
-  dashboard:'Dashboard', trigger:'Audit Trigger', sampling:'Branch Sampling',
+  dashboard:'Dashboard', riskscore:'Branch Audit Risk Score', trigger:'Audit Trigger', sampling:'Branch Sampling',
   field:'Field Audit', obs:'Observations & NCs', reports:'Reports & Closure'
 };
 
@@ -2173,6 +2308,10 @@ const PAGE_INIT = {
   dashboard: function(){
 renderChrome('dashboard');
   },
+  riskscore: function(){
+renderChrome('riskscore');
+rsInit();
+  },
   trigger: function(){
 renderChrome('trigger');
   },
@@ -2189,6 +2328,298 @@ renderChrome('observations');
 renderChrome('reports');
   },
 };
+
+/* ---------------------------------------------------------
+   BRANCH AUDIT RISK SCORE — Score Card + Configure Weights
+   Two-tier model: 9 categories (configurable weight, bounded
+   by a guardrail range) each containing parameters that can
+   individually be switched on/off, or added to, per category.
+   Active parameters within a category share that category's
+   weight equally (see the Branch Audit Risk Score research
+   note for why this is a starting default, not a final model).
+--------------------------------------------------------- */
+const RS_CATLABEL = {
+  portfolio:'Portfolio & Credit', collateral:'Collateral', environment:'Environmental',
+  delinquency:'Delinquency', vault:'Vault & Custody', documentation:'Documentation',
+  audithist:'Audit History', staff:'Staff & Ops', fraud:'Fraud & Conduct'
+};
+const RS_BAR_ORDER = ['audithist','vault','delinquency','portfolio','documentation','collateral','environment','staff','fraud'];
+
+const RS_CATEGORIES = [
+  { id:'portfolio', name:'Portfolio & Credit Exposure', layer:'Inherent', weight:13, min:5, max:25, mandatory:false,
+    params:[
+      {name:'Portfolio size / AUM'},
+      {name:'Disbursal growth rate (MoM / YoY)'},
+      {name:'Average ticket size vs. network average'},
+      {name:'Share of loans near RBI LTV ceiling'},
+      {name:'Top-10-borrower concentration'},
+      {name:'Renewal / rollover rate'},
+      {name:'Business-plan / budget variance', added:true},
+    ]},
+  { id:'collateral', name:'Collateral & Physical Exposure', layer:'Inherent', weight:9, min:5, max:20, mandatory:false,
+    params:[
+      {name:'Gold inventory value held at branch'},
+      {name:'Purity / valuation dispute rate'},
+      {name:'Insurance adequacy vs. max/average gold holding'},
+    ]},
+  { id:'environment', name:'Branch & Environmental Risk', layer:'Inherent', weight:6, min:3, max:15, mandatory:false,
+    params:[
+      {name:'Location / crime risk (vendor-sourced)'},
+      {name:'Natural-disaster exposure (vendor-sourced)'},
+      {name:'Remoteness & accessibility'},
+    ]},
+  { id:'delinquency', name:'Delinquency & Recovery', layer:'Inherent', weight:10, min:5, max:20, mandatory:false,
+    params:[
+      {name:'90+ DPD volume feeding the auction pipeline'},
+      {name:'Historical auction shortfall / write-off rate'},
+      {name:'Average time-to-auction from NPA trigger'},
+    ]},
+  { id:'vault', name:'Vault & Custody Controls', layer:'Control', weight:16, min:10, max:30, mandatory:true,
+    params:[
+      {name:'Vault reconciliation break frequency'},
+      {name:'Dual-custody / key-management exceptions'},
+      {name:'Packet-count mismatch incidents'},
+      {name:'CCTV / surveillance uptime & coverage'},
+      {name:'Time-to-resolve vault discrepancies'},
+    ]},
+  { id:'documentation', name:'Documentation & Compliance', layer:'Control', weight:12, min:5, max:25, mandatory:false,
+    params:[
+      {name:'KYC completeness rate'},
+      {name:'Expired / pending KYC renewal backlog'},
+      {name:'Pledge-form / agreement exception rate'},
+      {name:'AML / negative-list hit rate'},
+      {name:'Regulatory filing & returns timeliness'},
+    ]},
+  { id:'audithist', name:'Audit History & Oversight', layer:'Control', weight:16, min:5, max:25, mandatory:false,
+    params:[
+      {name:'Open / repeat non-conformances, severity-weighted'},
+      {name:'Time-to-close corrective action plans (CAP)'},
+      {name:'Finding trend, cycle-over-cycle'},
+      {name:'Time elapsed since last audit', added:true},
+      {name:'External / regulatory audit findings (RBI, statutory auditor)', added:true},
+    ]},
+  { id:'staff', name:'Staff & Operations', layer:'Control', weight:8, min:5, max:15, mandatory:false,
+    params:[
+      {name:'Branch manager / appraiser tenure & turnover'},
+      {name:'Appraiser certification currency'},
+      {name:'Staff-to-loan-volume ratio'},
+    ]},
+  { id:'fraud', name:'Fraud & Conduct', layer:'Control', weight:10, min:5, max:15, mandatory:false,
+    params:[
+      {name:'Open fraud investigations / whistleblower reports'},
+      {name:'Valuation-override frequency beyond tolerance'},
+      {name:'Unresolved customer-complaint aging'},
+    ]},
+];
+RS_CATEGORIES.forEach(c => { c.open = false; c.params.forEach(p => { if (p.active === undefined) p.active = true; }); });
+
+const RS_BRANCHES = [
+  { name:'Karol Bagh', code:'DEL-009 · Delhi NCR', lastAudit:'18 months ago',
+    cats:{audithist:91,vault:78,delinquency:66,portfolio:58,documentation:52,collateral:41,environment:63,staff:47,fraud:39} },
+  { name:'Laxmi Nagar', code:'DEL-014 · Delhi NCR', lastAudit:'14 months ago',
+    cats:{audithist:72,vault:64,delinquency:58,portfolio:52,documentation:38,collateral:35,environment:44,staff:33,fraud:29} },
+  { name:'Dwarka', code:'DEL-021 · Delhi NCR', lastAudit:'9 months ago',
+    cats:{audithist:48,vault:41,delinquency:36,portfolio:44,documentation:30,collateral:28,environment:39,staff:22,fraud:18} },
+  { name:'Rohini', code:'DEL-006 · Delhi NCR', lastAudit:'4 months ago',
+    cats:{audithist:22,vault:19,delinquency:28,portfolio:34,documentation:15,collateral:20,environment:31,staff:14,fraud:9} },
+  { name:'Saket', code:'DEL-011 · Delhi NCR', lastAudit:'6 months ago',
+    cats:{audithist:26,vault:24,delinquency:20,portfolio:29,documentation:18,collateral:17,environment:25,staff:12,fraud:11} },
+  { name:'Pitampura', code:'DEL-027 · Delhi NCR', lastAudit:'Never audited',
+    cats:{audithist:60,vault:35,delinquency:22,portfolio:19,documentation:24,collateral:15,environment:52,staff:20,fraud:12}, unaudited:true },
+];
+
+let rsSelectedIdx = 0;
+
+function rsWeightedScore(b){
+  var sum = 0, wt = 0;
+  RS_CATEGORIES.forEach(function(c){
+    var v = b.cats[c.id] || 0;
+    sum += v * c.weight; wt += c.weight;
+  });
+  return Math.round(sum / wt);
+}
+function rsBand(score){
+  if (score >= 70) return {label:'High Risk', cls:'bc'};
+  if (score >= 45) return {label:'Medium Risk', cls:'bm'};
+  return {label:'Low Risk', cls:'bl'};
+}
+
+function rsInit(){
+  rsShowTab('card', true);
+  rsRenderBranchTable();
+  rsSelectBranch(rsSelectedIdx);
+  rsRenderConfig();
+}
+
+function rsShowTab(tab, silent){
+  document.getElementById('rs-tab-card').classList.toggle('active', tab === 'card');
+  document.getElementById('rs-tab-config').classList.toggle('active', tab === 'config');
+  document.getElementById('rs-view-card').style.display = tab === 'card' ? 'block' : 'none';
+  document.getElementById('rs-view-config').style.display = tab === 'config' ? 'block' : 'none';
+  if (!silent) window.scrollTo(0,0);
+}
+
+function rsRenderBranchTable(){
+  var tbody = document.getElementById('rs-branch-tbody');
+  var rows = RS_BRANCHES.map(function(b, i){
+    var score = b.unaudited ? null : rsWeightedScore(b);
+    var band = b.unaudited ? {label:'Unaudited', cls:'bg'} : rsBand(score);
+    var top = Object.keys(b.cats).sort(function(a,c){ return b.cats[c] - b.cats[a]; })[0];
+    return {i:i, score:score, band:band, top:top, b:b};
+  });
+  rows.sort(function(x,y){ return (y.score||0) - (x.score||0); });
+  tbody.innerHTML = rows.map(function(r){
+    return '<tr class="rs-branch-row' + (r.i === rsSelectedIdx ? ' sel' : '') + '" onclick="rsSelectBranch(' + r.i + ')">' +
+      '<td><b>' + r.b.name + '</b></td>' +
+      '<td>' + (r.score === null ? '&mdash;' : r.score) + '</td>' +
+      '<td><span class="badge ' + r.band.cls + '">' + r.band.label + '</span></td>' +
+      '<td>' + RS_CATLABEL[r.top] + '</td>' +
+      '<td>' + r.b.lastAudit + '</td>' +
+      '</tr>';
+  }).join('');
+}
+
+function rsSelectBranch(i){
+  rsSelectedIdx = i;
+  var b = RS_BRANCHES[i];
+  var score = b.unaudited ? null : rsWeightedScore(b);
+  var band = b.unaudited ? {label:'Unaudited default', cls:'bg'} : rsBand(score);
+  var ringColor = b.unaudited ? 'var(--base-300)' : (score >= 70 ? 'var(--red)' : score >= 45 ? 'var(--amber)' : 'var(--green)');
+  document.getElementById('rs-ring').style.background = 'conic-gradient(' + ringColor + ' 0 ' + (score||100) + '%, var(--base-200) 0 100%)';
+  document.getElementById('rs-ring-num').innerHTML = (score === null ? 'N/A' : score) + (score !== null ? '<small>/100</small>' : '');
+  document.getElementById('rs-branch-name').textContent = b.name;
+  document.getElementById('rs-branch-badge').innerHTML = '<span class="badge ' + band.cls + '">' + band.label + '</span>';
+  document.getElementById('rs-branch-code').textContent = b.code + ' · last full audit: ' + b.lastAudit;
+
+  var sorted = RS_BAR_ORDER.slice().sort(function(a,c){ return (b.cats[c]||0) - (b.cats[a]||0); });
+  document.getElementById('rs-cat-bars').innerHTML = sorted.map(function(cid){
+    var v = b.cats[cid] || 0;
+    var cls = v >= 70 ? 'hi' : v <= 30 ? 'lo' : '';
+    return '<div class="rs-cat-row"><span class="rs-cat-name">' + RS_CATLABEL[cid] + '</span>' +
+      '<div class="rs-cat-track"><div class="rs-cat-fill ' + cls + '" style="width:' + v + '%"></div></div>' +
+      '<span class="rs-cat-val">' + v + '</span></div>';
+  }).join('');
+
+  var top2 = sorted.slice(0,2).map(function(c){ return RS_CATLABEL[c]; });
+  var why;
+  if (b.unaudited) {
+    why = '<b>' + b.name + '</b> has never been audited. Continuous and vendor-sourced categories (' + top2.join(', ') + ' among them) are populated normally; audit-attested categories are running on an elevated-uncertainty default, not a verified value, until a first audit is completed.';
+  } else {
+    why = '<b>' + top2[0] + '</b> and <b>' + top2[1] + '</b> are the largest drivers this cycle. Score last recalculated 6h ago; audit-attested fields reflect the last full audit (' + b.lastAudit + ') and age into this score via the "time elapsed since last audit" parameter.';
+  }
+  document.getElementById('rs-why').innerHTML = why;
+  rsRenderBranchTable();
+}
+
+function rsGoToBranch(name){
+  var idx = RS_BRANCHES.findIndex(function(b){ return b.name === name; });
+  rsSelectedIdx = idx >= 0 ? idx : 0;
+  goTo('riskscore');
+}
+
+function rsRenderConfig(){
+  var html = RS_CATEGORIES.map(function(c){
+    var active = c.params.filter(function(p){ return p.active; });
+    var share = active.length ? (c.weight / active.length).toFixed(1) : '0.0';
+    var paramRows = c.params.map(function(p, pi){
+      return '<div class="rs-param-row' + (p.active ? '' : ' inactive') + '">' +
+        '<input type="checkbox" ' + (p.active ? 'checked' : '') + ' onchange="rsToggleParam(\'' + c.id + '\',' + pi + ')">' +
+        '<span class="pname">' + p.name + (p.added ? ' <span class="rs-tag rs-tag-added">RBI-sourced</span>' : '') + '</span>' +
+        '<span class="rs-param-share">' + (p.active ? share + '%' : '&mdash;') + '</span>' +
+        '<i class="ti ti-x rs-param-del" onclick="rsRemoveParam(\'' + c.id + '\',' + pi + ')" title="Remove parameter"></i>' +
+        '</div>';
+    }).join('');
+    return '<div class="rs-cat-card' + (c.open ? ' open' : '') + '" id="rs-cat-' + c.id + '">' +
+      '<div class="rs-cat-head" onclick="rsToggleCat(\'' + c.id + '\')">' +
+        '<span class="rs-ch-name">' + c.name + '</span>' +
+        '<span class="rs-tag ' + (c.layer === 'Inherent' ? 'rs-tag-inherent' : 'rs-tag-control') + '">' + c.layer + '</span>' +
+        (c.mandatory ? '<span class="rs-tag rs-tag-mand">Mandatory · Floored</span>' : '') +
+        '<span style="font-size:10.5px;color:var(--base-500)">' + active.length + ' of ' + c.params.length + ' params active</span>' +
+        '<input type="range" class="rs-slider" min="' + c.min + '" max="' + c.max + '" value="' + c.weight + '" oninput="rsSetWeight(\'' + c.id + '\', this.value)" onclick="event.stopPropagation()">' +
+        '<span class="rs-wnum" id="rs-wnum-' + c.id + '">' + c.weight + '%</span>' +
+        '<i class="ti ti-chevron-down rs-chev"></i>' +
+      '</div>' +
+      '<div class="rs-params">' + paramRows +
+        '<div class="rs-addparam"><input type="text" placeholder="Add a custom parameter to this category…" id="rs-add-' + c.id + '"><button class="btn btn-ghost btn-xs" onclick="rsAddParam(\'' + c.id + '\')"><i class="ti ti-plus"></i>Add</button></div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+  document.getElementById('rs-cat-list').innerHTML = html;
+  rsRecalcTotal();
+}
+
+function rsToggleCat(id){
+  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  c.open = !c.open;
+  document.getElementById('rs-cat-' + id).classList.toggle('open', c.open);
+}
+
+function rsSetWeight(id, val){
+  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  c.weight = parseInt(val, 10);
+  document.getElementById('rs-wnum-' + id).textContent = c.weight + '%';
+  rsRecalcTotal();
+}
+
+function rsToggleParam(id, idx){
+  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  c.params[idx].active = !c.params[idx].active;
+  var wasOpen = c.open;
+  rsRenderConfig();
+  if (wasOpen) { c.open = true; document.getElementById('rs-cat-' + id).classList.add('open'); }
+}
+
+function rsAddParam(id){
+  var input = document.getElementById('rs-add-' + id);
+  var val = (input.value || '').trim();
+  if (!val) return;
+  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  c.params.push({name:val, active:true, custom:true});
+  c.open = true;
+  rsRenderConfig();
+  document.getElementById('rs-cat-' + id).classList.add('open');
+  toast('Parameter added — feasibility against a real data source still needs validation before this goes live.');
+}
+
+function rsRemoveParam(id, idx){
+  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  if (c.params.length <= 1) { toast('A category needs at least one parameter.'); return; }
+  var wasOpen = c.open;
+  c.params.splice(idx, 1);
+  rsRenderConfig();
+  if (wasOpen) { c.open = true; document.getElementById('rs-cat-' + id).classList.add('open'); }
+}
+
+function rsRecalcTotal(){
+  var total = 0, inherent = 0, control = 0;
+  RS_CATEGORIES.forEach(function(c){
+    total += c.weight;
+    if (c.layer === 'Inherent') inherent += c.weight; else control += c.weight;
+  });
+  var totalEl = document.getElementById('rs-total-val');
+  var stateEl = document.getElementById('rs-total-state');
+  var balEl = document.getElementById('rs-balance-line');
+  var saveBtn = document.getElementById('rs-save-btn');
+  if (totalEl) totalEl.textContent = total + '%';
+  var balanceOk = inherent >= 30 && inherent <= 50 && control >= 50 && control <= 70;
+  var valid = total === 100 && balanceOk;
+  if (stateEl){
+    stateEl.textContent = total === 100 ? '— balanced' : '— must equal 100% (currently ' + total + '%)';
+    stateEl.className = total === 100 ? 'rs-total-ok' : 'rs-total-bad';
+  }
+  if (balEl){
+    balEl.textContent = 'Inherent ' + inherent + '% / Control ' + control + '%' + (balanceOk ? ' — within the 30–50% / 50–70% guardrail' : ' — outside the 30–50% / 50–70% guardrail');
+    balEl.style.color = balanceOk ? 'var(--base-600)' : 'var(--red)';
+  }
+  if (saveBtn) saveBtn.disabled = !valid;
+  return valid;
+}
+
+function rsSave(){
+  if (!rsRecalcTotal()){ toast('Fix the allocation before publishing — total must be 100% and the inherent/control split must stay within its guardrail.'); return; }
+  var activeParams = RS_CATEGORIES.reduce(function(n,c){ return n + c.params.filter(function(p){ return p.active; }).length; }, 0);
+  toast('Methodology v3.4 published — 9 categories, ' + activeParams + ' active parameters.');
+}
 
 function goTo(pageKey){
   if (!PAGE_INIT[pageKey]) return;
