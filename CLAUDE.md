@@ -12,7 +12,8 @@ Static, self-contained HTML slide decks for a Gold Loan business presentation (F
 - `index.html` — exact copy of `Gold_Loan_Executive_Deck.html`, kept in sync so GitHub Pages (which serves from the repo root) shows the deck at the site root. Update both files together when editing the main deck.
 - `Merged_Deck_Claude_Bundled.html.bak`, `Merged_Deck_Claude_Bundled copy.html`, `Merged_Deck_Claude_Bundled copy 2.html` — snapshots/working copies of the main deck, still under the old filename. Check with the user which copy is the active edit target before making changes; don't assume it's the tracked one.
 - `Gold loan Auditing and Vaulting Deck copy.html` — deep-dive deck for Auditing & Vaulting content, opened from the main deck via "Vaulting →" / "Auditing →" buttons.
-- `Auction/Auction Mockups.htm`, `Audit/Audit Mockups.html`, `vaulting/Vault Mockups.html` — standalone mockup files for auction/audit/vaulting sections.
+- `Auction/auction-platform.html` — current Auction portal, linked from the main deck's Auction stage ("📊 Auction Dashboard →" button). `Auction/Auction Mockups.htm` is the prior version, kept as a backup but no longer linked.
+- `Audit/Audit Mockups.html`, `vaulting/Vault Mockups.html` — standalone mockup files for audit/vaulting sections.
 - `FinnOne Neo - Why Now (refined).html` — standalone slide/section, smaller file.
 - `India_Gold_Loan_Market_Opportunity_Board_Deck (1).pptx`, `Gold_Loan_Workflow_and_Integration_Editable (2).pptx` — source PowerPoint decks that content/mockups get ported into the HTML decks; not consumed programmatically.
 - `Before Bundled stack mockups.zip` — archived pre-bundling mockup reference, not part of the live decks.
