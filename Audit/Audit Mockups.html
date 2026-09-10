@@ -820,13 +820,16 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
           <option value="All">All Branches</option>
           <option value="Zone">Zone</option>
           <option value="Region">Region</option>
+          <option value="Branch Category">Branch Category</option>
+          <option value="Condition">Condition (live status)</option>
         </select>
       </div>
       <div class="field" id="rs-method-scope-value-wrap"><label>Scope value</label><select id="rs-method-scope-value" onchange="rsSetScopeValue(this.value)"></select></div>
       <button class="btn btn-ghost btn-sm" onclick="rsNewMethodology()"><i class="ti ti-copy"></i>New (clone)</button>
       <button class="btn btn-ghost btn-sm" id="rs-method-delete" onclick="rsDeleteMethodology()"><i class="ti ti-trash"></i>Delete</button>
     </div>
-    <div class="rs-guard-note" style="margin:-10px 0 18px">Multiple methodologies can run at once, each tagged to a scope. A branch is scored under the most specific methodology that covers it &mdash; Region beats Zone beats the All-Branches default &mdash; resolved against the branch's zone/region as held in the common branch master, not a copy kept by this module.</div>
+    <div id="rs-method-desc" class="rs-guard-note" style="margin:-4px 0 10px;font-style:italic">&ndash;</div>
+    <div class="rs-guard-note" style="margin:0 0 18px">Six methodologies ship preconfigured &mdash; not a blank slate. Resolution order: a live <b>Condition</b> (Regulatory Watch or never-audited) overrides everything, since it reflects the branch's actual status; otherwise most-specific geography wins (<b>Region</b> &gt; <b>Zone</b> &gt; <b>Branch Category</b>) resolved against the common branch master, falling back to the <b>All-Branches</b> default.</div>
 
     <div class="rs-total-bar">
       <div class="rs-tb-num">Total allocated &nbsp;<b id="rs-total-val">100%</b> <span id="rs-total-state" class="rs-total-ok">&mdash; balanced</span>
@@ -2450,29 +2453,66 @@ RS_CATEGORY_DEFS.forEach(c => { c.open = false; c.params.forEach(p => { if (p.ac
 /* Multiple risk-scoring methodologies, each tagged to a scope: All branches,
    a Zone, or a Region — resolved most-specific-scope-wins (Region beats Zone
    beats All), the standard pattern for scoped configuration inheritance. */
+/* Preconfigured starter library — not a blank slate. Each one below targets a
+   real, recurring scenario rather than an arbitrary example:
+   - Metropolitan / Rural: RBI's own population-based branch classification
+     (Rural <10k / Semi-Urban <1L / Urban <10L / Metropolitan >=10L) is already
+     standard master data; metro branches see ~2x the robbery/crime incidence
+     of non-metro ones, which is why Environmental and Fraud carry more
+     weight there, while rural branches trade that for weaker staffing,
+     supervision, and audit-visit frequency (Staff & Ops, Audit History up).
+   - New / Unaudited: a branch with no audit history yet has no verified
+     control evidence at all — the uncertainty itself is the risk, so Audit
+     History & Oversight and Vault & Custody (unproven, newly-trained staff
+     handling gold) are weighted up and Portfolio/Delinquency down (no
+     meaningful track record yet to weight heavily).
+   - Regulatory Scrutiny: modelled on RBI's actual September 2024 gold-loan
+     findings (weak LTV monitoring, valuation-without-customer-present,
+     auction-transparency and outsourcing-control gaps) — Documentation &
+     Compliance and Audit History dominate since the concern is control
+     failure, not raw exposure size.
+   Every weight below is still a proposed default, same as the Standard one —
+   research-grounded, not RBI-mandated. */
 let RS_METHODOLOGIES = [
   { id:'m-default', name:'Standard Methodology', version:'v3.3', scope:{type:'All', value:null},
+    desc:'Baseline used when no more specific methodology applies.',
     weights:{portfolio:13, collateral:9, environment:6, delinquency:10, vault:16, documentation:12, audithist:16, staff:8, fraud:10} },
   { id:'m-south', name:'South Zone Methodology', version:'v1.0', scope:{type:'Zone', value:'South Zone'},
+    desc:'Example zone-level override — a zone audit lead wants its own weighting without touching the default.',
     weights:{portfolio:11, collateral:8, environment:10, delinquency:9, vault:16, documentation:10, audithist:14, staff:8, fraud:14} },
+  { id:'m-metro', name:'Metropolitan Branch Methodology', version:'v1.0', scope:{type:'Branch Category', value:'Metropolitan'},
+    desc:'Metro branches see materially higher crime/robbery incidence and carry bigger, busier books — Environmental, Fraud, and Portfolio weighted up.',
+    weights:{portfolio:15, collateral:9, environment:10, delinquency:8, vault:15, documentation:11, audithist:13, staff:6, fraud:13} },
+  { id:'m-rural', name:'Rural Branch Methodology', version:'v1.0', scope:{type:'Branch Category', value:'Rural'},
+    desc:'Lower crime exposure, but weaker staffing/supervision and far less frequent audit visits — Staff & Ops and Audit History weighted up instead.',
+    weights:{portfolio:10, collateral:9, environment:8, delinquency:9, vault:18, documentation:10, audithist:18, staff:12, fraud:6} },
+  { id:'m-unaudited', name:'New / Unaudited Branch Methodology', version:'v1.0', scope:{type:'Condition', value:'Unaudited'},
+    desc:'No audit history exists yet, so the uncertainty is the risk — Audit History & Oversight and Vault & Custody (unproven controls) dominate; Portfolio/Delinquency carry little track record to weight.',
+    weights:{portfolio:9, collateral:9, environment:7, delinquency:6, vault:19, documentation:11, audithist:19, staff:12, fraud:8} },
+  { id:'m-regwatch', name:'Regulatory Scrutiny Methodology', version:'v1.0', scope:{type:'Condition', value:'Regulatory Watch'},
+    desc:'For a branch already flagged by RBI inspection/statutory audit — modelled on RBI’s own 2024 gold-loan findings (LTV monitoring, valuation controls, auction transparency), so Documentation & Compliance and Audit History dominate.',
+    weights:{portfolio:9, collateral:7, environment:5, delinquency:9, vault:18, documentation:18, audithist:19, staff:7, fraud:8} },
 ];
 let rsSelectedMethodId = 'm-default';
 
-/* Common branch master — the zone/region every branch belongs to. In the real
-   system this is read from the existing branch-master table, not owned by
-   the Audit module; it's reproduced here only so the mockup can resolve scope. */
+/* Common branch master — zone/region/population-category for every branch.
+   In the real system this is read from the existing branch-master table
+   (population-group is already an RBI-standard field), not owned by the
+   Audit module; reproduced here only so the mockup can resolve scope. */
 const RS_BRANCH_MASTER = {
-  'DEL-009': {zone:'North Zone', region:'Delhi NCR'},
-  'DEL-014': {zone:'North Zone', region:'Delhi NCR'},
-  'DEL-021': {zone:'North Zone', region:'Delhi NCR'},
-  'DEL-006': {zone:'North Zone', region:'Delhi NCR'},
-  'DEL-011': {zone:'North Zone', region:'Delhi NCR'},
-  'DEL-027': {zone:'North Zone', region:'Delhi NCR'},
-  'CHN-004': {zone:'South Zone', region:'Chennai Metro'},
+  'DEL-009': {zone:'North Zone', region:'Delhi NCR', category:'Metropolitan'},
+  'DEL-014': {zone:'North Zone', region:'Delhi NCR', category:'Metropolitan'},
+  'DEL-021': {zone:'North Zone', region:'Delhi NCR', category:'Metropolitan'},
+  'DEL-006': {zone:'North Zone', region:'Delhi NCR', category:'Metropolitan'},
+  'DEL-011': {zone:'North Zone', region:'Delhi NCR', category:'Metropolitan'},
+  'DEL-027': {zone:'North Zone', region:'Delhi NCR', category:'Metropolitan'},
+  'CHN-004': {zone:'South Zone', region:'Chennai Metro', category:'Metropolitan'},
+  'HAR-002': {zone:'North Zone', region:'Haryana', category:'Semi-Urban'},
+  'HAR-005': {zone:'North Zone', region:'Haryana', category:'Rural'},
 };
 
 const RS_BRANCHES = [
-  { name:'Karol Bagh', id:'DEL-009', lastAudit:'18 months ago',
+  { name:'Karol Bagh', id:'DEL-009', lastAudit:'18 months ago', regulatoryWatch:true,
     cats:{audithist:91,vault:78,delinquency:66,portfolio:58,documentation:52,collateral:41,environment:63,staff:47,fraud:39} },
   { name:'Laxmi Nagar', id:'DEL-014', lastAudit:'14 months ago',
     cats:{audithist:72,vault:64,delinquency:58,portfolio:52,documentation:38,collateral:35,environment:44,staff:33,fraud:29} },
@@ -2486,18 +2526,35 @@ const RS_BRANCHES = [
     cats:{audithist:60,vault:35,delinquency:22,portfolio:19,documentation:24,collateral:15,environment:52,staff:20,fraud:12}, unaudited:true },
   { name:'Anna Nagar', id:'CHN-004', lastAudit:'7 months ago',
     cats:{audithist:34,vault:29,delinquency:24,portfolio:31,documentation:22,collateral:19,environment:68,staff:18,fraud:41} },
+  { name:'Bawal', id:'HAR-002', lastAudit:'11 months ago',
+    cats:{audithist:38,vault:33,delinquency:29,portfolio:24,documentation:27,collateral:21,environment:26,staff:36,fraud:14} },
+  { name:'Jhajjar', id:'HAR-005', lastAudit:'20 months ago',
+    cats:{audithist:55,vault:47,delinquency:31,portfolio:18,documentation:33,collateral:24,environment:20,staff:52,fraud:11} },
 ];
 
 let rsSelectedIdx = 0;
 
-function rsResolveMethodology(branchId){
-  var m = RS_BRANCH_MASTER[branchId];
-  if (m){
-    var region = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Region' && x.scope.value === m.region; });
-    if (region) return region;
-    var zone = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Zone' && x.scope.value === m.zone; });
-    if (zone) return zone;
+/* Resolution order: an urgent, branch-specific CONDITION (regulatory watch,
+   never audited) overrides everything, since it reflects the branch's actual
+   live status rather than a static hierarchy. Below that, most-specific
+   geography wins (Region > Zone), then population Branch Category, then the
+   All-Branches default. */
+function rsResolveMethodology(b){
+  var master = RS_BRANCH_MASTER[b.id] || {};
+  if (b.regulatoryWatch){
+    var rw = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Condition' && x.scope.value === 'Regulatory Watch'; });
+    if (rw) return rw;
   }
+  if (b.unaudited){
+    var ua = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Condition' && x.scope.value === 'Unaudited'; });
+    if (ua) return ua;
+  }
+  var region = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Region' && x.scope.value === master.region; });
+  if (region) return region;
+  var zone = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Zone' && x.scope.value === master.zone; });
+  if (zone) return zone;
+  var cat = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Branch Category' && x.scope.value === master.category; });
+  if (cat) return cat;
   return RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'All'; }) || RS_METHODOLOGIES[0];
 }
 function rsScopeLabel(methodology){
@@ -2505,7 +2562,7 @@ function rsScopeLabel(methodology){
 }
 
 function rsWeightedScore(b){
-  var methodology = rsResolveMethodology(b.id);
+  var methodology = rsResolveMethodology(b);
   var sum = 0, wt = 0;
   RS_CATEGORY_DEFS.forEach(function(c){
     var w = methodology.weights[c.id] || 0;
@@ -2608,8 +2665,10 @@ function rsCurrentMethod(){
    scope-value dropdown reflect "whatever branch mapping is available in the
    common master" instead of a hardcoded list. */
 function rsMasterValues(type){
-  var vals = Object.keys(RS_BRANCH_MASTER).map(function(id){ return RS_BRANCH_MASTER[id][type.toLowerCase()]; });
-  return Array.from(new Set(vals));
+  if (type === 'Condition') return ['Unaudited', 'Regulatory Watch'];
+  var key = type === 'Branch Category' ? 'category' : type.toLowerCase();
+  var vals = Object.keys(RS_BRANCH_MASTER).map(function(id){ return RS_BRANCH_MASTER[id][key]; });
+  return Array.from(new Set(vals)).filter(Boolean);
 }
 
 function rsRenderMethodBar(){
@@ -2631,6 +2690,8 @@ function rsRenderMethodBar(){
   }
   var delBtn = document.getElementById('rs-method-delete');
   delBtn.disabled = m.scope.type === 'All';
+  var descEl = document.getElementById('rs-method-desc');
+  if (descEl) descEl.textContent = m.desc || '';
 }
 
 function rsSwitchMethodology(id){
