@@ -828,8 +828,9 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
       <button class="btn btn-ghost btn-sm" onclick="rsNewMethodology()"><i class="ti ti-copy"></i>New (clone)</button>
       <button class="btn btn-ghost btn-sm" id="rs-method-delete" onclick="rsDeleteMethodology()"><i class="ti ti-trash"></i>Delete</button>
     </div>
-    <div id="rs-method-desc" class="rs-guard-note" style="margin:-4px 0 10px;font-style:italic">&ndash;</div>
-    <div class="rs-guard-note" style="margin:0 0 18px">Six methodologies ship preconfigured &mdash; not a blank slate. Resolution order: a live <b>Condition</b> (Regulatory Watch or never-audited) overrides everything, since it reflects the branch's actual status; otherwise most-specific geography wins (<b>Region</b> &gt; <b>Zone</b> &gt; <b>Branch Category</b>) resolved against the common branch master, falling back to the <b>All-Branches</b> default.</div>
+    <div id="rs-method-emph" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:-4px 0 8px"></div>
+    <div id="rs-method-desc" class="rs-guard-note" style="margin:0 0 10px;font-style:italic">&ndash;</div>
+    <div class="rs-guard-note" style="margin:0 0 18px">Six methodologies ship preconfigured &mdash; not a blank slate. Each is named for <b>what it weights</b>, not where it's applied, so retagging its scope never makes its name misleading. Resolution order: a live <b>Condition</b> (Regulatory Watch or never-audited) overrides everything, since it reflects the branch's actual status; otherwise most-specific geography wins (<b>Region</b> &gt; <b>Zone</b> &gt; <b>Branch Category</b>) resolved against the common branch master, falling back to the <b>All-Branches</b> default.</div>
 
     <div class="rs-total-bar">
       <div class="rs-tb-num">Total allocated &nbsp;<b id="rs-total-val">100%</b> <span id="rs-total-state" class="rs-total-ok">&mdash; balanced</span>
@@ -2450,50 +2451,53 @@ const RS_CATEGORY_DEFS = [
 ];
 RS_CATEGORY_DEFS.forEach(c => { c.open = false; c.params.forEach(p => { if (p.active === undefined) p.active = true; }); });
 
-/* Multiple risk-scoring methodologies, each tagged to a scope: All branches,
-   a Zone, or a Region — resolved most-specific-scope-wins (Region beats Zone
-   beats All), the standard pattern for scoped configuration inheritance. */
-/* Preconfigured starter library — not a blank slate. Each one below targets a
-   real, recurring scenario rather than an arbitrary example:
-   - Metropolitan / Rural: RBI's own population-based branch classification
+/* Preconfigured starter library — not a blank slate.
+
+   Each methodology is NAMED FOR WHAT IT WEIGHTS, not for where it happens to
+   be applied. Scope is a separate, re-taggable property: calling one of these
+   "Metropolitan Methodology" would make the name a lie the moment someone
+   retags it to a region or a condition. The name describes the scoring
+   emphasis; the scope tag says who currently gets scored by it.
+
+   The emphases below come from real, recurring scenarios:
+   - Physical Security & Crime: RBI's population-based branch classification
      (Rural <10k / Semi-Urban <1L / Urban <10L / Metropolitan >=10L) is already
-     standard master data; metro branches see ~2x the robbery/crime incidence
-     of non-metro ones, which is why Environmental and Fraud carry more
-     weight there, while rural branches trade that for weaker staffing,
-     supervision, and audit-visit frequency (Staff & Ops, Audit History up).
-   - New / Unaudited: a branch with no audit history yet has no verified
-     control evidence at all — the uncertainty itself is the risk, so Audit
-     History & Oversight and Vault & Custody (unproven, newly-trained staff
-     handling gold) are weighted up and Portfolio/Delinquency down (no
-     meaningful track record yet to weight heavily).
-   - Regulatory Scrutiny: modelled on RBI's actual September 2024 gold-loan
-     findings (weak LTV monitoring, valuation-without-customer-present,
-     auction-transparency and outsourcing-control gaps) — Documentation &
-     Compliance and Audit History dominate since the concern is control
-     failure, not raw exposure size.
-   Every weight below is still a proposed default, same as the Standard one —
-   research-grounded, not RBI-mandated. */
+     standard master data, and metro branches see ~2x the robbery/crime
+     incidence of non-metro ones.
+   - Supervision & Staffing: remote branches trade crime exposure for weaker
+     staffing, thinner day-to-day supervision, and far less frequent audit
+     visits.
+   - Unproven Controls: a branch with no audit history has no verified control
+     evidence at all — the uncertainty itself is the risk, and its portfolio
+     carries no meaningful track record yet to weight heavily.
+   - Compliance & Documentation: modelled on RBI's actual September 2024
+     gold-loan findings (weak LTV monitoring, valuation-without-customer-
+     present, auction-transparency and outsourcing-control gaps).
+   - Portfolio & Exposure: large-book branches where sheer scale of money and
+     gold at stake, not control maturity, is the dominant concern.
+   Every weight is still a proposed default — research-grounded, not
+   RBI-mandated. */
 let RS_METHODOLOGIES = [
-  { id:'m-default', name:'Standard Methodology', version:'v3.3', scope:{type:'All', value:null},
-    desc:'Baseline used when no more specific methodology applies.',
+  { id:'m-balanced', name:'Balanced Baseline', version:'v3.3', scope:{type:'All', value:null},
+    desc:'No single emphasis — an even spread across exposure and control. Used wherever no more specific methodology applies.',
     weights:{portfolio:13, collateral:9, environment:6, delinquency:10, vault:16, documentation:12, audithist:16, staff:8, fraud:10} },
-  { id:'m-south', name:'South Zone Methodology', version:'v1.0', scope:{type:'Zone', value:'South Zone'},
-    desc:'Example zone-level override — a zone audit lead wants its own weighting without touching the default.',
-    weights:{portfolio:11, collateral:8, environment:10, delinquency:9, vault:16, documentation:10, audithist:14, staff:8, fraud:14} },
-  { id:'m-metro', name:'Metropolitan Branch Methodology', version:'v1.0', scope:{type:'Branch Category', value:'Metropolitan'},
-    desc:'Metro branches see materially higher crime/robbery incidence and carry bigger, busier books — Environmental, Fraud, and Portfolio weighted up.',
-    weights:{portfolio:15, collateral:9, environment:10, delinquency:8, vault:15, documentation:11, audithist:13, staff:6, fraud:13} },
-  { id:'m-rural', name:'Rural Branch Methodology', version:'v1.0', scope:{type:'Branch Category', value:'Rural'},
-    desc:'Lower crime exposure, but weaker staffing/supervision and far less frequent audit visits — Staff & Ops and Audit History weighted up instead.',
-    weights:{portfolio:10, collateral:9, environment:8, delinquency:9, vault:18, documentation:10, audithist:18, staff:12, fraud:6} },
-  { id:'m-unaudited', name:'New / Unaudited Branch Methodology', version:'v1.0', scope:{type:'Condition', value:'Unaudited'},
-    desc:'No audit history exists yet, so the uncertainty is the risk — Audit History & Oversight and Vault & Custody (unproven controls) dominate; Portfolio/Delinquency carry little track record to weight.',
-    weights:{portfolio:9, collateral:9, environment:7, delinquency:6, vault:19, documentation:11, audithist:19, staff:12, fraud:8} },
-  { id:'m-regwatch', name:'Regulatory Scrutiny Methodology', version:'v1.0', scope:{type:'Condition', value:'Regulatory Watch'},
-    desc:'For a branch already flagged by RBI inspection/statutory audit — modelled on RBI’s own 2024 gold-loan findings (LTV monitoring, valuation controls, auction transparency), so Documentation & Compliance and Audit History dominate.',
+  { id:'m-physical', name:'Physical Security & Crime Weighted', version:'v1.0', scope:{type:'Branch Category', value:'Metropolitan'},
+    desc:'Leans on Environmental, Fraud & Conduct and Vault & Custody. Fits locations where theft, robbery and conduct risk dominate — typically high-crime metro catchments.',
+    weights:{portfolio:12, collateral:9, environment:13, delinquency:8, vault:17, documentation:9, audithist:12, staff:6, fraud:14} },
+  { id:'m-supervision', name:'Supervision & Staffing Weighted', version:'v1.0', scope:{type:'Branch Category', value:'Rural'},
+    desc:'Leans on Staff & Operations, Audit History and Vault & Custody. Fits branches that are thinly supervised and infrequently visited — typically remote or rural.',
+    weights:{portfolio:10, collateral:9, environment:7, delinquency:9, vault:18, documentation:9, audithist:18, staff:14, fraud:6} },
+  { id:'m-unproven', name:'Unproven Controls Weighted', version:'v1.0', scope:{type:'Condition', value:'Unaudited'},
+    desc:'Leans hard on Audit History & Oversight and Vault & Custody, and discounts Portfolio/Delinquency. Fits any branch whose controls have never been independently verified.',
+    weights:{portfolio:9, collateral:9, environment:7, delinquency:6, vault:20, documentation:11, audithist:20, staff:10, fraud:8} },
+  { id:'m-compliance', name:'Compliance & Documentation Weighted', version:'v1.0', scope:{type:'Condition', value:'Regulatory Watch'},
+    desc:'Leans on Documentation & Compliance and Audit History & Oversight. Fits branches where the concern is demonstrable control failure rather than exposure size — e.g. already flagged by RBI inspection or statutory audit.',
     weights:{portfolio:9, collateral:7, environment:5, delinquency:9, vault:18, documentation:18, audithist:19, staff:7, fraud:8} },
+  { id:'m-exposure', name:'Portfolio & Exposure Weighted', version:'v1.0', scope:{type:'Zone', value:'South Zone'},
+    desc:'Leans on Portfolio & Credit, Collateral and Delinquency — the inherent side. Fits large-book branches where the sheer scale of money and gold at stake outweighs control maturity.',
+    weights:{portfolio:20, collateral:12, environment:5, delinquency:13, vault:14, documentation:9, audithist:12, staff:6, fraud:9} },
 ];
-let rsSelectedMethodId = 'm-default';
+let rsSelectedMethodId = 'm-balanced';
 
 /* Common branch master — zone/region/population-category for every branch.
    In the real system this is read from the existing branch-master table
@@ -2692,6 +2696,31 @@ function rsRenderMethodBar(){
   delBtn.disabled = m.scope.type === 'All';
   var descEl = document.getElementById('rs-method-desc');
   if (descEl) descEl.textContent = m.desc || '';
+  var emphEl = document.getElementById('rs-method-emph');
+  if (emphEl){
+    var emph = rsEmphasis(m);
+    emphEl.innerHTML = emph.length
+      ? '<span style="font-size:10.5px;color:var(--base-500)">Weighted toward</span>' +
+        emph.map(function(e){
+          return '<span class="rs-tag rs-tag-region">' + e.label + ' +' + e.delta + '</span>';
+        }).join('')
+      : '<span style="font-size:10.5px;color:var(--base-500)">Even spread &mdash; no category emphasised over the baseline</span>';
+  }
+}
+
+/* What a methodology "weights for" is how it differs from the baseline, not
+   which category happens to be biggest — Vault and Audit History are large in
+   every profile. Computing the emphasis as a delta against the All-Branches
+   baseline, straight from the live weights, means a rename or a re-weighting
+   can never quietly disagree with what the methodology actually does. */
+function rsEmphasis(m){
+  var base = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'All'; });
+  if (!base || base.id === m.id) return [];
+  return RS_CATEGORY_DEFS
+    .map(function(c){ return {label: RS_CATLABEL[c.id], delta: (m.weights[c.id] || 0) - (base.weights[c.id] || 0)}; })
+    .filter(function(e){ return e.delta > 0; })
+    .sort(function(a, b){ return b.delta - a.delta; })
+    .slice(0, 3);
 }
 
 function rsSwitchMethodology(id){
@@ -2734,7 +2763,7 @@ function rsDeleteMethodology(){
   var m = rsCurrentMethod();
   if (m.scope.type === 'All'){ toast('The default All-Branches methodology can\'t be deleted.'); return; }
   RS_METHODOLOGIES = RS_METHODOLOGIES.filter(function(x){ return x.id !== m.id; });
-  rsSelectedMethodId = 'm-default';
+  rsSelectedMethodId = 'm-balanced';
   rsRenderMethodBar();
   rsRenderConfig();
   rsRenderBranchTable();
