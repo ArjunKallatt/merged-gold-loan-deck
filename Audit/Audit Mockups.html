@@ -742,7 +742,16 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     .rs-param-row input[type=checkbox]{accent-color:var(--blue-600);width:15px;height:15px;flex-shrink:0}
     .rs-param-row span.pname{flex:1;color:var(--base-700)}
     .rs-param-row.inactive span.pname{color:var(--base-400);text-decoration:line-through}
-    .rs-param-share{font-size:10.5px;color:var(--base-500);font-family:inherit;width:44px;text-align:right;flex-shrink:0}
+    .rs-param-share{font-size:10.5px;color:var(--base-500);font-family:inherit;width:56px;text-align:right;flex-shrink:0}
+    /* Needs this much specificity to beat the global input rule, which is
+       input:not([type=checkbox]):not([type=radio]):not([type=range]) and would
+       otherwise stretch this to width:100% and swallow the parameter name. */
+    .rs-cat-card .rs-param-row input.rs-param-w{flex:0 0 62px;width:62px;padding:5px 7px;font-size:11.5px;text-align:right;border:1px solid var(--base-300);border-radius:var(--r);background:#fff;font-family:inherit}
+    .rs-cat-card .rs-param-row input.rs-param-w:focus{border-color:var(--blue-500);box-shadow:0 0 0 2px var(--blue-100)}
+    .rs-param-row span.pname{min-width:0}
+    .rs-param-foot{font-size:10.5px;color:var(--base-500);padding:8px 2px 0;margin-top:6px;border-top:1px dashed var(--base-200);line-height:1.5}
+    .rs-param-foot b{color:var(--base-800)}
+    .rs-wnum-bad{color:var(--red) !important}
     .rs-param-del{cursor:pointer;color:var(--base-400);font-size:14px;flex-shrink:0}
     .rs-param-del:hover{color:var(--red)}
     .rs-addparam{display:flex;gap:8px;margin-top:8px;padding-top:8px}
@@ -840,7 +849,7 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     </div>
 
     <div id="rs-cat-list"></div>
-    <div class="rs-guard-note" style="margin-top:4px">Guardrails enforced live: each category is bounded to its permitted range, Vault &amp; Custody Controls is mandatory and floored, the inherent/control split must stay within its band, and the total must equal 100% before publishing. All numbers above are proposed defaults for this mockup, not RBI-prescribed values. The parameter set itself is shared across every methodology in this mockup &mdash; only category weights and scope differ per methodology.</div>
+    <div class="rs-guard-note" style="margin-top:4px">Guardrails enforced live: each category is bounded to its permitted range, Vault &amp; Custody Controls is mandatory and floored, the inherent/control split must stay within its band, and the total must equal 100% before publishing. All numbers above are proposed defaults for this mockup, not RBI-prescribed values. The parameter set itself is shared across every methodology in this mockup &mdash; only the weights and scope differ per methodology. <b>A category's weight is always the sum of its active parameters</b>: type a number against a parameter and the category and grand total rise with it; drag a category slider and its parameters rescale proportionally to match. The two can never disagree because only one of them is stored.</div>
 
     <div class="card" style="margin-top:22px">
       <div class="card-head"><div class="card-title"><i class="ti ti-map-2"></i>Branch &rarr; Methodology Mapping</div><span style="font-size:10.5px;color:var(--blue-200)">Read from the common branch master</span></div>
@@ -2449,7 +2458,72 @@ const RS_CATEGORY_DEFS = [
       {name:'Unresolved customer-complaint aging'},
     ]},
 ];
-RS_CATEGORY_DEFS.forEach(c => { c.open = false; c.params.forEach(p => { if (p.active === undefined) p.active = true; }); });
+/* Stable per-parameter ids, assigned once. Because they live on the parameter
+   object, removing one never renumbers the others — parameter weights stay
+   attached to the right parameter. */
+RS_CATEGORY_DEFS.forEach(c => {
+  c.open = false;
+  c.customSeq = 0;
+  c.params.forEach((p, i) => {
+    if (p.active === undefined) p.active = true;
+    if (!p.id) p.id = c.id + '-p' + (i + 1);
+  });
+});
+
+function rsRound1(x){ return Math.round(x * 10) / 10; }
+
+/* Split a category total evenly to 1dp, with the remainder absorbed by the
+   last parameter so the parts sum to the total exactly. */
+function rsSplitEven(total, n){
+  if (n <= 0) return [];
+  var each = rsRound1(total / n);
+  var arr = [];
+  for (var i = 0; i < n; i++) arr.push(each);
+  arr[n - 1] = rsRound1(arr[n - 1] + rsRound1(total - each * n));
+  return arr;
+}
+
+/* PARAMETER WEIGHTS ARE THE SINGLE SOURCE OF TRUTH. A category's weight is
+   always the sum of its active parameters, never a separately stored number —
+   so the two can't drift apart. The authored seedWeights above are only the
+   starting point: each category's seed is split evenly across its parameters
+   at load, and from then on both directions of editing stay reconciled. */
+function rsSeedParamWeights(m){
+  m.paramWeights = {};
+  RS_CATEGORY_DEFS.forEach(function(c){
+    var active = c.params.filter(function(p){ return p.active; });
+    var vals = rsSplitEven(m.seedWeights[c.id] || 0, active.length);
+    active.forEach(function(p, i){ m.paramWeights[p.id] = vals[i]; });
+    c.params.filter(function(p){ return !p.active; }).forEach(function(p){ m.paramWeights[p.id] = 0; });
+  });
+}
+
+function rsCatWeight(m, c){
+  return rsRound1(c.params.reduce(function(sum, p){
+    return sum + (p.active ? (m.paramWeights[p.id] || 0) : 0);
+  }, 0));
+}
+
+/* Category slider moved: scale its active parameters proportionally so they
+   still sum exactly to the new category weight. */
+function rsRebalanceCategory(m, c, newTotal){
+  var active = c.params.filter(function(p){ return p.active; });
+  if (!active.length) return;
+  var oldSum = active.reduce(function(s, p){ return s + (m.paramWeights[p.id] || 0); }, 0);
+  var vals;
+  if (oldSum <= 0){
+    vals = rsSplitEven(newTotal, active.length);
+  } else {
+    vals = active.map(function(p){ return rsRound1((m.paramWeights[p.id] || 0) * newTotal / oldSum); });
+    var diff = rsRound1(newTotal - rsRound1(vals.reduce(function(s, v){ return s + v; }, 0)));
+    if (diff !== 0){
+      var maxIdx = 0;
+      for (var i = 1; i < vals.length; i++) if (vals[i] > vals[maxIdx]) maxIdx = i;
+      vals[maxIdx] = rsRound1(vals[maxIdx] + diff);
+    }
+  }
+  active.forEach(function(p, i){ m.paramWeights[p.id] = Math.max(0, vals[i]); });
+}
 
 /* Preconfigured starter library — not a blank slate.
 
@@ -2480,23 +2554,24 @@ RS_CATEGORY_DEFS.forEach(c => { c.open = false; c.params.forEach(p => { if (p.ac
 let RS_METHODOLOGIES = [
   { id:'m-balanced', name:'Balanced Baseline', version:'v3.3', scope:{type:'All', value:null},
     desc:'No single emphasis — an even spread across exposure and control. Used wherever no more specific methodology applies.',
-    weights:{portfolio:13, collateral:9, environment:6, delinquency:10, vault:16, documentation:12, audithist:16, staff:8, fraud:10} },
+    seedWeights:{portfolio:13, collateral:9, environment:6, delinquency:10, vault:16, documentation:12, audithist:16, staff:8, fraud:10} },
   { id:'m-physical', name:'Physical Security & Crime Weighted', version:'v1.0', scope:{type:'Branch Category', value:'Metropolitan'},
     desc:'Leans on Environmental, Fraud & Conduct and Vault & Custody. Fits locations where theft, robbery and conduct risk dominate — typically high-crime metro catchments.',
-    weights:{portfolio:12, collateral:9, environment:13, delinquency:8, vault:17, documentation:9, audithist:12, staff:6, fraud:14} },
+    seedWeights:{portfolio:12, collateral:9, environment:13, delinquency:8, vault:17, documentation:9, audithist:12, staff:6, fraud:14} },
   { id:'m-supervision', name:'Supervision & Staffing Weighted', version:'v1.0', scope:{type:'Branch Category', value:'Rural'},
     desc:'Leans on Staff & Operations, Audit History and Vault & Custody. Fits branches that are thinly supervised and infrequently visited — typically remote or rural.',
-    weights:{portfolio:10, collateral:9, environment:7, delinquency:9, vault:18, documentation:9, audithist:18, staff:14, fraud:6} },
+    seedWeights:{portfolio:10, collateral:9, environment:7, delinquency:9, vault:18, documentation:9, audithist:18, staff:14, fraud:6} },
   { id:'m-unproven', name:'Unproven Controls Weighted', version:'v1.0', scope:{type:'Condition', value:'Unaudited'},
     desc:'Leans hard on Audit History & Oversight and Vault & Custody, and discounts Portfolio/Delinquency. Fits any branch whose controls have never been independently verified.',
-    weights:{portfolio:9, collateral:9, environment:7, delinquency:6, vault:20, documentation:11, audithist:20, staff:10, fraud:8} },
+    seedWeights:{portfolio:9, collateral:9, environment:7, delinquency:6, vault:20, documentation:11, audithist:20, staff:10, fraud:8} },
   { id:'m-compliance', name:'Compliance & Documentation Weighted', version:'v1.0', scope:{type:'Condition', value:'Regulatory Watch'},
     desc:'Leans on Documentation & Compliance and Audit History & Oversight. Fits branches where the concern is demonstrable control failure rather than exposure size — e.g. already flagged by RBI inspection or statutory audit.',
-    weights:{portfolio:9, collateral:7, environment:5, delinquency:9, vault:18, documentation:18, audithist:19, staff:7, fraud:8} },
+    seedWeights:{portfolio:9, collateral:7, environment:5, delinquency:9, vault:18, documentation:18, audithist:19, staff:7, fraud:8} },
   { id:'m-exposure', name:'Portfolio & Exposure Weighted', version:'v1.0', scope:{type:'Zone', value:'South Zone'},
     desc:'Leans on Portfolio & Credit, Collateral and Delinquency — the inherent side. Fits large-book branches where the sheer scale of money and gold at stake outweighs control maturity.',
-    weights:{portfolio:20, collateral:12, environment:5, delinquency:13, vault:14, documentation:9, audithist:12, staff:6, fraud:9} },
+    seedWeights:{portfolio:20, collateral:12, environment:5, delinquency:13, vault:14, documentation:9, audithist:12, staff:6, fraud:9} },
 ];
+RS_METHODOLOGIES.forEach(rsSeedParamWeights);
 let rsSelectedMethodId = 'm-balanced';
 
 /* Common branch master — zone/region/population-category for every branch.
@@ -2569,7 +2644,7 @@ function rsWeightedScore(b){
   var methodology = rsResolveMethodology(b);
   var sum = 0, wt = 0;
   RS_CATEGORY_DEFS.forEach(function(c){
-    var w = methodology.weights[c.id] || 0;
+    var w = rsCatWeight(methodology, c);
     var v = b.cats[c.id] || 0;
     sum += v * w; wt += w;
   });
@@ -2717,7 +2792,7 @@ function rsEmphasis(m){
   var base = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'All'; });
   if (!base || base.id === m.id) return [];
   return RS_CATEGORY_DEFS
-    .map(function(c){ return {label: RS_CATLABEL[c.id], delta: (m.weights[c.id] || 0) - (base.weights[c.id] || 0)}; })
+    .map(function(c){ return {label: RS_CATLABEL[c.id], delta: rsRound1(rsCatWeight(m, c) - rsCatWeight(base, c))}; })
     .filter(function(e){ return e.delta > 0; })
     .sort(function(a, b){ return b.delta - a.delta; })
     .slice(0, 3);
@@ -2752,7 +2827,8 @@ function rsNewMethodology(){
   RS_METHODOLOGIES.push({
     id:newId, name:'New Methodology', version:'v1.0',
     scope:{type:'Zone', value:zones[0]},
-    weights: Object.assign({}, base.weights),
+    seedWeights: Object.assign({}, base.seedWeights),
+    paramWeights: Object.assign({}, base.paramWeights),
   });
   rsSelectedMethodId = newId;
   rsRenderMethodBar();
@@ -2788,13 +2864,16 @@ function rsRenderConfig(){
   var m = rsCurrentMethod();
   var html = RS_CATEGORY_DEFS.map(function(c){
     var active = c.params.filter(function(p){ return p.active; });
-    var weight = m.weights[c.id] || 0;
-    var share = active.length ? (weight / active.length).toFixed(1) : '0.0';
+    var weight = rsCatWeight(m, c);
+    var outOfRange = weight < c.min || weight > c.max;
     var paramRows = c.params.map(function(p, pi){
+      var pw = m.paramWeights[p.id] || 0;
       return '<div class="rs-param-row' + (p.active ? '' : ' inactive') + '">' +
         '<input type="checkbox" ' + (p.active ? 'checked' : '') + ' onchange="rsToggleParam(\'' + c.id + '\',' + pi + ')">' +
         '<span class="pname">' + p.name + (p.added ? ' <span class="rs-tag rs-tag-added">RBI-sourced</span>' : '') + '</span>' +
-        '<span class="rs-param-share">' + (p.active ? share + '%' : '&mdash;') + '</span>' +
+        (p.active
+          ? '<input type="number" class="rs-param-w" id="rs-pw-' + p.id + '" value="' + pw.toFixed(1) + '" min="0" max="40" step="0.1" onchange="rsSetParamWeight(\'' + c.id + '\',\'' + p.id + '\', this.value)" onclick="event.stopPropagation()">'
+          : '<span class="rs-param-share">&mdash;</span>') +
         '<i class="ti ti-x rs-param-del" onclick="rsRemoveParam(\'' + c.id + '\',' + pi + ')" title="Remove parameter"></i>' +
         '</div>';
     }).join('');
@@ -2804,17 +2883,39 @@ function rsRenderConfig(){
         '<span class="rs-tag ' + (c.layer === 'Inherent' ? 'rs-tag-inherent' : 'rs-tag-control') + '">' + c.layer + '</span>' +
         (c.mandatory ? '<span class="rs-tag rs-tag-mand">Mandatory · Floored</span>' : '') +
         '<span style="font-size:10.5px;color:var(--base-500)">' + active.length + ' of ' + c.params.length + ' params active</span>' +
-        '<input type="range" class="rs-slider" min="' + c.min + '" max="' + c.max + '" value="' + weight + '" oninput="rsSetWeight(\'' + c.id + '\', this.value)" onclick="event.stopPropagation()">' +
-        '<span class="rs-wnum" id="rs-wnum-' + c.id + '">' + weight + '%</span>' +
+        '<input type="range" class="rs-slider" id="rs-slider-' + c.id + '" min="' + c.min + '" max="' + c.max + '" step="0.1" value="' + weight + '" oninput="rsSetWeight(\'' + c.id + '\', this.value)" onclick="event.stopPropagation()">' +
+        '<span class="rs-wnum' + (outOfRange ? ' rs-wnum-bad' : '') + '" id="rs-wnum-' + c.id + '">' + weight.toFixed(1) + '%</span>' +
         '<i class="ti ti-chevron-down rs-chev"></i>' +
       '</div>' +
       '<div class="rs-params">' + paramRows +
+        '<div class="rs-param-foot" id="rs-catsum-' + c.id + '"></div>' +
         '<div class="rs-addparam"><input type="text" placeholder="Add a custom parameter to this category…" id="rs-add-' + c.id + '"><button class="btn btn-ghost btn-xs" onclick="rsAddParam(\'' + c.id + '\')"><i class="ti ti-plus"></i>Add</button></div>' +
       '</div>' +
     '</div>';
   }).join('');
   document.getElementById('rs-cat-list').innerHTML = html;
+  RS_CATEGORY_DEFS.forEach(function(c){ rsRefreshCategory(c); });
   rsRecalcTotal();
+}
+
+/* Push the current numbers back into a category's controls without re-rendering
+   the whole list — keeps slider drags smooth and doesn't steal input focus. */
+function rsRefreshCategory(c){
+  var m = rsCurrentMethod();
+  var weight = rsCatWeight(m, c);
+  var wnum = document.getElementById('rs-wnum-' + c.id);
+  if (wnum){
+    wnum.textContent = weight.toFixed(1) + '%';
+    wnum.classList.toggle('rs-wnum-bad', weight < c.min || weight > c.max);
+  }
+  var slider = document.getElementById('rs-slider-' + c.id);
+  if (slider) slider.value = Math.min(c.max, Math.max(c.min, weight));
+  var foot = document.getElementById('rs-catsum-' + c.id);
+  if (foot){
+    var outOfRange = weight < c.min || weight > c.max;
+    foot.innerHTML = 'Parameters sum to <b>' + weight.toFixed(1) + '%</b> — that is the category weight. Permitted range ' + c.min + '–' + c.max + '%.' +
+      (outOfRange ? ' <span style="color:var(--red);font-weight:600">Outside the permitted range.</span>' : '');
+  }
 }
 
 function rsToggleCat(id){
@@ -2823,9 +2924,28 @@ function rsToggleCat(id){
   document.getElementById('rs-cat-' + id).classList.toggle('open', c.open);
 }
 
+/* Category slider → scale the parameters underneath it proportionally. */
 function rsSetWeight(id, val){
-  rsCurrentMethod().weights[id] = parseInt(val, 10);
-  document.getElementById('rs-wnum-' + id).textContent = val + '%';
+  var m = rsCurrentMethod();
+  var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === id; });
+  rsRebalanceCategory(m, c, rsRound1(parseFloat(val)));
+  c.params.forEach(function(p){
+    var input = document.getElementById('rs-pw-' + p.id);
+    if (input) input.value = (m.paramWeights[p.id] || 0).toFixed(1);
+  });
+  rsRefreshCategory(c);
+  rsRecalcTotal();
+}
+
+/* Parameter number → the category weight is its parameters' sum, so this rolls
+   straight up into the category and the grand total. */
+function rsSetParamWeight(catId, paramId, val){
+  var m = rsCurrentMethod();
+  var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === catId; });
+  m.paramWeights[paramId] = Math.max(0, rsRound1(parseFloat(val) || 0));
+  var input = document.getElementById('rs-pw-' + paramId);
+  if (input) input.value = m.paramWeights[paramId].toFixed(1);
+  rsRefreshCategory(c);
   rsRecalcTotal();
 }
 
@@ -2842,51 +2962,62 @@ function rsAddParam(id){
   var val = (input.value || '').trim();
   if (!val) return;
   var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === id; });
-  c.params.push({name:val, active:true, custom:true});
+  c.customSeq = (c.customSeq || 0) + 1;
+  var param = {name:val, active:true, custom:true, id:c.id + '-c' + c.customSeq};
+  c.params.push(param);
+  /* Starts at 0 so adding a parameter never silently shifts anyone else's
+     weight — give it a weight and it rolls up into the category itself. */
+  RS_METHODOLOGIES.forEach(function(x){ x.paramWeights[param.id] = 0; });
   c.open = true;
   rsRenderConfig();
   document.getElementById('rs-cat-' + id).classList.add('open');
-  toast('Parameter added — shared across all methodologies. Feasibility against a real data source still needs validation before this goes live.');
+  toast('Parameter added at 0% — set its weight and the category total rises with it. Shared across all methodologies; data-source feasibility still needs validating.');
 }
 
 function rsRemoveParam(id, idx){
   var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === id; });
   if (c.params.length <= 1) { toast('A category needs at least one parameter.'); return; }
   var wasOpen = c.open;
-  c.params.splice(idx, 1);
+  var removed = c.params.splice(idx, 1)[0];
+  RS_METHODOLOGIES.forEach(function(x){ delete x.paramWeights[removed.id]; });
   rsRenderConfig();
   if (wasOpen) { c.open = true; document.getElementById('rs-cat-' + id).classList.add('open'); }
 }
 
 function rsRecalcTotal(){
   var m = rsCurrentMethod();
-  var total = 0, inherent = 0, control = 0;
+  var total = 0, inherent = 0, control = 0, breached = [];
   RS_CATEGORY_DEFS.forEach(function(c){
-    var w = m.weights[c.id] || 0;
+    var w = rsCatWeight(m, c);
     total += w;
     if (c.layer === 'Inherent') inherent += w; else control += w;
+    if (w < c.min || w > c.max) breached.push(c.name);
   });
+  total = rsRound1(total); inherent = rsRound1(inherent); control = rsRound1(control);
   var totalEl = document.getElementById('rs-total-val');
   var stateEl = document.getElementById('rs-total-state');
   var balEl = document.getElementById('rs-balance-line');
   var saveBtn = document.getElementById('rs-save-btn');
-  if (totalEl) totalEl.textContent = total + '%';
+  if (totalEl) totalEl.textContent = total.toFixed(1) + '%';
+  var totalOk = Math.abs(total - 100) < 0.05;
   var balanceOk = inherent >= 30 && inherent <= 50 && control >= 50 && control <= 70;
-  var valid = total === 100 && balanceOk;
+  var valid = totalOk && balanceOk && !breached.length;
   if (stateEl){
-    stateEl.textContent = total === 100 ? '— balanced' : '— must equal 100% (currently ' + total + '%)';
-    stateEl.className = total === 100 ? 'rs-total-ok' : 'rs-total-bad';
+    stateEl.textContent = totalOk ? '— balanced' : '— must equal 100% (currently ' + total.toFixed(1) + '%)';
+    stateEl.className = totalOk ? 'rs-total-ok' : 'rs-total-bad';
   }
   if (balEl){
-    balEl.textContent = 'Inherent ' + inherent + '% / Control ' + control + '%' + (balanceOk ? ' — within the 30–50% / 50–70% guardrail' : ' — outside the 30–50% / 50–70% guardrail');
-    balEl.style.color = balanceOk ? 'var(--base-600)' : 'var(--red)';
+    balEl.textContent = 'Inherent ' + inherent.toFixed(1) + '% / Control ' + control.toFixed(1) + '%' +
+      (balanceOk ? ' — within the 30–50% / 50–70% guardrail' : ' — outside the 30–50% / 50–70% guardrail') +
+      (breached.length ? ' · outside permitted range: ' + breached.join(', ') : '');
+    balEl.style.color = (balanceOk && !breached.length) ? 'var(--base-600)' : 'var(--red)';
   }
   if (saveBtn) saveBtn.disabled = !valid;
   return valid;
 }
 
 function rsSave(){
-  if (!rsRecalcTotal()){ toast('Fix the allocation before publishing — total must be 100% and the inherent/control split must stay within its guardrail.'); return; }
+  if (!rsRecalcTotal()){ toast('Fix the allocation before publishing — every category must sit inside its permitted range, the total must be 100%, and the inherent/control split must stay within its guardrail.'); return; }
   var m = rsCurrentMethod();
   var parts = m.version.replace('v','').split('.').map(Number);
   parts[1] = (parts[1] || 0) + 1;
