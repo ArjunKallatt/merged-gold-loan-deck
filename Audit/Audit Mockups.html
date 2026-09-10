@@ -748,6 +748,11 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     .rs-addparam{display:flex;gap:8px;margin-top:8px;padding-top:8px}
     .rs-addparam input{flex:1;padding:7px 10px;font-size:12px;border:1px solid var(--base-300);border-radius:var(--r);background:#fff}
     .rs-guard-note{font-size:10.5px;color:var(--base-500);margin-top:6px;line-height:1.5}
+    .rs-method-bar{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;background:var(--base-25);border:1px solid var(--base-200);border-radius:var(--r2);padding:16px 18px;margin-bottom:10px}
+    .rs-method-bar .field{margin-bottom:0;min-width:170px}
+    .rs-method-bar select, .rs-method-bar input[type=text]{min-width:170px}
+    .rs-tag-zone{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd)}
+    .rs-tag-region{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd)}
     .rs-balance-line{font-size:11.5px;color:var(--base-600);margin-top:2px}
   </style>
 
@@ -796,7 +801,7 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
           <div id="rs-cat-bars"></div>
           <div class="rs-why" id="rs-why">&ndash;</div>
           <div class="rs-meta">
-            <span>Methodology v3.3, published by Head of Audit</span>
+            <span id="rs-branch-methodology">&ndash;</span>
             <span><i class="ti ti-lock" style="font-size:11px"></i> Read-only for Auditor &amp; Branch Manager</span>
           </div>
         </div>
@@ -805,7 +810,23 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
   </div>
 
   <div id="rs-view-config" style="display:none">
-    <div class="rs-lockband"><i class="ti ti-shield-lock"></i><div><b>Head of Audit only.</b> Category weights and the parameters feeding each category are configured here. Auditors and Branch Managers see the Score Card tab only, read-only &mdash; per the role model in the Branch Audit Risk Score research note.</div></div>
+    <div class="rs-lockband"><i class="ti ti-shield-lock"></i><div><b>Head of Audit only.</b> Category weights, the parameters feeding each category, and which methodology applies where are all configured here. Auditors and Branch Managers see the Score Card tab only, read-only &mdash; per the role model in the Branch Audit Risk Score research note.</div></div>
+
+    <div class="rs-method-bar">
+      <div class="field"><label>Methodology</label><select id="rs-method-select" onchange="rsSwitchMethodology(this.value)"></select></div>
+      <div class="field"><label>Name</label><input type="text" id="rs-method-name" oninput="rsRenameMethodology(this.value)"></div>
+      <div class="field"><label>Applies to</label>
+        <select id="rs-method-scope-type" onchange="rsSetScopeType(this.value)">
+          <option value="All">All Branches</option>
+          <option value="Zone">Zone</option>
+          <option value="Region">Region</option>
+        </select>
+      </div>
+      <div class="field" id="rs-method-scope-value-wrap"><label>Scope value</label><select id="rs-method-scope-value" onchange="rsSetScopeValue(this.value)"></select></div>
+      <button class="btn btn-ghost btn-sm" onclick="rsNewMethodology()"><i class="ti ti-copy"></i>New (clone)</button>
+      <button class="btn btn-ghost btn-sm" id="rs-method-delete" onclick="rsDeleteMethodology()"><i class="ti ti-trash"></i>Delete</button>
+    </div>
+    <div class="rs-guard-note" style="margin:-10px 0 18px">Multiple methodologies can run at once, each tagged to a scope. A branch is scored under the most specific methodology that covers it &mdash; Region beats Zone beats the All-Branches default &mdash; resolved against the branch's zone/region as held in the common branch master, not a copy kept by this module.</div>
 
     <div class="rs-total-bar">
       <div class="rs-tb-num">Total allocated &nbsp;<b id="rs-total-val">100%</b> <span id="rs-total-state" class="rs-total-ok">&mdash; balanced</span>
@@ -815,7 +836,17 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     </div>
 
     <div id="rs-cat-list"></div>
-    <div class="rs-guard-note" style="margin-top:4px">Guardrails enforced live: each category is bounded to its permitted range, Vault &amp; Custody Controls is mandatory and floored, the inherent/control split must stay within its band, and the total must equal 100% before publishing. All numbers above are proposed defaults for this mockup, not RBI-prescribed values.</div>
+    <div class="rs-guard-note" style="margin-top:4px">Guardrails enforced live: each category is bounded to its permitted range, Vault &amp; Custody Controls is mandatory and floored, the inherent/control split must stay within its band, and the total must equal 100% before publishing. All numbers above are proposed defaults for this mockup, not RBI-prescribed values. The parameter set itself is shared across every methodology in this mockup &mdash; only category weights and scope differ per methodology.</div>
+
+    <div class="card" style="margin-top:22px">
+      <div class="card-head"><div class="card-title"><i class="ti ti-map-2"></i>Branch &rarr; Methodology Mapping</div><span style="font-size:10.5px;color:var(--blue-200)">Read from the common branch master</span></div>
+      <div class="tbl-wrap">
+        <table class="sched-table">
+          <thead><tr><th>Branch</th><th>Zone</th><th>Region</th><th>Methodology Applied</th></tr></thead>
+          <tbody id="rs-mapping-tbody"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 </div>
@@ -2345,8 +2376,11 @@ const RS_CATLABEL = {
 };
 const RS_BAR_ORDER = ['audithist','vault','delinquency','portfolio','documentation','collateral','environment','staff','fraud'];
 
-const RS_CATEGORIES = [
-  { id:'portfolio', name:'Portfolio & Credit Exposure', layer:'Inherent', weight:13, min:5, max:25, mandatory:false,
+/* Category/parameter STRUCTURE is shared across every methodology — only the
+   category weights differ per methodology. min/max are the guardrail bounds
+   any methodology's weight for that category must stay within. */
+const RS_CATEGORY_DEFS = [
+  { id:'portfolio', name:'Portfolio & Credit Exposure', layer:'Inherent', min:5, max:25, mandatory:false,
     params:[
       {name:'Portfolio size / AUM'},
       {name:'Disbursal growth rate (MoM / YoY)'},
@@ -2356,25 +2390,25 @@ const RS_CATEGORIES = [
       {name:'Renewal / rollover rate'},
       {name:'Business-plan / budget variance', added:true},
     ]},
-  { id:'collateral', name:'Collateral & Physical Exposure', layer:'Inherent', weight:9, min:5, max:20, mandatory:false,
+  { id:'collateral', name:'Collateral & Physical Exposure', layer:'Inherent', min:5, max:20, mandatory:false,
     params:[
       {name:'Gold inventory value held at branch'},
       {name:'Purity / valuation dispute rate'},
       {name:'Insurance adequacy vs. max/average gold holding'},
     ]},
-  { id:'environment', name:'Branch & Environmental Risk', layer:'Inherent', weight:6, min:3, max:15, mandatory:false,
+  { id:'environment', name:'Branch & Environmental Risk', layer:'Inherent', min:3, max:15, mandatory:false,
     params:[
       {name:'Location / crime risk (vendor-sourced)'},
       {name:'Natural-disaster exposure (vendor-sourced)'},
       {name:'Remoteness & accessibility'},
     ]},
-  { id:'delinquency', name:'Delinquency & Recovery', layer:'Inherent', weight:10, min:5, max:20, mandatory:false,
+  { id:'delinquency', name:'Delinquency & Recovery', layer:'Inherent', min:5, max:20, mandatory:false,
     params:[
       {name:'90+ DPD volume feeding the auction pipeline'},
       {name:'Historical auction shortfall / write-off rate'},
       {name:'Average time-to-auction from NPA trigger'},
     ]},
-  { id:'vault', name:'Vault & Custody Controls', layer:'Control', weight:16, min:10, max:30, mandatory:true,
+  { id:'vault', name:'Vault & Custody Controls', layer:'Control', min:10, max:30, mandatory:true,
     params:[
       {name:'Vault reconciliation break frequency'},
       {name:'Dual-custody / key-management exceptions'},
@@ -2382,7 +2416,7 @@ const RS_CATEGORIES = [
       {name:'CCTV / surveillance uptime & coverage'},
       {name:'Time-to-resolve vault discrepancies'},
     ]},
-  { id:'documentation', name:'Documentation & Compliance', layer:'Control', weight:12, min:5, max:25, mandatory:false,
+  { id:'documentation', name:'Documentation & Compliance', layer:'Control', min:5, max:25, mandatory:false,
     params:[
       {name:'KYC completeness rate'},
       {name:'Expired / pending KYC renewal backlog'},
@@ -2390,7 +2424,7 @@ const RS_CATEGORIES = [
       {name:'AML / negative-list hit rate'},
       {name:'Regulatory filing & returns timeliness'},
     ]},
-  { id:'audithist', name:'Audit History & Oversight', layer:'Control', weight:16, min:5, max:25, mandatory:false,
+  { id:'audithist', name:'Audit History & Oversight', layer:'Control', min:5, max:25, mandatory:false,
     params:[
       {name:'Open / repeat non-conformances, severity-weighted'},
       {name:'Time-to-close corrective action plans (CAP)'},
@@ -2398,45 +2432,87 @@ const RS_CATEGORIES = [
       {name:'Time elapsed since last audit', added:true},
       {name:'External / regulatory audit findings (RBI, statutory auditor)', added:true},
     ]},
-  { id:'staff', name:'Staff & Operations', layer:'Control', weight:8, min:5, max:15, mandatory:false,
+  { id:'staff', name:'Staff & Operations', layer:'Control', min:5, max:15, mandatory:false,
     params:[
       {name:'Branch manager / appraiser tenure & turnover'},
       {name:'Appraiser certification currency'},
       {name:'Staff-to-loan-volume ratio'},
     ]},
-  { id:'fraud', name:'Fraud & Conduct', layer:'Control', weight:10, min:5, max:15, mandatory:false,
+  { id:'fraud', name:'Fraud & Conduct', layer:'Control', min:5, max:15, mandatory:false,
     params:[
       {name:'Open fraud investigations / whistleblower reports'},
       {name:'Valuation-override frequency beyond tolerance'},
       {name:'Unresolved customer-complaint aging'},
     ]},
 ];
-RS_CATEGORIES.forEach(c => { c.open = false; c.params.forEach(p => { if (p.active === undefined) p.active = true; }); });
+RS_CATEGORY_DEFS.forEach(c => { c.open = false; c.params.forEach(p => { if (p.active === undefined) p.active = true; }); });
+
+/* Multiple risk-scoring methodologies, each tagged to a scope: All branches,
+   a Zone, or a Region — resolved most-specific-scope-wins (Region beats Zone
+   beats All), the standard pattern for scoped configuration inheritance. */
+let RS_METHODOLOGIES = [
+  { id:'m-default', name:'Standard Methodology', version:'v3.3', scope:{type:'All', value:null},
+    weights:{portfolio:13, collateral:9, environment:6, delinquency:10, vault:16, documentation:12, audithist:16, staff:8, fraud:10} },
+  { id:'m-south', name:'South Zone Methodology', version:'v1.0', scope:{type:'Zone', value:'South Zone'},
+    weights:{portfolio:11, collateral:8, environment:10, delinquency:9, vault:16, documentation:10, audithist:14, staff:8, fraud:14} },
+];
+let rsSelectedMethodId = 'm-default';
+
+/* Common branch master — the zone/region every branch belongs to. In the real
+   system this is read from the existing branch-master table, not owned by
+   the Audit module; it's reproduced here only so the mockup can resolve scope. */
+const RS_BRANCH_MASTER = {
+  'DEL-009': {zone:'North Zone', region:'Delhi NCR'},
+  'DEL-014': {zone:'North Zone', region:'Delhi NCR'},
+  'DEL-021': {zone:'North Zone', region:'Delhi NCR'},
+  'DEL-006': {zone:'North Zone', region:'Delhi NCR'},
+  'DEL-011': {zone:'North Zone', region:'Delhi NCR'},
+  'DEL-027': {zone:'North Zone', region:'Delhi NCR'},
+  'CHN-004': {zone:'South Zone', region:'Chennai Metro'},
+};
 
 const RS_BRANCHES = [
-  { name:'Karol Bagh', code:'DEL-009 · Delhi NCR', lastAudit:'18 months ago',
+  { name:'Karol Bagh', id:'DEL-009', lastAudit:'18 months ago',
     cats:{audithist:91,vault:78,delinquency:66,portfolio:58,documentation:52,collateral:41,environment:63,staff:47,fraud:39} },
-  { name:'Laxmi Nagar', code:'DEL-014 · Delhi NCR', lastAudit:'14 months ago',
+  { name:'Laxmi Nagar', id:'DEL-014', lastAudit:'14 months ago',
     cats:{audithist:72,vault:64,delinquency:58,portfolio:52,documentation:38,collateral:35,environment:44,staff:33,fraud:29} },
-  { name:'Dwarka', code:'DEL-021 · Delhi NCR', lastAudit:'9 months ago',
+  { name:'Dwarka', id:'DEL-021', lastAudit:'9 months ago',
     cats:{audithist:48,vault:41,delinquency:36,portfolio:44,documentation:30,collateral:28,environment:39,staff:22,fraud:18} },
-  { name:'Rohini', code:'DEL-006 · Delhi NCR', lastAudit:'4 months ago',
+  { name:'Rohini', id:'DEL-006', lastAudit:'4 months ago',
     cats:{audithist:22,vault:19,delinquency:28,portfolio:34,documentation:15,collateral:20,environment:31,staff:14,fraud:9} },
-  { name:'Saket', code:'DEL-011 · Delhi NCR', lastAudit:'6 months ago',
+  { name:'Saket', id:'DEL-011', lastAudit:'6 months ago',
     cats:{audithist:26,vault:24,delinquency:20,portfolio:29,documentation:18,collateral:17,environment:25,staff:12,fraud:11} },
-  { name:'Pitampura', code:'DEL-027 · Delhi NCR', lastAudit:'Never audited',
+  { name:'Pitampura', id:'DEL-027', lastAudit:'Never audited',
     cats:{audithist:60,vault:35,delinquency:22,portfolio:19,documentation:24,collateral:15,environment:52,staff:20,fraud:12}, unaudited:true },
+  { name:'Anna Nagar', id:'CHN-004', lastAudit:'7 months ago',
+    cats:{audithist:34,vault:29,delinquency:24,portfolio:31,documentation:22,collateral:19,environment:68,staff:18,fraud:41} },
 ];
 
 let rsSelectedIdx = 0;
 
+function rsResolveMethodology(branchId){
+  var m = RS_BRANCH_MASTER[branchId];
+  if (m){
+    var region = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Region' && x.scope.value === m.region; });
+    if (region) return region;
+    var zone = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Zone' && x.scope.value === m.zone; });
+    if (zone) return zone;
+  }
+  return RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'All'; }) || RS_METHODOLOGIES[0];
+}
+function rsScopeLabel(methodology){
+  return methodology.scope.type === 'All' ? 'All Branches' : methodology.scope.type + ': ' + methodology.scope.value;
+}
+
 function rsWeightedScore(b){
+  var methodology = rsResolveMethodology(b.id);
   var sum = 0, wt = 0;
-  RS_CATEGORIES.forEach(function(c){
+  RS_CATEGORY_DEFS.forEach(function(c){
+    var w = methodology.weights[c.id] || 0;
     var v = b.cats[c.id] || 0;
-    sum += v * c.weight; wt += c.weight;
+    sum += v * w; wt += w;
   });
-  return Math.round(sum / wt);
+  return { score: Math.round(sum / wt), methodology: methodology };
 }
 function rsBand(score){
   if (score >= 70) return {label:'High Risk', cls:'bc'};
@@ -2448,7 +2524,9 @@ function rsInit(){
   rsShowTab('card', true);
   rsRenderBranchTable();
   rsSelectBranch(rsSelectedIdx);
+  rsRenderMethodBar();
   rsRenderConfig();
+  rsRenderMapping();
 }
 
 function rsShowTab(tab, silent){
@@ -2462,10 +2540,11 @@ function rsShowTab(tab, silent){
 function rsRenderBranchTable(){
   var tbody = document.getElementById('rs-branch-tbody');
   var rows = RS_BRANCHES.map(function(b, i){
-    var score = b.unaudited ? null : rsWeightedScore(b);
+    var result = rsWeightedScore(b);
+    var score = b.unaudited ? null : result.score;
     var band = b.unaudited ? {label:'Unaudited', cls:'bg'} : rsBand(score);
     var top = Object.keys(b.cats).sort(function(a,c){ return b.cats[c] - b.cats[a]; })[0];
-    return {i:i, score:score, band:band, top:top, b:b};
+    return {i:i, score:score, band:band, top:top, b:b, methodology:result.methodology};
   });
   rows.sort(function(x,y){ return (y.score||0) - (x.score||0); });
   tbody.innerHTML = rows.map(function(r){
@@ -2474,7 +2553,7 @@ function rsRenderBranchTable(){
       '<td>' + (r.score === null ? '&mdash;' : r.score) + '</td>' +
       '<td><span class="badge ' + r.band.cls + '">' + r.band.label + '</span></td>' +
       '<td>' + RS_CATLABEL[r.top] + '</td>' +
-      '<td>' + r.b.lastAudit + '</td>' +
+      '<td><span style="font-size:10.5px;color:var(--base-500)">' + r.methodology.name + '</span></td>' +
       '</tr>';
   }).join('');
 }
@@ -2482,14 +2561,18 @@ function rsRenderBranchTable(){
 function rsSelectBranch(i){
   rsSelectedIdx = i;
   var b = RS_BRANCHES[i];
-  var score = b.unaudited ? null : rsWeightedScore(b);
+  var result = rsWeightedScore(b);
+  var score = b.unaudited ? null : result.score;
+  var methodology = result.methodology;
+  var master = RS_BRANCH_MASTER[b.id] || {};
   var band = b.unaudited ? {label:'Unaudited default', cls:'bg'} : rsBand(score);
   var ringColor = b.unaudited ? 'var(--base-300)' : (score >= 70 ? 'var(--red)' : score >= 45 ? 'var(--amber)' : 'var(--green)');
   document.getElementById('rs-ring').style.background = 'conic-gradient(' + ringColor + ' 0 ' + (score||100) + '%, var(--base-200) 0 100%)';
   document.getElementById('rs-ring-num').innerHTML = (score === null ? 'N/A' : score) + (score !== null ? '<small>/100</small>' : '');
   document.getElementById('rs-branch-name').textContent = b.name;
   document.getElementById('rs-branch-badge').innerHTML = '<span class="badge ' + band.cls + '">' + band.label + '</span>';
-  document.getElementById('rs-branch-code').textContent = b.code + ' · last full audit: ' + b.lastAudit;
+  document.getElementById('rs-branch-code').textContent = b.id + ' · ' + (master.region || '—') + ' · last full audit: ' + b.lastAudit;
+  document.getElementById('rs-branch-methodology').innerHTML = 'Scored under <b>' + methodology.name + '</b> (' + methodology.version + ') · scope: ' + rsScopeLabel(methodology);
 
   var sorted = RS_BAR_ORDER.slice().sort(function(a,c){ return (b.cats[c]||0) - (b.cats[a]||0); });
   document.getElementById('rs-cat-bars').innerHTML = sorted.map(function(cid){
@@ -2517,10 +2600,106 @@ function rsGoToBranch(name){
   goTo('riskscore');
 }
 
+function rsCurrentMethod(){
+  return RS_METHODOLOGIES.find(function(m){ return m.id === rsSelectedMethodId; }) || RS_METHODOLOGIES[0];
+}
+
+/* Distinct zones/regions read off the branch master — this is what makes the
+   scope-value dropdown reflect "whatever branch mapping is available in the
+   common master" instead of a hardcoded list. */
+function rsMasterValues(type){
+  var vals = Object.keys(RS_BRANCH_MASTER).map(function(id){ return RS_BRANCH_MASTER[id][type.toLowerCase()]; });
+  return Array.from(new Set(vals));
+}
+
+function rsRenderMethodBar(){
+  var m = rsCurrentMethod();
+  var select = document.getElementById('rs-method-select');
+  select.innerHTML = RS_METHODOLOGIES.map(function(x){
+    return '<option value="' + x.id + '"' + (x.id === m.id ? ' selected' : '') + '>' + x.name + ' — ' + rsScopeLabel(x) + '</option>';
+  }).join('');
+  document.getElementById('rs-method-name').value = m.name;
+  document.getElementById('rs-method-scope-type').value = m.scope.type;
+  var valueWrap = document.getElementById('rs-method-scope-value-wrap');
+  var valueSelect = document.getElementById('rs-method-scope-value');
+  if (m.scope.type === 'All'){
+    valueWrap.style.visibility = 'hidden';
+  } else {
+    valueWrap.style.visibility = 'visible';
+    var opts = rsMasterValues(m.scope.type);
+    valueSelect.innerHTML = opts.map(function(v){ return '<option value="' + v + '"' + (v === m.scope.value ? ' selected' : '') + '>' + v + '</option>'; }).join('');
+  }
+  var delBtn = document.getElementById('rs-method-delete');
+  delBtn.disabled = m.scope.type === 'All';
+}
+
+function rsSwitchMethodology(id){
+  rsSelectedMethodId = id;
+  rsRenderMethodBar();
+  rsRenderConfig();
+}
+function rsRenameMethodology(val){
+  rsCurrentMethod().name = val;
+}
+function rsSetScopeType(type){
+  var m = rsCurrentMethod();
+  m.scope.type = type;
+  m.scope.value = type === 'All' ? null : rsMasterValues(type)[0];
+  rsRenderMethodBar();
+  rsRenderBranchTable();
+  rsRenderMapping();
+}
+function rsSetScopeValue(val){
+  rsCurrentMethod().scope.value = val;
+  rsRenderMethodBar();
+  rsRenderBranchTable();
+  rsRenderMapping();
+}
+function rsNewMethodology(){
+  var base = rsCurrentMethod();
+  var zones = rsMasterValues('Zone');
+  var newId = 'm-' + Date.now();
+  RS_METHODOLOGIES.push({
+    id:newId, name:'New Methodology', version:'v1.0',
+    scope:{type:'Zone', value:zones[0]},
+    weights: Object.assign({}, base.weights),
+  });
+  rsSelectedMethodId = newId;
+  rsRenderMethodBar();
+  rsRenderConfig();
+  toast('New methodology cloned from "' + base.name + '" — set its scope and adjust weights before publishing.');
+}
+function rsDeleteMethodology(){
+  var m = rsCurrentMethod();
+  if (m.scope.type === 'All'){ toast('The default All-Branches methodology can\'t be deleted.'); return; }
+  RS_METHODOLOGIES = RS_METHODOLOGIES.filter(function(x){ return x.id !== m.id; });
+  rsSelectedMethodId = 'm-default';
+  rsRenderMethodBar();
+  rsRenderConfig();
+  rsRenderBranchTable();
+  rsRenderMapping();
+  toast('"' + m.name + '" deleted — branches in its scope fall back to the next-most-specific methodology.');
+}
+
+function rsRenderMapping(){
+  var wrap = document.getElementById('rs-mapping-tbody');
+  if (!wrap) return;
+  wrap.innerHTML = RS_BRANCHES.map(function(b){
+    var master = RS_BRANCH_MASTER[b.id] || {};
+    var methodology = rsWeightedScore(b).methodology;
+    return '<tr><td>' + b.name + ' <span style="color:var(--base-400)">(' + b.id + ')</span></td>' +
+      '<td>' + (master.zone || '—') + '</td>' +
+      '<td>' + (master.region || '—') + '</td>' +
+      '<td><b>' + methodology.name + '</b> <span style="color:var(--base-500)">— ' + rsScopeLabel(methodology) + '</span></td></tr>';
+  }).join('');
+}
+
 function rsRenderConfig(){
-  var html = RS_CATEGORIES.map(function(c){
+  var m = rsCurrentMethod();
+  var html = RS_CATEGORY_DEFS.map(function(c){
     var active = c.params.filter(function(p){ return p.active; });
-    var share = active.length ? (c.weight / active.length).toFixed(1) : '0.0';
+    var weight = m.weights[c.id] || 0;
+    var share = active.length ? (weight / active.length).toFixed(1) : '0.0';
     var paramRows = c.params.map(function(p, pi){
       return '<div class="rs-param-row' + (p.active ? '' : ' inactive') + '">' +
         '<input type="checkbox" ' + (p.active ? 'checked' : '') + ' onchange="rsToggleParam(\'' + c.id + '\',' + pi + ')">' +
@@ -2535,8 +2714,8 @@ function rsRenderConfig(){
         '<span class="rs-tag ' + (c.layer === 'Inherent' ? 'rs-tag-inherent' : 'rs-tag-control') + '">' + c.layer + '</span>' +
         (c.mandatory ? '<span class="rs-tag rs-tag-mand">Mandatory · Floored</span>' : '') +
         '<span style="font-size:10.5px;color:var(--base-500)">' + active.length + ' of ' + c.params.length + ' params active</span>' +
-        '<input type="range" class="rs-slider" min="' + c.min + '" max="' + c.max + '" value="' + c.weight + '" oninput="rsSetWeight(\'' + c.id + '\', this.value)" onclick="event.stopPropagation()">' +
-        '<span class="rs-wnum" id="rs-wnum-' + c.id + '">' + c.weight + '%</span>' +
+        '<input type="range" class="rs-slider" min="' + c.min + '" max="' + c.max + '" value="' + weight + '" oninput="rsSetWeight(\'' + c.id + '\', this.value)" onclick="event.stopPropagation()">' +
+        '<span class="rs-wnum" id="rs-wnum-' + c.id + '">' + weight + '%</span>' +
         '<i class="ti ti-chevron-down rs-chev"></i>' +
       '</div>' +
       '<div class="rs-params">' + paramRows +
@@ -2549,20 +2728,19 @@ function rsRenderConfig(){
 }
 
 function rsToggleCat(id){
-  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === id; });
   c.open = !c.open;
   document.getElementById('rs-cat-' + id).classList.toggle('open', c.open);
 }
 
 function rsSetWeight(id, val){
-  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
-  c.weight = parseInt(val, 10);
-  document.getElementById('rs-wnum-' + id).textContent = c.weight + '%';
+  rsCurrentMethod().weights[id] = parseInt(val, 10);
+  document.getElementById('rs-wnum-' + id).textContent = val + '%';
   rsRecalcTotal();
 }
 
 function rsToggleParam(id, idx){
-  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === id; });
   c.params[idx].active = !c.params[idx].active;
   var wasOpen = c.open;
   rsRenderConfig();
@@ -2573,16 +2751,16 @@ function rsAddParam(id){
   var input = document.getElementById('rs-add-' + id);
   var val = (input.value || '').trim();
   if (!val) return;
-  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === id; });
   c.params.push({name:val, active:true, custom:true});
   c.open = true;
   rsRenderConfig();
   document.getElementById('rs-cat-' + id).classList.add('open');
-  toast('Parameter added — feasibility against a real data source still needs validation before this goes live.');
+  toast('Parameter added — shared across all methodologies. Feasibility against a real data source still needs validation before this goes live.');
 }
 
 function rsRemoveParam(id, idx){
-  var c = RS_CATEGORIES.find(function(x){ return x.id === id; });
+  var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === id; });
   if (c.params.length <= 1) { toast('A category needs at least one parameter.'); return; }
   var wasOpen = c.open;
   c.params.splice(idx, 1);
@@ -2591,10 +2769,12 @@ function rsRemoveParam(id, idx){
 }
 
 function rsRecalcTotal(){
+  var m = rsCurrentMethod();
   var total = 0, inherent = 0, control = 0;
-  RS_CATEGORIES.forEach(function(c){
-    total += c.weight;
-    if (c.layer === 'Inherent') inherent += c.weight; else control += c.weight;
+  RS_CATEGORY_DEFS.forEach(function(c){
+    var w = m.weights[c.id] || 0;
+    total += w;
+    if (c.layer === 'Inherent') inherent += w; else control += w;
   });
   var totalEl = document.getElementById('rs-total-val');
   var stateEl = document.getElementById('rs-total-state');
@@ -2617,8 +2797,14 @@ function rsRecalcTotal(){
 
 function rsSave(){
   if (!rsRecalcTotal()){ toast('Fix the allocation before publishing — total must be 100% and the inherent/control split must stay within its guardrail.'); return; }
-  var activeParams = RS_CATEGORIES.reduce(function(n,c){ return n + c.params.filter(function(p){ return p.active; }).length; }, 0);
-  toast('Methodology v3.4 published — 9 categories, ' + activeParams + ' active parameters.');
+  var m = rsCurrentMethod();
+  var parts = m.version.replace('v','').split('.').map(Number);
+  parts[1] = (parts[1] || 0) + 1;
+  m.version = 'v' + parts.join('.');
+  rsRenderMethodBar();
+  rsRenderBranchTable();
+  rsRenderMapping();
+  toast('"' + m.name + '" ' + m.version + ' published — scope: ' + rsScopeLabel(m) + '.');
 }
 
 function goTo(pageKey){
