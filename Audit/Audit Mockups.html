@@ -752,6 +752,38 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     .rs-param-foot{font-size:10.5px;color:var(--base-500);padding:8px 2px 0;margin-top:6px;border-top:1px dashed var(--base-200);line-height:1.5}
     .rs-param-foot b{color:var(--base-800)}
     .rs-wnum-bad{color:var(--red) !important}
+
+    /* ---- evidence drawer: what data actually produced this category score ---- */
+    .rs-ev-overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}
+    .rs-ev-overlay.open{opacity:1;pointer-events:auto}
+    .rs-ev-drawer{position:fixed;top:0;right:0;bottom:0;width:min(660px,94vw);background:var(--base-25);z-index:81;box-shadow:-8px 0 32px rgba(15,23,42,.18);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .22s ease}
+    .rs-ev-drawer.open{transform:translateX(0)}
+    .rs-ev-head{background:var(--blue-900);color:#fff;padding:18px 22px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .rs-ev-head h3{margin:0;font-size:16px;font-weight:600}
+    .rs-ev-head .rs-ev-sub{font-size:11.5px;color:var(--blue-200);margin-top:3px}
+    .rs-ev-close{background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;padding:0 2px}
+    .rs-ev-body{padding:20px 22px 40px;overflow-y:auto;flex:1}
+    .rs-ev-summary{display:flex;gap:16px;align-items:center;border:1px solid var(--base-200);border-radius:var(--r2);padding:14px 16px;background:#fff;margin-bottom:6px}
+    .rs-ev-score{font-size:26px;font-weight:800;line-height:1}
+    .rs-ev-note{font-size:11.5px;color:var(--base-500);line-height:1.55;margin:10px 0 18px}
+    .rs-ev-p{border:1px solid var(--base-200);border-radius:var(--r2);padding:14px 16px;margin-bottom:10px;background:#fff}
+    .rs-ev-p-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .rs-ev-p-name{font-size:13px;font-weight:600;color:var(--base-900)}
+    .rs-ev-reading{font-size:15px;font-weight:700;color:var(--blue-800);margin:8px 0 2px}
+    .rs-ev-track{height:6px;border-radius:99px;background:var(--base-200);overflow:hidden;margin:8px 0 10px}
+    .rs-ev-fill{height:100%;border-radius:99px;background:var(--blue-500)}
+    .rs-ev-fill.hi{background:var(--red)} .rs-ev-fill.lo{background:var(--green)}
+    .rs-ev-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--base-500)}
+    .rs-ev-meta b{color:var(--base-700);font-weight:600}
+    .rs-prov{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:3px 8px;border-radius:99px;white-space:nowrap}
+    .rs-prov-cont{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd)}
+    .rs-prov-vend{background:var(--blue-50);color:var(--blue-700);border:1px solid var(--blue-200)}
+    .rs-prov-audit{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd)}
+    .rs-stale{color:var(--amber);font-weight:600}
+    .rs-cat-row.rs-clickable{cursor:pointer;border-radius:var(--r);transition:background .12s}
+    .rs-cat-row.rs-clickable:hover{background:var(--blue-50)}
+    .rs-cat-row .rs-cat-go{font-size:13px;color:var(--base-400)}
+    .rs-cat-row.rs-clickable:hover .rs-cat-go{color:var(--blue-600)}
     .rs-param-del{cursor:pointer;color:var(--base-400);font-size:14px;flex-shrink:0}
     .rs-param-del:hover{color:var(--red)}
     .rs-addparam{display:flex;gap:8px;margin-top:8px;padding-top:8px}
@@ -860,6 +892,18 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
         </table>
       </div>
     </div>
+  </div>
+
+  <div class="rs-ev-overlay" id="rs-ev-overlay" onclick="rsCloseEvidence()"></div>
+  <div class="rs-ev-drawer" id="rs-ev-drawer" role="dialog" aria-modal="true" aria-labelledby="rs-ev-title">
+    <div class="rs-ev-head">
+      <div>
+        <h3 id="rs-ev-title">&ndash;</h3>
+        <div class="rs-ev-sub" id="rs-ev-subtitle">&ndash;</div>
+      </div>
+      <button class="rs-ev-close" onclick="rsCloseEvidence()" aria-label="Close">&times;</button>
+    </div>
+    <div class="rs-ev-body" id="rs-ev-body"></div>
   </div>
 </div>
 </div>
@@ -2395,67 +2439,67 @@ const RS_BAR_ORDER = ['audithist','vault','delinquency','portfolio','documentati
 const RS_CATEGORY_DEFS = [
   { id:'portfolio', name:'Portfolio & Credit Exposure', layer:'Inherent', min:5, max:25, mandatory:false,
     params:[
-      {name:'Portfolio size / AUM'},
-      {name:'Disbursal growth rate (MoM / YoY)'},
-      {name:'Average ticket size vs. network average'},
-      {name:'Share of loans near RBI LTV ceiling'},
-      {name:'Top-10-borrower concentration'},
-      {name:'Renewal / rollover rate'},
-      {name:'Business-plan / budget variance', added:true},
+      {name:'Portfolio size / AUM', prov:'Continuous', src:'Core LMS · portfolio MIS', read:'₹{n} Cr outstanding', scale:0.75},
+      {name:'Disbursal growth rate (MoM / YoY)', prov:'Continuous', src:'Core LMS · disbursal report', read:'+{n}% YoY disbursal growth', scale:0.55},
+      {name:'Average ticket size vs. network average', prov:'Continuous', src:'Core LMS · portfolio MIS', read:'{n}% above network average ticket', scale:0.32},
+      {name:'Share of loans near RBI LTV ceiling', prov:'Continuous', src:'Core LMS · loan-level LTV field', read:'{n}% of book above 73% LTV', scale:0.42},
+      {name:'Top-10-borrower concentration', prov:'Continuous', src:'Core LMS · exposure report', read:'Top 10 borrowers = {n}% of book', scale:0.3},
+      {name:'Renewal / rollover rate', prov:'Continuous', src:'Core LMS · rollover flag', read:'{n}% of loans rolled over', scale:0.45},
+      {name:'Business-plan / budget variance', added:true, prov:'Continuous', src:'Finance · budget-vs-actual', read:'{n}% variance against branch budget', scale:0.28},
     ]},
   { id:'collateral', name:'Collateral & Physical Exposure', layer:'Inherent', min:5, max:20, mandatory:false,
     params:[
-      {name:'Gold inventory value held at branch'},
-      {name:'Purity / valuation dispute rate'},
-      {name:'Insurance adequacy vs. max/average gold holding'},
+      {name:'Gold inventory value held at branch', prov:'Continuous', src:'LMS appraisal · vault stock register', read:'₹{n} Cr of gold held on site', scale:0.35},
+      {name:'Purity / valuation dispute rate', prov:'Audit-attested', src:'LMS appraisal + dispute log', read:'{n} purity disputes since last audit', scale:0.12},
+      {name:'Insurance adequacy vs. max/average gold holding', prov:'Vendor', src:'Insurer records · policy schedule', read:'Cover = {n}% of peak holding', scale:1.1},
     ]},
   { id:'environment', name:'Branch & Environmental Risk', layer:'Inherent', min:3, max:15, mandatory:false,
     params:[
-      {name:'Location / crime risk (vendor-sourced)'},
-      {name:'Natural-disaster exposure (vendor-sourced)'},
-      {name:'Remoteness & accessibility'},
+      {name:'Location / crime risk', prov:'Vendor', src:'Geospatial crime-risk data vendor', read:'Crime index {n} of 100 for this pincode', scale:1},
+      {name:'Natural-disaster exposure', prov:'Vendor', src:'Geospatial hazard-zone vendor', read:'Hazard exposure index {n} of 100', scale:1},
+      {name:'Remoteness & accessibility', prov:'Continuous', src:'Branch admin · network master', read:'{n} km from regional office', scale:0.9},
     ]},
   { id:'delinquency', name:'Delinquency & Recovery', layer:'Inherent', min:5, max:20, mandatory:false,
     params:[
-      {name:'90+ DPD volume feeding the auction pipeline'},
-      {name:'Historical auction shortfall / write-off rate'},
-      {name:'Average time-to-auction from NPA trigger'},
+      {name:'90+ DPD volume feeding the auction pipeline', prov:'Continuous', src:'Core LMS · NPA ageing report', read:'{n} accounts at 90+ DPD', scale:0.8},
+      {name:'Historical auction shortfall / write-off rate', prov:'Continuous', src:'Auction module + LMS write-off ledger', read:'{n}% average shortfall on auctioned gold', scale:0.18},
+      {name:'Average time-to-auction from NPA trigger', prov:'Continuous', src:'Auction module · timestamps', read:'{n} days from NPA trigger to auction', scale:1.4},
     ]},
   { id:'vault', name:'Vault & Custody Controls', layer:'Control', min:10, max:30, mandatory:true,
     params:[
-      {name:'Vault reconciliation break frequency'},
-      {name:'Dual-custody / key-management exceptions'},
-      {name:'Packet-count mismatch incidents'},
-      {name:'CCTV / surveillance uptime & coverage'},
-      {name:'Time-to-resolve vault discrepancies'},
+      {name:'Vault reconciliation break frequency', prov:'Continuous', src:'Vault module · reconciliation logs', read:'{n} breaks in the last 30 days', scale:0.08},
+      {name:'Dual-custody / key-management exceptions', prov:'Audit-attested', src:'Vault module · access logs', read:'{n} dual-custody exceptions found', scale:0.09},
+      {name:'Packet-count mismatch incidents', prov:'Audit-attested', src:'Vault module · stock-count records', read:'{n} packet-count mismatches', scale:0.07},
+      {name:'CCTV / surveillance uptime & coverage', prov:'Continuous', src:'Security vendor · CCTV monitoring', read:'{n}% camera downtime this quarter', scale:0.14},
+      {name:'Time-to-resolve vault discrepancies', prov:'Audit-attested', src:'Vault module · incident log', read:'{n} days average to resolve', scale:0.3},
     ]},
   { id:'documentation', name:'Documentation & Compliance', layer:'Control', min:5, max:25, mandatory:false,
     params:[
-      {name:'KYC completeness rate'},
-      {name:'Expired / pending KYC renewal backlog'},
-      {name:'Pledge-form / agreement exception rate'},
-      {name:'AML / negative-list hit rate'},
-      {name:'Regulatory filing & returns timeliness'},
+      {name:'KYC completeness rate', prov:'Continuous', src:'Compliance · KYC completeness report', read:'{n}% of files with KYC gaps', scale:0.2},
+      {name:'Expired / pending KYC renewal backlog', prov:'Continuous', src:'Compliance · KYC expiry report', read:'{n} customer files past KYC renewal', scale:0.9},
+      {name:'Pledge-form / agreement exception rate', prov:'Continuous', src:'Core LMS · document-checklist exceptions', read:'{n}% of pledges with paperwork exceptions', scale:0.16},
+      {name:'AML / negative-list hit rate', prov:'Continuous', src:'Compliance · AML screening engine', read:'{n} unresolved negative-list hits', scale:0.08},
+      {name:'Regulatory filing & returns timeliness', prov:'Continuous', src:'Compliance · filing tracker', read:'{n} filings submitted late this year', scale:0.06},
     ]},
   { id:'audithist', name:'Audit History & Oversight', layer:'Control', min:5, max:25, mandatory:false,
     params:[
-      {name:'Open / repeat non-conformances, severity-weighted'},
-      {name:'Time-to-close corrective action plans (CAP)'},
-      {name:'Finding trend, cycle-over-cycle'},
-      {name:'Time elapsed since last audit', added:true},
-      {name:'External / regulatory audit findings (RBI, statutory auditor)', added:true},
+      {name:'Open / repeat non-conformances, severity-weighted', prov:'Audit-attested', src:'Audit module · Observations & NCs', read:'{n} open non-conformances, severity-weighted', scale:0.1},
+      {name:'Time-to-close corrective action plans (CAP)', prov:'Audit-attested', src:'Audit module · CAP tracker', read:'{n} days average CAP closure', scale:0.9},
+      {name:'Finding trend, cycle-over-cycle', prov:'Audit-attested', src:'Audit module · historical reports', read:'{n}% more findings than previous cycle', scale:0.3},
+      {name:'Time elapsed since last audit', added:true, prov:'Audit-attested', src:'Audit module · audit history', read:'{n} months since last full audit', scale:0.2},
+      {name:'External / regulatory audit findings (RBI, statutory auditor)', added:true, prov:'Audit-attested', src:'Logged from RBI / statutory audit reports', read:'{n} open external findings', scale:0.05},
     ]},
   { id:'staff', name:'Staff & Operations', layer:'Control', min:5, max:15, mandatory:false,
     params:[
-      {name:'Branch manager / appraiser tenure & turnover'},
-      {name:'Appraiser certification currency'},
-      {name:'Staff-to-loan-volume ratio'},
+      {name:'Branch manager / appraiser tenure & turnover', prov:'Continuous', src:'HRMS · tenure & headcount export', read:'{n}% staff turnover in 12 months', scale:0.6},
+      {name:'Appraiser certification currency', prov:'Continuous', src:'HRMS · certification tracker', read:'{n} appraisers with lapsed certification', scale:0.04},
+      {name:'Staff-to-loan-volume ratio', prov:'Continuous', src:'HRMS headcount + LMS volume', read:'{n} active loans per staff member', scale:2.2},
     ]},
   { id:'fraud', name:'Fraud & Conduct', layer:'Control', min:5, max:15, mandatory:false,
     params:[
-      {name:'Open fraud investigations / whistleblower reports'},
-      {name:'Valuation-override frequency beyond tolerance'},
-      {name:'Unresolved customer-complaint aging'},
+      {name:'Open fraud investigations / whistleblower reports', prov:'Continuous', src:'Ethics hotline / investigations system', read:'{n} open investigations or reports', scale:0.04},
+      {name:'Valuation-override frequency beyond tolerance', prov:'Continuous', src:'Core LMS · appraisal override logs', read:'{n} overrides beyond tolerance this quarter', scale:0.2},
+      {name:'Unresolved customer-complaint aging', prov:'Continuous', src:'CRM · complaint tracker', read:'{n} complaints open beyond 30 days', scale:0.12},
     ]},
 ];
 /* Stable per-parameter ids, assigned once. Because they live on the parameter
@@ -2714,9 +2758,10 @@ function rsSelectBranch(i){
   document.getElementById('rs-cat-bars').innerHTML = sorted.map(function(cid){
     var v = b.cats[cid] || 0;
     var cls = v >= 70 ? 'hi' : v <= 30 ? 'lo' : '';
-    return '<div class="rs-cat-row"><span class="rs-cat-name">' + RS_CATLABEL[cid] + '</span>' +
+    return '<div class="rs-cat-row rs-clickable" onclick="rsOpenEvidence(\'' + cid + '\')" title="See the data behind this score">' +
+      '<span class="rs-cat-name">' + RS_CATLABEL[cid] + '</span>' +
       '<div class="rs-cat-track"><div class="rs-cat-fill ' + cls + '" style="width:' + v + '%"></div></div>' +
-      '<span class="rs-cat-val">' + v + '</span></div>';
+      '<span class="rs-cat-val">' + v + ' <i class="ti ti-chevron-right rs-cat-go"></i></span></div>';
   }).join('');
 
   var top2 = sorted.slice(0,2).map(function(c){ return RS_CATLABEL[c]; });
@@ -2729,6 +2774,96 @@ function rsSelectBranch(i){
   document.getElementById('rs-why').innerHTML = why;
   rsRenderBranchTable();
 }
+
+/* ---------------------------------------------------------
+   EVIDENCE DRAWER — the data behind a category score.
+   A bar reading "91" tells an auditor nothing actionable, so
+   each category opens onto the parameter-level readings that
+   produced it: what was measured, which system it came from,
+   and how fresh it is. Freshness is the point of the
+   provenance split — a Continuous reading is hours old, an
+   Audit-attested one is only as current as the last audit.
+--------------------------------------------------------- */
+var RS_PROV_CLS = {'Continuous':'rs-prov-cont', 'Vendor':'rs-prov-vend', 'Audit-attested':'rs-prov-audit'};
+
+/* Demo readings are derived deterministically from the category score so the
+   numbers stay consistent with the bar the auditor just clicked. Real values
+   would come from the source systems named on each row. */
+function rsParamSub(branch, cat, p, idx){
+  var base = branch.cats[cat.id] || 0;
+  var hash = 0;
+  for (var i = 0; i < p.id.length; i++) hash = (hash * 31 + p.id.charCodeAt(i)) % 97;
+  var spread = ((hash % 25) - 12);
+  return Math.max(2, Math.min(99, Math.round(base + spread)));
+}
+
+function rsFreshness(branch, p){
+  if (p.prov === 'Continuous') return {text:'refreshed 6 hours ago', stale:false};
+  if (p.prov === 'Vendor') return {text:'vendor feed · refreshed 3 months ago', stale:false};
+  var stale = branch.unaudited || /1[0-9] months|2[0-9] months|Never/.test(branch.lastAudit || '');
+  return {text: branch.unaudited ? 'never verified — no audit yet' : 'as at last audit · ' + branch.lastAudit, stale:stale};
+}
+
+function rsOpenEvidence(catId){
+  var b = RS_BRANCHES[rsSelectedIdx];
+  var c = RS_CATEGORY_DEFS.find(function(x){ return x.id === catId; });
+  var m = rsWeightedScore(b).methodology;
+  var catScore = b.cats[catId] || 0;
+  var catWeight = rsCatWeight(m, c);
+  var active = c.params.filter(function(p){ return p.active; });
+
+  document.getElementById('rs-ev-title').textContent = c.name;
+  document.getElementById('rs-ev-subtitle').textContent =
+    b.name + ' (' + b.id + ') · scored ' + catScore + '/100 · carries ' + catWeight.toFixed(1) + '% of this branch’s total score';
+
+  var counts = {Continuous:0, Vendor:0, 'Audit-attested':0};
+  active.forEach(function(p){ counts[p.prov] = (counts[p.prov] || 0) + 1; });
+
+  var rows = active.map(function(p, i){
+    var sub = rsParamSub(b, c, p, i);
+    var fresh = rsFreshness(b, p);
+    var n = Math.max(0, Math.round(sub * (p.scale || 1)));
+    var reading = (p.read || '{n}').replace('{n}', n);
+    var cls = sub >= 70 ? 'hi' : sub <= 30 ? 'lo' : '';
+    var pw = m.paramWeights[p.id] || 0;
+    return '<div class="rs-ev-p">' +
+      '<div class="rs-ev-p-top"><span class="rs-ev-p-name">' + p.name + '</span>' +
+        '<span class="rs-prov ' + (RS_PROV_CLS[p.prov] || '') + '">' + (p.prov || '—') + '</span></div>' +
+      '<div class="rs-ev-reading">' + reading + '</div>' +
+      '<div class="rs-ev-track"><div class="rs-ev-fill ' + cls + '" style="width:' + sub + '%"></div></div>' +
+      '<div class="rs-ev-meta">' +
+        '<span>Source <b>' + (p.src || '—') + '</b></span>' +
+        '<span>Contributes <b>' + pw.toFixed(1) + '%</b> of total score</span>' +
+        '<span class="' + (fresh.stale ? 'rs-stale' : '') + '">' + (fresh.stale ? '⚠ ' : '') + fresh.text + '</span>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  var staleCount = active.filter(function(p){ return rsFreshness(b, p).stale; }).length;
+  document.getElementById('rs-ev-body').innerHTML =
+    '<div class="rs-ev-summary">' +
+      '<div class="rs-ev-score" style="color:' + (catScore >= 70 ? 'var(--red)' : catScore >= 45 ? 'var(--amber)' : 'var(--green)') + '">' + catScore + '</div>' +
+      '<div style="font-size:12px;color:var(--base-600);line-height:1.6">Built from <b>' + active.length + ' parameters</b> — ' +
+        counts.Continuous + ' pulled continuously from source systems, ' +
+        counts.Vendor + ' from external vendor feeds, ' +
+        counts['Audit-attested'] + ' only refreshed when this branch is audited.</div>' +
+    '</div>' +
+    (staleCount
+      ? '<div class="rs-ev-note" style="color:var(--amber)"><b>⚠ ' + staleCount + ' of these readings are carried forward from the last audit</b> (' + b.lastAudit + ') rather than being current. That staleness is itself scored, through the “time elapsed since last audit” parameter.</div>'
+      : '<div class="rs-ev-note">All readings in this category are current.</div>') +
+    rows +
+    '<div class="rs-ev-note" style="margin-top:14px">Readings shown are illustrative mockup values. In a live system each row would be pulled from the source system named against it.</div>';
+
+  document.getElementById('rs-ev-overlay').classList.add('open');
+  document.getElementById('rs-ev-drawer').classList.add('open');
+}
+
+function rsCloseEvidence(){
+  document.getElementById('rs-ev-overlay').classList.remove('open');
+  document.getElementById('rs-ev-drawer').classList.remove('open');
+}
+
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') rsCloseEvidence(); });
 
 function rsGoToBranch(name){
   var idx = RS_BRANCHES.findIndex(function(b){ return b.name === name; });
