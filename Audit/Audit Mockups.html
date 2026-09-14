@@ -869,6 +869,7 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
           <option value="Region">Region</option>
           <option value="Branch Category">Branch Category</option>
           <option value="Condition">Condition (live status)</option>
+          <option value="Unassigned">Not assigned</option>
         </select>
       </div>
       <div class="field" id="rs-method-scope-value-wrap"><label>Scope value</label><select id="rs-method-scope-value" onchange="rsSetScopeValue(this.value)"></select></div>
@@ -878,7 +879,7 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     <div id="rs-method-conflict" style="display:none;font-size:11px;color:var(--red);background:var(--red-bg);border:1px solid var(--red-bd);border-radius:var(--r);padding:8px 12px;margin-bottom:10px"></div>
     <div id="rs-method-emph" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:-4px 0 8px"></div>
     <div id="rs-method-desc" class="rs-guard-note" style="margin:0 0 10px;font-style:italic">&ndash;</div>
-    <div class="rs-guard-note" style="margin:0 0 18px">Six methodologies ship preconfigured &mdash; not a blank slate. Each is named for <b>what it weights</b>, not where it's applied, so retagging its scope never makes its name misleading. Resolution order: a live <b>Condition</b> (Regulatory Watch or never-audited) overrides everything, since it reflects the branch's actual status; otherwise most-specific geography wins (<b>Region</b> &gt; <b>Zone</b> &gt; <b>Branch Category</b>) resolved against the common branch master, falling back to the <b>All-Branches</b> default.</div>
+    <div class="rs-guard-note" style="margin:0 0 18px">Six methodologies ship preconfigured &mdash; not a blank slate. Each is named for <b>what it weights</b>, not where it's applied, so retagging its scope never makes its name misleading. Resolution order: a live <b>Condition</b> (Regulatory Watch or never-audited) overrides everything, since it reflects the branch's actual status; otherwise most-specific geography wins (<b>Region</b> &gt; <b>Zone</b> &gt; <b>Branch Category</b>) resolved against the common branch master, falling back to the <b>All-Branches</b> default. Only one methodology can hold a given scope at a time &mdash; retagging one to a scope another already has <b>moves it over</b> rather than duplicating it, and the previous holder becomes <b>Not assigned</b> (governing no branches) until it's given a new scope.</div>
 
     <div class="rs-total-bar">
       <div class="rs-tb-num">Total allocated &nbsp;<b id="rs-total-val">100%</b> <span id="rs-total-state" class="rs-total-ok">&mdash; balanced</span>
@@ -2688,7 +2689,9 @@ function rsResolveMethodology(b){
   return RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'All'; }) || RS_METHODOLOGIES[0];
 }
 function rsScopeLabel(methodology){
-  return methodology.scope.type === 'All' ? 'All Branches' : methodology.scope.type + ': ' + methodology.scope.value;
+  if (methodology.scope.type === 'All') return 'All Branches';
+  if (methodology.scope.type === 'Unassigned') return 'Not assigned';
+  return methodology.scope.type + ': ' + methodology.scope.value;
 }
 
 function rsWeightedScore(b){
@@ -2928,14 +2931,14 @@ function rsRenderMethodBar(){
   document.getElementById('rs-method-scope-type').value = m.scope.type;
   var valueWrap = document.getElementById('rs-method-scope-value-wrap');
   var valueSelect = document.getElementById('rs-method-scope-value');
-  if (m.scope.type === 'All'){
+  if (m.scope.type === 'All' || m.scope.type === 'Unassigned'){
     valueWrap.style.visibility = 'hidden';
   } else {
     valueWrap.style.visibility = 'visible';
     var opts = rsMasterValues(m.scope.type);
     valueSelect.innerHTML = opts.map(function(v){
       var owner = rsScopeOwner(m.scope.type, v, m.id);
-      var label = v + (owner ? ' — taken by ' + owner.name : '');
+      var label = v + (owner ? ' — in use by ' + owner.name + ' (picking this reassigns it)' : '');
       return '<option value="' + v + '"' + (v === m.scope.value ? ' selected' : '') + '>' + label + '</option>';
     }).join('');
   }
@@ -2945,7 +2948,7 @@ function rsRenderMethodBar(){
   if (descEl) descEl.textContent = m.desc || '';
   var conflictEl = document.getElementById('rs-method-conflict');
   if (conflictEl){
-    var conflictOwner = rsScopeOwner(m.scope.type, m.scope.value, m.id);
+    var conflictOwner = m.scope.type === 'Unassigned' ? null : rsScopeOwner(m.scope.type, m.scope.value, m.id);
     conflictEl.style.display = conflictOwner ? 'block' : 'none';
     if (conflictOwner) conflictEl.innerHTML = '⚠ This scope also matches <b>' + conflictOwner.name + '</b>, which is listed first and will win — this methodology currently governs no branches.';
   }
@@ -3002,23 +3005,28 @@ function rsFirstUnclaimedValue(type, excludeId){
   return free !== undefined ? free : vals[0];
 }
 
+/* Taking a scope from another methodology hands it over rather than being
+   blocked: the methodology that had it is bumped to Unassigned (governs no
+   branches until it's given a new scope) and the one being edited takes its
+   place. Reassignment beats rejection here — retagging is the whole point
+   of this screen, and a silent no-op would be worse than a visible handover. */
+function rsReassign(newOwner, type, value, oldOwner){
+  if (oldOwner){
+    oldOwner.scope = {type:'Unassigned', value:null};
+    toast('"' + value + '" moved from "' + oldOwner.name + '" to "' + newOwner.name + '" — "' + oldOwner.name + '" is now unassigned; give it a new scope.');
+  }
+  newOwner.scope = {type:type, value:value};
+}
+
 function rsSetScopeType(type){
   var m = rsCurrentMethod();
-  if (type === 'All'){
-    var allOwner = rsScopeOwner('All', null, m.id);
-    if (allOwner){
-      toast('Only one methodology can be tagged All Branches — "' + allOwner.name + '" already is. Retag or delete that one first.');
-      rsRenderMethodBar();
-      return;
-    }
-    m.scope.type = 'All';
-    m.scope.value = null;
+  if (type === 'Unassigned'){
+    m.scope = {type:'Unassigned', value:null};
+  } else if (type === 'All'){
+    rsReassign(m, 'All', null, rsScopeOwner('All', null, m.id));
   } else {
     var value = rsFirstUnclaimedValue(type, m.id);
-    m.scope.type = type;
-    m.scope.value = value;
-    var owner = rsScopeOwner(type, value, m.id);
-    if (owner) toast('Every ' + type + ' value is already claimed — this now overlaps with "' + owner.name + '". Add a new value, or edit that methodology instead.');
+    rsReassign(m, type, value, rsScopeOwner(type, value, m.id));
   }
   rsRenderMethodBar();
   rsRenderBranchTable();
@@ -3026,13 +3034,7 @@ function rsSetScopeType(type){
 }
 function rsSetScopeValue(val){
   var m = rsCurrentMethod();
-  var owner = rsScopeOwner(m.scope.type, val, m.id);
-  if (owner){
-    toast('"' + val + '" is already covered by "' + owner.name + '" — pick a different value, or edit that methodology instead.');
-    rsRenderMethodBar();
-    return;
-  }
-  m.scope.value = val;
+  rsReassign(m, m.scope.type, val, rsScopeOwner(m.scope.type, val, m.id));
   rsRenderMethodBar();
   rsRenderBranchTable();
   rsRenderMapping();
