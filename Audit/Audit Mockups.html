@@ -875,6 +875,7 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
       <button class="btn btn-ghost btn-sm" onclick="rsNewMethodology()"><i class="ti ti-copy"></i>New (clone)</button>
       <button class="btn btn-ghost btn-sm" id="rs-method-delete" onclick="rsDeleteMethodology()"><i class="ti ti-trash"></i>Delete</button>
     </div>
+    <div id="rs-method-conflict" style="display:none;font-size:11px;color:var(--red);background:var(--red-bg);border:1px solid var(--red-bd);border-radius:var(--r);padding:8px 12px;margin-bottom:10px"></div>
     <div id="rs-method-emph" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:-4px 0 8px"></div>
     <div id="rs-method-desc" class="rs-guard-note" style="margin:0 0 10px;font-style:italic">&ndash;</div>
     <div class="rs-guard-note" style="margin:0 0 18px">Six methodologies ship preconfigured &mdash; not a blank slate. Each is named for <b>what it weights</b>, not where it's applied, so retagging its scope never makes its name misleading. Resolution order: a live <b>Condition</b> (Regulatory Watch or never-audited) overrides everything, since it reflects the branch's actual status; otherwise most-specific geography wins (<b>Region</b> &gt; <b>Zone</b> &gt; <b>Branch Category</b>) resolved against the common branch master, falling back to the <b>All-Branches</b> default.</div>
@@ -2932,12 +2933,22 @@ function rsRenderMethodBar(){
   } else {
     valueWrap.style.visibility = 'visible';
     var opts = rsMasterValues(m.scope.type);
-    valueSelect.innerHTML = opts.map(function(v){ return '<option value="' + v + '"' + (v === m.scope.value ? ' selected' : '') + '>' + v + '</option>'; }).join('');
+    valueSelect.innerHTML = opts.map(function(v){
+      var owner = rsScopeOwner(m.scope.type, v, m.id);
+      var label = v + (owner ? ' — taken by ' + owner.name : '');
+      return '<option value="' + v + '"' + (v === m.scope.value ? ' selected' : '') + '>' + label + '</option>';
+    }).join('');
   }
   var delBtn = document.getElementById('rs-method-delete');
   delBtn.disabled = m.scope.type === 'All';
   var descEl = document.getElementById('rs-method-desc');
   if (descEl) descEl.textContent = m.desc || '';
+  var conflictEl = document.getElementById('rs-method-conflict');
+  if (conflictEl){
+    var conflictOwner = rsScopeOwner(m.scope.type, m.scope.value, m.id);
+    conflictEl.style.display = conflictOwner ? 'block' : 'none';
+    if (conflictOwner) conflictEl.innerHTML = '⚠ This scope also matches <b>' + conflictOwner.name + '</b>, which is listed first and will win — this methodology currently governs no branches.';
+  }
   var emphEl = document.getElementById('rs-method-emph');
   if (emphEl){
     var emph = rsEmphasis(m);
@@ -2973,27 +2984,66 @@ function rsSwitchMethodology(id){
 function rsRenameMethodology(val){
   rsCurrentMethod().name = val;
 }
+
+/* Two methodologies can never be allowed to claim the same scope — if they
+   did, resolution would silently pick whichever sits first in the array, and
+   the other would govern zero branches while its "Applies to" fields still
+   look correctly set. This is the check that stops that from happening. */
+function rsScopeOwner(type, value, excludeId){
+  return RS_METHODOLOGIES.find(function(x){
+    if (x.id === excludeId) return false;
+    if (x.scope.type !== type) return false;
+    return type === 'All' ? true : x.scope.value === value;
+  });
+}
+function rsFirstUnclaimedValue(type, excludeId){
+  var vals = rsMasterValues(type);
+  var free = vals.find(function(v){ return !rsScopeOwner(type, v, excludeId); });
+  return free !== undefined ? free : vals[0];
+}
+
 function rsSetScopeType(type){
   var m = rsCurrentMethod();
-  m.scope.type = type;
-  m.scope.value = type === 'All' ? null : rsMasterValues(type)[0];
+  if (type === 'All'){
+    var allOwner = rsScopeOwner('All', null, m.id);
+    if (allOwner){
+      toast('Only one methodology can be tagged All Branches — "' + allOwner.name + '" already is. Retag or delete that one first.');
+      rsRenderMethodBar();
+      return;
+    }
+    m.scope.type = 'All';
+    m.scope.value = null;
+  } else {
+    var value = rsFirstUnclaimedValue(type, m.id);
+    m.scope.type = type;
+    m.scope.value = value;
+    var owner = rsScopeOwner(type, value, m.id);
+    if (owner) toast('Every ' + type + ' value is already claimed — this now overlaps with "' + owner.name + '". Add a new value, or edit that methodology instead.');
+  }
   rsRenderMethodBar();
   rsRenderBranchTable();
   rsRenderMapping();
 }
 function rsSetScopeValue(val){
-  rsCurrentMethod().scope.value = val;
+  var m = rsCurrentMethod();
+  var owner = rsScopeOwner(m.scope.type, val, m.id);
+  if (owner){
+    toast('"' + val + '" is already covered by "' + owner.name + '" — pick a different value, or edit that methodology instead.');
+    rsRenderMethodBar();
+    return;
+  }
+  m.scope.value = val;
   rsRenderMethodBar();
   rsRenderBranchTable();
   rsRenderMapping();
 }
 function rsNewMethodology(){
   var base = rsCurrentMethod();
-  var zones = rsMasterValues('Zone');
   var newId = 'm-' + Date.now();
+  var value = rsFirstUnclaimedValue('Zone', newId);
   RS_METHODOLOGIES.push({
     id:newId, name:'New Methodology', version:'v1.0',
-    scope:{type:'Zone', value:zones[0]},
+    scope:{type:'Zone', value:value},
     seedWeights: Object.assign({}, base.seedWeights),
     paramWeights: Object.assign({}, base.paramWeights),
   });
