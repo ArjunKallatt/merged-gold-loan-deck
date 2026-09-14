@@ -714,6 +714,8 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
     .rs-cat-fill.lo{background:var(--green)}
     .rs-cat-val{font-weight:700;color:var(--base-800);text-align:right}
     .rs-why{font-size:12.5px;color:var(--base-600);line-height:1.6;background:var(--base-25);border:1px solid var(--base-200);border-radius:var(--r);padding:12px 14px;margin-top:4px}
+    .rs-regwatch-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding:10px 12px;border-radius:var(--r);border:1px dashed var(--base-300);font-size:11.5px;color:var(--base-600)}
+    .rs-regwatch-row.on{border-style:solid;border-color:var(--amber-bd);background:var(--amber-bg);color:var(--amber)}
     .rs-meta{font-size:11px;color:var(--base-500);margin-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
     .rs-lockband{display:flex;gap:12px;align-items:center;background:var(--blue-50);border:1px solid var(--blue-200);border-radius:var(--r);padding:12px 16px;margin-bottom:18px;font-size:12.5px;color:var(--blue-800)}
     .rs-lockband .ti{font-size:20px;color:var(--blue-600);flex-shrink:0}
@@ -841,9 +843,13 @@ input:disabled,select:disabled,textarea:disabled,input[readonly]{background:var(
           </div>
           <div id="rs-cat-bars"></div>
           <div class="rs-why" id="rs-why">&ndash;</div>
+          <div class="rs-regwatch-row" id="rs-regwatch-row">
+            <span id="rs-regwatch-status">&ndash;</span>
+            <button class="btn btn-ghost btn-xs" id="rs-regwatch-btn" onclick="rsToggleRegWatch()"></button>
+          </div>
           <div class="rs-meta">
             <span id="rs-branch-methodology">&ndash;</span>
-            <span><i class="ti ti-lock" style="font-size:11px"></i> Read-only for Auditor &amp; Branch Manager</span>
+            <span><i class="ti ti-lock" style="font-size:11px"></i> Weights read-only for Auditor &amp; Branch Manager</span>
           </div>
         </div>
       </div>
@@ -2754,6 +2760,15 @@ function rsSelectBranch(i){
   document.getElementById('rs-branch-code').textContent = b.id + ' · ' + (master.region || '—') + ' · last full audit: ' + b.lastAudit;
   document.getElementById('rs-branch-methodology').innerHTML = 'Scored under <b>' + methodology.name + '</b> (' + methodology.version + ') · scope: ' + rsScopeLabel(methodology);
 
+  var rwRow = document.getElementById('rs-regwatch-row');
+  var rwBtn = document.getElementById('rs-regwatch-btn');
+  var rwMethod = RS_METHODOLOGIES.find(function(x){ return x.scope.type === 'Condition' && x.scope.value === 'Regulatory Watch'; });
+  rwRow.classList.toggle('on', !!b.regulatoryWatch);
+  document.getElementById('rs-regwatch-status').innerHTML = b.regulatoryWatch
+    ? '<i class="ti ti-flag-filled"></i> Under Regulatory Watch' + (rwMethod ? ' — <b>' + rwMethod.name + '</b> applies regardless of zone/category' : '')
+    : 'Not currently under regulatory watch';
+  rwBtn.textContent = b.regulatoryWatch ? 'Clear flag' : 'Flag for Regulatory Watch';
+
   var sorted = RS_BAR_ORDER.slice().sort(function(a,c){ return (b.cats[c]||0) - (b.cats[a]||0); });
   document.getElementById('rs-cat-bars').innerHTML = sorted.map(function(cid){
     var v = b.cats[cid] || 0;
@@ -2864,6 +2879,23 @@ function rsCloseEvidence(){
 }
 
 document.addEventListener('keydown', function(e){ if (e.key === 'Escape') rsCloseEvidence(); });
+
+/* Regulatory Watch is a live status, not master data — set here rather than
+   in Configure Weights, since it's about a specific branch's current state,
+   not a methodology's weights or scope. Toggling it changes which
+   methodology the branch resolves to immediately (Condition scope beats
+   Zone/Region/Branch Category), and that ripples through the ranked table
+   and the mapping table below without needing a version publish. */
+function rsToggleRegWatch(){
+  var b = RS_BRANCHES[rsSelectedIdx];
+  b.regulatoryWatch = !b.regulatoryWatch;
+  toast(b.regulatoryWatch
+    ? b.name + ' flagged for Regulatory Watch — rescored under the Regulatory Watch methodology.'
+    : b.name + ' cleared from Regulatory Watch — falls back to its zone/category methodology.');
+  rsSelectBranch(rsSelectedIdx);
+  rsRenderBranchTable();
+  rsRenderMapping();
+}
 
 function rsGoToBranch(name){
   var idx = RS_BRANCHES.findIndex(function(b){ return b.name === name; });
