@@ -6,6 +6,10 @@
 <title>Gold Loan E-Auction Platform</title>
 <style>
 
+@view-transition {
+  navigation: auto;
+}
+
 /* ===========================================================
    Bidder Portal — public site + authenticated dashboard (§11)
    Visual system reused verbatim from finnone-auction-module.html
@@ -1933,6 +1937,7 @@ function bp_renderChrome(activeId){
     topbarMount.outerHTML = `<div class="topbar" id="bp-topbar-mount">
       <div class="breadcrumb">Bidder Portal &rsaquo; <span>${bp_BC_LABELS[activeId]||''}</span></div>
       <div class="topbar-right">
+        <button class="btn btn-ghost btn-sm" onclick="navTo('../Gold_Loan_Executive_Deck.html#slide-command-center')" style="border-color:var(--base-300)"><i class="ti ti-arrow-left"></i>Back to Deck</button>
         <span class="topbar-date"><i class="ti ti-calendar" style="font-size:11px"></i> Fri, 14 Aug 2026</span>
         <a class="btn btn-ghost btn-sm" href="javascript:void(0)" onclick="switchApp('fn')"><i class="ti ti-external-link"></i>FinnOne Neo (Bank)</a>
       </div></div>`;
@@ -2277,6 +2282,7 @@ function fn_renderChrome(activeId){
     topbarMount.outerHTML = `<div class="topbar" id="fn-topbar-mount">
       <div class="breadcrumb">FinnOne Neo &rsaquo; <span>${fn_BC_LABELS[activeId]||''}</span></div>
       <div class="topbar-right">
+        <button class="btn btn-ghost btn-sm" onclick="navTo('../Gold_Loan_Executive_Deck.html#slide-command-center')" style="border-color:var(--base-300)"><i class="ti ti-arrow-left"></i>Back to Deck</button>
         <span class="topbar-date"><i class="ti ti-calendar" style="font-size:11px"></i> Fri, 14 Aug 2026</span>
         <a class="btn btn-ghost btn-sm" href="javascript:void(0)" onclick="switchApp('bp')"><i class="ti ti-external-link"></i>Bidder Portal</a>
       </div></div>`;
@@ -3742,6 +3748,22 @@ document.addEventListener('DOMContentLoaded', fn_initApp);
 </script>
 
 <script>
+
+/* Cross-file navigation helper — softly fades out before navigating on
+   browsers without the View Transitions API; on Chrome/Edge 126+ the
+   @view-transition CSS rule (in <style> above) handles the crossfade
+   natively. Same helper as Audit/Audit Mockups.html and
+   vaulting/Vault Mockups.html, so "Back to Deck" behaves identically
+   across all three deep-dive modules. */
+function navTo(url) {
+  if (typeof document.startViewTransition === "function") {
+    location.href = url;
+    return;
+  }
+  document.documentElement.style.transition = "opacity .28s ease";
+  document.documentElement.style.opacity = "0";
+  setTimeout(function () { location.href = url; }, 260);
+}
 
 function switchApp(which){
   document.body.setAttribute('data-active', which);
